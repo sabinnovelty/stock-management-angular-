@@ -30,7 +30,10 @@
             <a href="#">Dashboard</a>
         </li>
         <li>
-            <a href="#">Manage Inventory</a>
+            <a [routerLink]="['manageInventory']">Manage Inventory</a>
+        </li>
+        <li>
+            <a href="#">Manage Supplier</a>
         </li>
         <li>
             <a href="#">Checkout</a>
@@ -49,7 +52,7 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
         
-        <a href="#menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></a>
+        <a id="menu-toggle"><i class="fas fa-bars"></i></a>
     </div>
 </div>
 <!-- /#page-content-wrapper -->

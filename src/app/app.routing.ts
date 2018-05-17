@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationComponent } from './components/authentication/index';
 import { DashboardComponent } from './components/Dashboard/dashboard.component';
 import { ManageSupplier } from './components/common/sidebar/sidebarComponent/ManageSupplier/manageSupplier.component';
+import { ManageInventory } from './components/common/sidebar/sidebarComponent/ManageInventory/manageInventory.component';
 
 
 const app_Routes: Routes = [
@@ -10,7 +11,8 @@ const app_Routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
     children: [
-      { path :'manageSupplier', component: ManageSupplier }
+      { path :'manageSupplier', component: ManageSupplier },
+      { path :'manageInventory', component: ManageInventory },
     ]
   },
   { path: '**', redirectTo: '' }
