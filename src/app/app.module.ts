@@ -12,7 +12,10 @@ import { AuthenticationComponent } from './components/authentication/Login/auth.
 import { routing } from './app.routing';
 import { AuthenticationService, HttpClient } from './services/index';
 import { DashboardComponent } from  './components/Dashboard/dashboard.component';
-import { HeaderComponent } from './components/common/header.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { SidebarComponent } from './components/common/sidebar/sidebar.component'
+import { sidebarRouting } from './components/common/sidebar/sidebar.routes';
+import { ManageSupplier } from './components/common/sidebar/sidebarComponent/ManageSupplier/manageSupplier.component';
  
 
 @NgModule({
@@ -20,14 +23,17 @@ import { HeaderComponent } from './components/common/header.component';
     AppComponent,
     AuthenticationComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent,
+    ManageSupplier
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    sidebarRouting
   ],
   providers: [AuthenticationService,HttpClient],
   bootstrap: [AppComponent]

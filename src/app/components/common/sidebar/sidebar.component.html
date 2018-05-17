@@ -1,0 +1,24 @@
+<!--sidebar-->
+
+<div id="sidebar">
+        <div class="toggle-btn">
+                <span><i class="fas fa-bars"></i></span> 
+         </div>
+    <ul>
+        <li><a [routerLink]="['manageSupplier']" >Manage Supplier</a></li>
+        <li>Manage Inventory</li>
+        <li>Checkout</li>
+        <li>Transaction</li>
+        <li>Generate Report</li>
+    </ul>
+</div>
+
+<!--right component-->
+<div class="container right-bar">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
