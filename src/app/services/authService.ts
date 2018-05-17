@@ -20,7 +20,7 @@ export class AuthenticationService {
   login(model: any) {
     const credentials = {
       email: model.email,
-      Password: model.password
+      password: model.password
     };
     console.log(credentials,"userinfo")
     // credentials.password = this.base64utility.encodeBase64(model.password);

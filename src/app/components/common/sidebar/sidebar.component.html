@@ -1,17 +1,58 @@
 <!--sidebar-->
 
-<div id="sidebar">
-        <div class="toggle-btn">
-                <span><i class="fas fa-bars"></i></span> 
-         </div>
+<!-- <div id="sidebar">
+    <div class="toggle-btn">
+        <span>
+            <i class="fas fa-bars"></i>
+        </span>
+    </div>
     <ul>
-        <li><a [routerLink]="['manageSupplier']" >Manage Supplier</a></li>
+        <li>
+            <a [routerLink]="['manageSupplier']">Manage Supplier</a>
+        </li>
         <li>Manage Inventory</li>
         <li>Checkout</li>
         <li>Transaction</li>
         <li>Generate Report</li>
     </ul>
+</div> -->
+
+<div id="wrapper">
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a href="#">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#">Dashboard</a>
+        </li>
+        <li>
+            <a href="#">Manage Inventory</a>
+        </li>
+        <li>
+            <a href="#">Checkout</a>
+        </li>
+        <li>
+            <a href="#">Transaction</a>
+        </li>
+        <li>
+            <a href="#">Generate Report</a>
+        </li>
+    </ul>
 </div>
+<!-- #sidebar-wrapper -->
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        
+        <a href="#menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></a>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
 
 <!--right component-->
 <div class="container right-bar">
@@ -21,4 +62,5 @@
             <router-outlet></router-outlet>
         </div>
     </div>
+</div>
 </div>
