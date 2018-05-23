@@ -51,6 +51,7 @@
                    class="form-control"
                    #quantity="ngModel"
                    [(ngModel)]="manageInventory.quantity"
+                   pattern="/^[-+]?\d+$"
                    required
             >
           </div>
@@ -73,11 +74,13 @@
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !originalPrice.valid }">
             <label for="originalPrice">Original Price</label>
             <span class="error" *ngIf="f.submitted && originalPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+            <span class="error" *ngIf="f.submitted && originalPrice.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Invalid input</span>
             <input type="text" 
                    name="originalPrice" 
                    class="form-control"
                    #originalPrice="ngModel"
                    [(ngModel)]="manageInventory.originalPrice"
+                   pattern="^\d+(\.\d{1,2})?$"
                    required
             >
           </div>
@@ -85,11 +88,13 @@
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !profit.valid }">
             <label for="profit">Profit</label>
             <span class="error" *ngIf="f.submitted && profit.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+            <span class="error" *ngIf="f.submitted && profit.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Invalid input</span>
             <input type="text" 
                    name="profit" 
                    class="form-control"
                    #profit="ngModel"
                    [(ngModel)]="manageInventory.profit"
+                   pattern="^\d+(\.\d{1,2})?$"
                    required
             >
           </div>
@@ -97,11 +102,13 @@
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !sellingPrice.valid }">
             <label for="sellingPrice">Selling Price</label>
             <span class="error" *ngIf="f.submitted && sellingPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+            <span class="error" *ngIf="f.submitted && sellingPrice.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Invalid input</span>
             <input type="text" 
                    name="sellingPrice" 
                    class="form-control"
                    #sellingPrice="ngModel"
                    [(ngModel)]="manageInventory.sellingPrice"
+                   pattern="^\d+(\.\d{1,2})?$"
                    required
             >
           </div>

@@ -17,7 +17,7 @@ export class ManageInventory {
   constructor(){}
  
   ngOnInit(){
-   
+   console.log('Manage Inventory Component init');
   }
 
   onSubmit(f: NgForm) {

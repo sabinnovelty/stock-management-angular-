@@ -1,232 +1,109 @@
-/*!
- * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
- */
+html, body {
+  height: 100%;
+}
 
 body {
-  overflow-x: hidden;
+   overflow-x:hidden;
 }
 
-#wrapper {
-  padding-left: 0;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#wrapper.toggled {
-  padding-left: 250px;
-}
-
-#sidebar-wrapper {
-  z-index: 1000;
-  position: fixed;
-  left: 250px;
-  width: 0;
+.wrapper, .row {
   height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  background: #000;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  margin-left:0;
+  margin-right:0;
 }
 
-#wrapper.toggled #sidebar-wrapper {
-  width: 250px;
+.wrapper:before, .wrapper:after,
+.column:before, .column:after {
+   content: "";
+   display: table;
 }
 
-#page-content-wrapper {
-  width: 100%;
-  position: absolute;
-  padding: 15px;
+.wrapper:after,
+.column:after {
+   clear: both;
 }
 
-#wrapper.toggled #page-content-wrapper {
-  position: absolute;
-  margin-right: -250px;
+#sidebar {
+   background-color: #eee;
+   padding-left: 0;
+   float: left;
+   min-height: 100%;
 }
 
-
-/* Sidebar Styles */
-
-.sidebar-nav {
-  position: absolute;
-  top: 0;
-  width: 250px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+#sidebar .collapse.in {
+   display: inline;
 }
 
-.sidebar-nav li {
-  text-indent: 20px;
-  line-height: 40px;
+#sidebar > .nav>li>a {
+   white-space: nowrap;
+   overflow: hidden;
 }
 
-.sidebar-nav li a {
-  display: block;
-  text-decoration: none;
-  color: #999999;
+#main {
+   padding: 15px;
+   left: 0;
 }
 
-.sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active, .sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-.sidebar-nav>.sidebar-brand {
-  height: 65px;
-  font-size: 18px;
-  line-height: 60px;
-}
-
-.sidebar-nav>.sidebar-brand a {
-  color: #999999;
-}
-
-.sidebar-nav>.sidebar-brand a:hover {
-  color: #fff;
-  background: none;
-}
-
-@media(min-width:768px) {
-  #wrapper {
-    padding-left: 0;
-  }
-  #wrapper.toggled {
-    padding-left: 250px;
-  }
-  #sidebar-wrapper {
-    width: 0;
-  }
-  #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
-  }
-  #page-content-wrapper {
-    padding: 20px;
-    position: relative;
-  }
-  #wrapper.toggled #page-content-wrapper {
-    position: relative;
-    margin-right: 0;
-  }
-}
-
-/* Shrinking the sidebar from 250px to 80px and center aligining its content*/
-#sidebar.active {
-  min-width: 80px;
-  max-width: 80px;
-  text-align: center;
-}
-
-/* Toggling the sidebar header content, hide the big heading [h3] and showing the small heading [strong] and vice versa*/
-#sidebar .sidebar-header strong {
-  display: none;
-}
-#sidebar.active .sidebar-header h3 {
-  display: none;
-}
-#sidebar.active .sidebar-header strong {
-  display: block;
-}
-
-#sidebar ul li a {
-  text-align: left;
-}
-
-#sidebar.active ul li a {
-  padding: 20px 10px;
-  text-align: center;
-  font-size: 0.85em;
-}
-
-#sidebar.active ul li a i {
-  margin-right:  0;
-  display: block;
-  font-size: 1.8em;
-  margin-bottom: 5px;
-}
-
-/* Same dropdown links padding*/
-#sidebar.active ul ul a {
-  padding: 10px !important;
-}
-
-/* Changing the arrow position to bottom center position, 
- translateX(50%) works with right: 50% 
- to accurately  center the arrow */
-#sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
-  top: auto;
-  bottom: 5px;
-  right: 50%;
-  transform: translateX(50%);
-}
-
-@media (max-width: 768px) {
-  /* 80px and its content aligned to centre. Pushing it off the screen with the
-     negative left margin
-  */
-  #sidebar.active {
-      min-width: 80px;
-      max-width: 80px;
-      text-align: center;
-      margin-left: -80px !important;
-  }
+/*
+* off canvas sidebar
+* --------------------------------------------------
+*/
+@media screen and (max-width: 768px) {
+   #sidebar {
+       min-width: 44px;
+   }
+   
+   #main {
+       width: 1%;
+       left: 0;
+   }
+   
+   #sidebar .visible-xs {
+      display:inline !important;
+   }
+   
+   .row-offcanvas {
+      position: relative;
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+   }
+   
+   .row-offcanvas-left.active {
+      left: 45%;
+   }
+   
+   .row-offcanvas-left.active .sidebar-offcanvas {
+      left: -45%;
+      position: absolute;
+      top: 0;
+      width: 45%;
+   }
+} 
 
 
-  /* Reappearing the sidebar on toggle button click */
-  #sidebar {
-      margin-left: 0; 
-  }
+@media screen and (min-width: 768px) {
+ .row-offcanvas {
+   position: relative;
+   -webkit-transition: all 0.25s ease-out;
+   -moz-transition: all 0.25s ease-out;
+   transition: all 0.25s ease-out;
+ }
 
+ .row-offcanvas-left.active {
+   left: 3%;
+ }
 
-  /* Toggling the sidebar header content, 
-     hide the big heading [h3] and showing the small heading [strong] and vice versa
-  */
-  #sidebar .sidebar-header strong {
-      display: none;
-  }
-  #sidebar.active .sidebar-header h3 {
-      display: none;
-  }
-  #sidebar.active .sidebar-header strong {
-      display: block;
-  }
-
-  /* Downsize the navigation links font size */
-  #sidebar.active ul li a {
-      padding: 20px 10px;
-      font-size: 0.85em;
-  }
-
-  #sidebar.active ul li a i {
-      margin-right:  0;
-      display: block;
-      font-size: 1.8em;
-      margin-bottom: 5px;
-  }
-
-  /* Adjust the dropdown links padding*/
-  #sidebar.active ul ul a {
-      padding: 10px !important;
-  }
-
-  /* Changing the arrow position to bottom center position, 
-    translateX(50%) works with right: 50% 
-    to accurately  center the arrow */
-  #sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
-      top: auto;
-      bottom: 5px;
-      right: 50%;
-      transform: translateX(50%);
-  }
+ .row-offcanvas-left.active .sidebar-offcanvas {
+   left: -3%;
+   position: absolute;
+   top: 0;
+   width: 3%;
+   text-align: center;
+   min-width:42px;
+ }
+ 
+ #main {
+   left: 0;
+ }
 }
