@@ -1,0 +1,84 @@
+<div class="container manage-supplier">
+  <h1>Manage Supplier</h1>
+  <hr>
+  <div class="alert alert-primary" role="alert" *ngIf="updateFlag">
+    <p>Supplier updated successfully !.</p>
+  </div>
+  <form (ngSubmit)="   f.form.valid && onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="exampleInputPassword1">
+        <b>Supplier Name</b>
+      </label>
+      <span class="error" *ngIf="f.submitted && s.errors?.required" >&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;required</span>
+      <span class="error" *ngIf="f.submitted && s.errors?.pattern ">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Invalid Supplier Name</span>
+      <input type="text" class="form-control"  [ngModel]="supplier?.name" placeholder="supplier name " 
+       #s="ngModel" name="supplierName" [(ngModel)]="supplier.name" required
+       pattern="^[a-zA-Z\s]*$"
+       >
+       <!-- pattern="^/[a-zA-Z]+$/" -->
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">
+        <b>Address</b>
+      </label>
+      <span class="error" *ngIf="f.submitted && address.errors?.required ">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;required</span>
+      <span class="error" *ngIf="f.submitted && address.errors?.pattern ">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Invalid address</span>
+      <input type="text" class="form-control" placeholder="full address" [ngModel]="supplier?.address" name="supplierAddress" #address="ngModel" [(ngModel)]="supplier.address"
+      required
+        pattern="^[a-zA-Z\s]*$"
+      >
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">
+        <b>Contact Number</b>
+      </label>
+      <span class="error" *ngIf="f.submitted && contact.errors?.required ">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;required</span>
+      <span class="error" *ngIf="f.submitted && contact.errors?.pattern ">&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Contacnt number must contain only digit(10)</span>
+      <input type="text" class="form-control" placeholder="contact number" [ngModel]="supplier?.contact" name="supplierContact" #contact="ngModel" [(ngModel)]="supplier.contact"
+       required
+       pattern="^[0-9]{10}"
+       >
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{buttonName}}</button>
+    <button type="button" class="btn btn-danger" (click)="reset(f)">Reset</button>
+  </form>
+<hr>
+<br>
+  <div>
+      <div class="alert alert-primary" role="alert" *ngIf="supplierFlag">
+          <p>Your Supplier has been added sucessfully !</p>
+        </div>
+    <table class="table table-dark" *ngIf="suppliers.length>0">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Supplier Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Contact Number</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let supplier of suppliers;let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{supplier.name}}</td>
+          <td>{{supplier.address}}</td>
+          <td>{{supplier.contact}}</td>
+          <td>
+            <button type="button" (click)="updateSupplier(supplier)">
+              <span><i class="fas fa-edit"></i></span>
+          </button>
+          </td>
+          <td>
+            <button type="button" (click)="deleteSupplier(supplier)">
+                <span><i class="fas fa-trash"></i></span>
+            </button>
+          </td>
+        </tr>
+       
+      </tbody>
+    </table>
+  </div>
+</div>
