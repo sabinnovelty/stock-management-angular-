@@ -16,6 +16,10 @@ import { HeaderComponent } from './components/common/header/header.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component'
 import { sidebarRouting } from './components/common/sidebar/sidebar.routes';
 import { ManageSupplier } from './components/common/sidebar/sidebarComponent/ManageSupplier/manageSupplier.component';
+import { ManageInventory } from './components/common/sidebar/sidebarComponent/ManageInventory/manageInventory.component';
+
+import { SupplierService } from './services/supplierServices';
+import { ProductService } from './services/productService';
  
 
 @NgModule({
@@ -25,7 +29,8 @@ import { ManageSupplier } from './components/common/sidebar/sidebarComponent/Man
     DashboardComponent,
     HeaderComponent,
     SidebarComponent,
-    ManageSupplier
+    ManageSupplier,
+    ManageInventory
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,7 @@ import { ManageSupplier } from './components/common/sidebar/sidebarComponent/Man
     HttpModule,
     sidebarRouting
   ],
-  providers: [AuthenticationService,HttpClient],
+  providers: [AuthenticationService,HttpClient,SupplierService,ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

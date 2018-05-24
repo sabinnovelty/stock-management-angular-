@@ -8,11 +8,12 @@ export class HttpClient {
   ) { }
 
   createHeader(headers: Headers) {
-    // const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    // if (loggedInUser) {
-    //   const token = loggedInUser.access_token;
-    //   headers.append('Authorization', 'Bearer ' + token);
-    // }
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    console.log(loggedInUser,"header loged in user")
+    if (loggedInUser) {
+      const token = loggedInUser.token;
+      headers.append('x-access-token', token);
+    }
     headers.append('Content-Type', 'application/json');
   }
 
@@ -34,11 +35,19 @@ export class HttpClient {
   }
 
   put(url, data) {
-      console.log('data',data)
     const headers = new Headers();
     this.createHeader(headers);
     return this.http.put(url, data, {
       headers: headers
     });
+  }
+
+  delete(url){
+    const headers=new Headers();
+    this.createHeader(headers);
+    return this.http.delete(url,{
+      headers:headers
+    })
+
   }
 }

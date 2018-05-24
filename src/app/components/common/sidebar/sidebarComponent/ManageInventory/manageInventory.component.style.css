@@ -1,0 +1,47 @@
+input[type=text]{
+    border-top:none;
+    border-left:none;
+    border-right:none
+}
+input{
+    box-shadow: none;
+     border-radius: 0;
+}
+input:focus{
+        border-bottom:2px solid #090372;
+        box-shadow: none;
+        border-radius: 0;
+}
+
+.add-products{
+    margin-top:50px;
+}
+
+.display-4{
+    font-size:2em !important;
+    font-family: cursive
+}
+
+.has-error input {
+    border-bottom: 1px solid red;
+  }
+  
+  .has-error select {
+    border-bottom: 1px solid red;
+  }
+  
+  .error{
+    color: red;
+  }
+
+  select{
+    border-top:none;
+    border-left:none;
+    border-right:none
+  }
+
+  select:focus{
+    border-bottom:2px solid #090372;
+    box-shadow: none;
+    border-radius: 0;
+}

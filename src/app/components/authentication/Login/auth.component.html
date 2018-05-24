@@ -25,6 +25,10 @@
       <a href="#" class="forgot-password">
           Forgot the password?
       </a>
-      <p>{{loginError}}</p>
+      <div class="alert alert-danger" role="alert" *ngIf="errorFlag">
+        <p>{{errorMsg}}</p>
+      </div>
+      {{errorFlag}}
+      
   </div><!-- /card-container -->
 </div><!-- /container -->
