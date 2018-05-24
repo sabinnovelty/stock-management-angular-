@@ -1,134 +1,38 @@
-<!-- <ng-sidebar-container style="height: 100vh;">
-    <ng-sidebar [(opened)]="_opened" [(mode)]="_mode" #sidebar>
-        <button (click)="sidebar.close() && _toggleSidebar()">Close sidebar</button>
-    </ng-sidebar>
 
-    <div ng-sidebar-content>
-        <header class="demo-header">
-        <button class="demo-header__toggle fa fa-bars" (click)="_toggleSidebar()" *ngIf="toggleButton">
-            <span>ng-sidebarssss</span>
-        </button>
-    </header>
-    </div>
-</ng-sidebar-container> -->
 
-<div id="wrapper" class="active">
+<!-- <div id="sidebar">
+        <div class="toggle-btn">
+                <span><i class="fas fa-bars"></i></span> 
+         </div>
+    <ul>
+        <li><a [routerLink]="['/dashboard/manageSupplier']"  >Manage Supplier</a></li>
+        <li><a [routerLink]="['/dashboard/manageInventory']" >Manage Inventory</a></li>
+        <li>Checkout</li>
+        <li>Transaction</li>
+        <li>Generate Report</li>
+    </ul>
+</div> -->
 
-    <!-- <div id="sidebar-wrapper">
-        <ul id="sidebar_menu" class="sidebar-nav">
-            <li class="sidebar-brand ">
-                <a id="menu-toggle" href="#">Menu
-                    <span id="main_icon" class="fa fa-bars"></span>
-                </a>
-            </li>
-        </ul>
-        <ul class="sidebar-nav" id="sidebar">
-            <li>
-                <a>Dashboard
-                    <span class="sub_icon fas fa-link"></span>
-                </a>
-            </li>
-            <li>
-                <a>Manage Supplier
-                    <span class="sub_icon glyphicon glyphicon-link"></span>
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['manageInventory']">Manage Inventory
-                    <span class="sub_icon glyphicon glyphicon-link"></span>
-                </a>
-            </li>
-            <li>
-                <a>Checkout
-                    <span class="sub_icon glyphicon glyphicon-link"></span>
-                </a>
-            </li>
-            <li>
-                <a>Transaction
-                    <span class="sub_icon glyphicon glyphicon-link"></span>
-                </a>
-            </li>
-            <li>
-                <a>Generate Report
-                    <span class="sub_icon glyphicon glyphicon-link"></span>
-                </a>
-            </li>
-        </ul>
-    </div> -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-            <ul id="sidebar_menu" class="sidebar-nav">
-                <li class="sidebar-brand ">
-                    <a id="menu-toggle" href="#">Menu
-                        <span id="main_icon" class="fa fa-bars"></span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="sidebar-nav" id="sidebar">
-                <li>
-                    <a>Dashboard
-                        <span class="sub_icon fas fa-link"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>Manage Supplier
-                        <span class="sub_icon glyphicon glyphicon-link"></span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['manageInventory']">Manage Inventory
-                        <span class="sub_icon glyphicon glyphicon-link"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>Checkout
-                        <span class="sub_icon glyphicon glyphicon-link"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>Transaction
-                        <span class="sub_icon glyphicon glyphicon-link"></span>
-                    </a>
-                </li>
-                <li>
-                    <a>Generate Report
-                        <span class="sub_icon glyphicon glyphicon-link"></span>
-                    </a>
-                </li>
+<!--right component-->
+<div class="container-fluid right-bar">
+    <div class="row">
+        <div class="col-sm-4">
+            <div id="sidebar">
+                <div class="toggle-btn">
+                        <span><i class="fas fa-bars"></i></span> 
+                 </div>
+            <ul>
+                <li><a [routerLink]="['manageSupplier']"  >Manage Supplier</a></li>
+                <li><a [routerLink]="['manageInventory']" >Manage Inventory</a></li>
+                <li>Checkout</li>
+                <li>Transaction</li>
+                <li>Generate Report</li>
             </ul>
         </div>
-            </div>
-            <div class="col-sm-8">
-                <!-- Page content -->
-                <div id="page-content-wrapper">
-                    <!-- Keep all page content within the page-content inset div! -->
-                    <div class="page-content inset">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <router-outlet></router-outlet>
-                                <p class="well lead">Click on the Menu to Toggle Sidebar . Hope you enjoy it!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="col-sm-8">
+            <router-outlet></router-outlet>
         </div>
     </div>
-
-    <!-- <div id="page-content-wrapper">
-
-        <div class="page-content inset">
-            <div class="row">
-                <div class="col-md-12">
-                    <router-outlet></router-outlet>
-                    <p class="well lead">Click on the Menu to Toggle Sidebar . Hope you enjoy it!</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 </div>
+

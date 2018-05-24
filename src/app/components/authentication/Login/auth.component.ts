@@ -17,7 +17,8 @@ export class AuthenticationComponent {
     email:'',
     password:''
   }
-  loginError:string;
+  errorMsg:string;
+  errorFlag:boolean=false;
     
   ngOnInit(){
    
@@ -28,9 +29,12 @@ export class AuthenticationComponent {
    .subscribe(
      data=>{
        console.log(data)
-        localStorage.setItem("loggedInUser",data);
+        localStorage.setItem("loggedInUser",JSON.stringify(data));
         if(!data.success){
-            this.loginError=data.message;
+          console.log("login failed")
+          this.errorFlag=true;
+            this.errorMsg=data.message;
+           
         }else{
           this.router.navigateByUrl('/dashboard');
         }
