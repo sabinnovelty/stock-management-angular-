@@ -18,14 +18,9 @@ import { sidebarRouting } from './components/common/sidebar/sidebar.routes';
 import { ManageSupplier } from './components/common/sidebar/sidebarComponent/ManageSupplier/manageSupplier.component';
 import { ManageInventory } from './components/common/sidebar/sidebarComponent/ManageInventory/manageInventory.component';
 
-<<<<<<< HEAD
-// ng sidebar component
-import { SidebarModule } from 'ng-sidebar';
-=======
 import { SupplierService } from './services/supplierServices';
 import { ProductService } from './services/productService';
  
->>>>>>> a98f9ec2b91975bab4083bdcd1bebce403834d84
 
 @NgModule({
   declarations: [
@@ -43,8 +38,7 @@ import { ProductService } from './services/productService';
     FormsModule,
     HttpClientModule,
     HttpModule,
-    sidebarRouting,
-    SidebarModule.forRoot()
+    sidebarRouting
   ],
   providers: [AuthenticationService,HttpClient,SupplierService,ProductService],
   bootstrap: [AppComponent]
