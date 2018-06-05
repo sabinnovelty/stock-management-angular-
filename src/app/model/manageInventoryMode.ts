@@ -6,4 +6,5 @@ export class ManageInventoryModel {
     profit: string;
     sellingPrice: string;
     supplierId: string;
+    date:Date;
   }

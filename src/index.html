@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>StockManagement</title>
   <base href="/">
-
+  <!--"../node_modules/angular2-toaster/toaster.css"-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/sidebar.css" >
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" 
@@ -13,7 +13,8 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
     integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+   <!-- <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.css" /> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -31,6 +32,20 @@
       console.log("hide modal called")
       $("#exampleModal").modal('hide');
     }
+
+
+    //sidebar jquery function
+    $(document).ready(function () {
+  $('[data-toggle=offcanvas]').click(function () {
+    if ($('.sidebar-offcanvas').css('background-color') == 'rgb(255, 255, 255)') {
+	    $('.list-group-item').attr('tabindex', '-1');
+    } else {
+	    $('.list-group-item').attr('tabindex', '');
+    }
+    $('.row-offcanvas').toggleClass('active');
+    
+  });
+});
    
     </script>
 </body>

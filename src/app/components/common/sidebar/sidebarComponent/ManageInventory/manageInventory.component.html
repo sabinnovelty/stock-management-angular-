@@ -1,53 +1,59 @@
 <div class="container add-products">
-    <h1>Inventory Details</h1>
+    <h1 class="heading">Inventory Details</h1>
     <hr>
-
+    <toaster-container [toasterconfig]="config"></toaster-container>
     <div class="row">
         <div class="col-sm-6">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container-fluid">
-                    <h5 class="display-4">Total Inventory Value</h5>
-                    <p class="lead">This is a modified </p>
+                    <h5 class="display-4" class="heading">Total Inventory Value</h5>
+                    <p class="lead">Total invetory value is comming soon... </p>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h5 class="display-4">Total Products </h5>
-                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                    <h5 class="display-4" class="heading">Total Products </h5>
+                    <p class="lead">Total number of producsts is comming soon..</p>
                 </div>
             </div>
         </div>
     </div>
 
+   <app-search [title]="title" (emitSerchValue)="receiveSearchValue($event)"></app-search>
+
     <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">ProductName</th>
+                <th scope="col">Measurement</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Profit</th>
+                <th scope="col">Selling Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <tr *ngFor="let product of productList;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{product.productName}}</td>
+                <td>{{product.measurement}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.originalPrice}}</td>
+                <td>{{product.profit}}</td>
+                <td>{{product.sellingPrice}}</td>
+                <td>{{product.date}}</td>
+                <td>
+                    <button type="button" (click)="updateProduct(product)" data-toggle="modal" data-target="#exampleModal"><span><i class="fas fa-edit"></i></span></button>
+                </td>
+                <td>
+                    <button (click)="deleteProduct(product._id)"><span><i class="fas fa-trash-alt"></i></span></button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -56,13 +62,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{addOrEdit}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+                        <form id="productForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" >
                                 <div class="modal-body container">
                                   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
                                     <label for="productName">Product Name</label>
@@ -142,6 +148,18 @@
                                            [value]="sellingPrice"
                                     >
                                   </div>
+
+                                  <div class="form-group" >
+                                    <label for="sellingPrice">Date</label>
+                                    <span class="error" *ngIf="f.submitted && date.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                    <input type="date" 
+                                           name="date1" 
+                                           class="form-control"
+                                           [(ngModel)]="manageInventory.date"
+                                           required
+                                           #date="ngModel"
+                                    >
+                                  </div>
                         
                                   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !supplier.valid }">
                                     <label for="supplier">Supplier</label>
@@ -152,13 +170,13 @@
                                             [(ngModel)]="manageInventory.supplier"
                                             required  
                                     >
-                                      <option *ngFor="let supplier of supplierList" value="{{supplier._id}}">{{supplier.name}}</option>
+                                      <option *ngFor="let supplier of supplierList" value="{{supplier.name}}">{{supplier.name}}</option>
                                     </select>
                                   </div>
                                 </div>
                         
                                 <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary" >Add</button>
+                                  <button type="submit" class="btn btn-primary" >save</button>
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)" >Cancel</button>
                                 </div>
                               </form>
@@ -174,8 +192,9 @@
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Add Inventory
+    Add Product
 </button>
+<br><br>
 
 
 

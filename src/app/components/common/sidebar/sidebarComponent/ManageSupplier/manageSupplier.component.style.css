@@ -1,6 +1,11 @@
 .manage-supplier{
     margin-top:80px;
 }
+.heading{
+    color:blue;
+    font-family: italic;
+    font-weight: bold
+}
 
 input[type=text]{
     border-top:none;
