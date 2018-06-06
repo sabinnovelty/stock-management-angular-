@@ -1,4 +1,6 @@
-input[type=text]{
+/* @import '../../../../../../../node_modules/angular2-toaster/toaster';
+  */
+ input[type=text]{
     border-top:none;
     border-left:none;
     border-right:none
@@ -11,6 +13,12 @@ input:focus{
         border-bottom:2px solid #090372;
         box-shadow: none;
         border-radius: 0;
+}
+
+.heading{
+  color:blue;
+  font-family: italic;
+  font-weight: bold
 }
 
 .add-products{
@@ -44,4 +52,11 @@ input:focus{
     border-bottom:2px solid #090372;
     box-shadow: none;
     border-radius: 0;
+}
+
+input[type=date]{
+  border-bottom:none;
+  border-right:none;
+  border-left:none;
+  border-radius:0;
 }

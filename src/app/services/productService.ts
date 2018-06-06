@@ -25,4 +25,16 @@ export class ProductService {
         .map((res:Response)=>res.json())
         .catch((err:Response)=>Observable.throw(err.json()))
     }
+
+    fetchAllProducts(){
+        return this.http.get(API_BASE_URL+"/api/inventory")
+        .map((res:Response)=>res.json())
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
+
+    deleteProduct(pid:string){
+        return this.http.delete(API_BASE_URL+"/api/inventory/"+pid)
+        .map((res=>res.json()))
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
 }
