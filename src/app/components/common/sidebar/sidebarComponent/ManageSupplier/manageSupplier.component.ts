@@ -17,6 +17,7 @@ export class ManageSupplier {
   supplierFlag:boolean=false;
   buttonName="Add Supplier";
   updateFlag:boolean=false;
+  
  
   supplier:SupplierModel=new SupplierModel();
   ngOnInit(){

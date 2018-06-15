@@ -2,6 +2,9 @@
   "name": "stock-management",
   "version": "0.0.0",
   "license": "MIT",
+  "quokka":{
+    "babel":true
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
