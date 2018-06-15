@@ -8,10 +8,18 @@ declare var $:any;
      
 })
 export class SidebarComponent {
+  toggleButton: boolean = true;
   constructor(){}
  
   ngOnInit(){
    
+  }
+
+  private _opened: boolean = false;
+  private _mode: string = 'push';
+
+  private _toggleSidebar() {
+    this._opened = !this._opened;
   }
 
 }

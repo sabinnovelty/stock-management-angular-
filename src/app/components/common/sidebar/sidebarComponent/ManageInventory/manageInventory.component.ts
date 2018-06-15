@@ -7,7 +7,7 @@ import { SupplierModel } from '../../../../../model/supplierModel';
 import { ProductService } from '../../../../../services/productService';
 
 
-import { ToasterModule, ToasterService,ToasterConfig } from 'angular2-toaster';
+import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
 @Component({
   selector: 'app-manageInventory',
   templateUrl: './manageInventory.component.html',
@@ -22,8 +22,8 @@ export class ManageInventory {
 
   constructor(private supplierService: SupplierService,
     private productrService: ProductService, private toasterSetvice: ToasterService) {
-     
-     }
+
+  }
 
   supplierList: SupplierModel[];
   sellingPrice: number = 0;
@@ -31,8 +31,8 @@ export class ManageInventory {
   cloneProducts = [];
   products = [];
   deleteProductMsg: string;
-  addOrEdit="Add Inventory";
-  
+  addOrEdit = "Add Inventory";
+
 
   ngOnInit() {
     this.supplierService.fetchSupplier()
@@ -62,14 +62,14 @@ export class ManageInventory {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f,"form")
+    console.log(f, "form")
     this.manageInventory.measurement = f.value.measurement;
     this.manageInventory.originalPrice = f.value.originalPrice;
     this.manageInventory.productName = f.value.productName
     this.manageInventory.profit = f.value.profit;
     this.manageInventory.quantity = f.value.quantity;
     this.manageInventory.supplierId = f.value.supplierId;
-    this.manageInventory.date=f.value.date1;
+    this.manageInventory.date = f.value.date1;
     this.productrService.addProduct(this.manageInventory)
       .subscribe(
         response => {
@@ -91,27 +91,32 @@ export class ManageInventory {
   }
 
   deleteProduct(productId: string) {
-    this.productrService.deleteProduct(productId)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.popToast()
-          this.deleteProductMsg = `${response.data.productName} has been
+    if (window.confirm('Do you really want to delete the product?')) {
+      this.productrService.deleteProduct(productId)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.popToast()
+            this.deleteProductMsg = `${response.data.productName} has been
            deleted from stock sucessfully.`;
-           this.removeProductFromList(response.data)
-        },
-        error => console.log(error),
-        () => console.log("completed")
-      )
+            this.removeProductFromList(response.data)
+          },
+          error => console.log(error),
+          () => console.log("completed")
+        )
+    } else {
+
+    }
+
   }
 
-  removeProductFromList(product:any){
-    console.log(product,"deleted product")
-    var index=this.productList.findIndex((p)=>{
+  removeProductFromList(product: any) {
+    console.log(product, "deleted product")
+    var index = this.productList.findIndex((p) => {
       console.log(p)
-      return p._id===product._id
+      return p._id === product._id
     });
-    this.productList.splice(index,1);
+    this.productList.splice(index, 1);
   }
 
   receiveSearchValue(event: any) {
@@ -133,17 +138,17 @@ export class ManageInventory {
     new ToasterConfig({
       showCloseButton: true,
       tapToDismiss: false,
-      timeout: 0
+      timeout: 1500
     });
 
   popToast() {
-    this.toasterSetvice.pop('warning', 'Args Title', 'Args Body');
+    this.toasterSetvice.pop('warning', 'Status', 'Inventory Deleted');
   }
 
-  updateProduct(product:any){
+  updateProduct(product: any) {
     console.log(product)
-    this.addOrEdit="Update Product";
-    console.log(product,"update product")
+    this.addOrEdit = "Update Product";
+    console.log(product, "update product")
   }
 
 }
