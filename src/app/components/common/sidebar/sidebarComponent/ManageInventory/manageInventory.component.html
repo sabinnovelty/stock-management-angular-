@@ -1,4 +1,4 @@
-<div class="container add-products">
+<div class="container-fluid add-products" style="margin-left:0px;">
     <h1 class="heading">Inventory Details</h1>
     <hr>
     <toaster-container [toasterconfig]="config"></toaster-container>
@@ -170,7 +170,7 @@
                                             [(ngModel)]="manageInventory.supplier"
                                             required  
                                     >
-                                      <option *ngFor="let supplier of supplierList" value="{{supplier.supplierName}}">{{supplier.supplierName}}</option>
+                                      <option *ngFor="let supplier of supplierList" value="{{supplier.supplierName}}">{{supplier.name}}</option>
                                     </select>
                                   </div>
                                 </div>
