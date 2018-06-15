@@ -11,7 +11,7 @@ const app_Routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
     children: [
-      { path:'', redirectTo: 'manageInventory',pathMatch:"prefix"},
+      { path:'', redirectTo: 'dashboard',pathMatch:"prefix"},
       { path :'manageSupplier', component: ManageSupplier },
       { path :'manageInventory', component: ManageInventory }
     ]
