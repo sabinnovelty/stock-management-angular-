@@ -36,6 +36,17 @@
     function hideModel() {
       console.log("hide modal called")
       $("#exampleModal").modal('hide');
+      $('body').removeClass('modal-open');
+       $('.modal-backdrop').remove();
+      // $(".modal-backdrop.show").css("opacity","0")
+    }
+
+    function showModel(){
+      $("#exampleModal").modal('show');
+    }
+
+    function hideTableFilter(){
+      $('.dataTables_filter').hide();
     }
 
 
