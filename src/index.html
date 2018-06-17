@@ -5,34 +5,97 @@
   <meta charset="utf-8">
   <title>StockManagement</title>
   <base href="/">
-
+  <!--"../node_modules/angular2-toaster/toaster.css"-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/sidebar.css" >
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" 
-  integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+  <link rel="stylesheet" href="assets/sidebar.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
-    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <!-- <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.css" /> -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
-  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" 
-  integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
+    <!-- Bootstrap core CSS-->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="assets/css/sb-admin.css" rel="stylesheet">
 </head>
 
 <body>
   <app-root></app-root>
 
   <script>
-    function hideModel(){
+    function hideModel() {
       console.log("hide modal called")
       $("#exampleModal").modal('hide');
+      $('body').removeClass('modal-open');
+       $('.modal-backdrop').remove();
+      // $(".modal-backdrop.show").css("opacity","0")
     }
-   
-    </script>
+
+    function showModel(){
+      $("#exampleModal").modal('show');
+    }
+
+    function hideTableFilter(){
+      $('.dataTables_filter').hide();
+    }
+
+
+    //sidebar jquery function
+    $(document).ready(function () {
+      $('[data-toggle=offcanvas]').click(function () {
+        if ($('.sidebar-offcanvas').css('background-color') == 'rgb(255, 255, 255)') {
+          $('.list-group-item').attr('tabindex', '-1');
+        } else {
+          $('.list-group-item').attr('tabindex', '');
+        }
+        $('.row-offcanvas').toggleClass('active');
+
+      });
+    });
+
+  </script>
 </body>
+
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      console.log(e)
+    });
+
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("active");
+    });
+
+    $('[data-toggle=offcanvas]').click(function () {
+      $('.row-offcanvas').toggleClass('active');
+      $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
+    });
+
+  </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="assets/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="assets/js/sb-admin-datatables.min.js"></script>
+    <script src="assets/js/sb-admin-charts.min.js"></script>
 
 </html>

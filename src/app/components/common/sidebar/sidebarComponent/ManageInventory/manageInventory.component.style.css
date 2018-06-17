@@ -1,4 +1,6 @@
-input[type=text]{
+/* @import '../../../../../../../node_modules/angular2-toaster/toaster';
+  */
+ input[type=text]{
     border-top:none;
     border-left:none;
     border-right:none
@@ -13,13 +15,20 @@ input:focus{
         border-radius: 0;
 }
 
+.heading{
+  color:blue;
+  font-family: italic;
+  font-weight: bold
+}
+
 .add-products{
-    margin-top:50px;
+    margin-top:0px;
 }
 
 .display-4{
     font-size:2em !important;
-    font-family: cursive
+    font-family: cursive;
+    color:#003399
 }
 
 .has-error input {
@@ -44,4 +53,15 @@ input:focus{
     border-bottom:2px solid #090372;
     box-shadow: none;
     border-radius: 0;
+}
+
+input[type=date]{
+  border-bottom:none;
+  border-right:none;
+  border-left:none;
+  border-radius:0;
+}
+
+p .value{
+  font-family: cursive
 }

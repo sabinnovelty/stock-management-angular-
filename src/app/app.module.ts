@@ -20,6 +20,11 @@ import { ManageInventory } from './components/common/sidebar/sidebarComponent/Ma
 
 import { SupplierService } from './services/supplierServices';
 import { ProductService } from './services/productService';
+import { SearchComponent } from './components/search/search.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+import { InventoryService } from './services/inventoryService';
  
 
 @NgModule({
@@ -30,7 +35,8 @@ import { ProductService } from './services/productService';
     HeaderComponent,
     SidebarComponent,
     ManageSupplier,
-    ManageInventory
+    ManageInventory,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +44,11 @@ import { ProductService } from './services/productService';
     FormsModule,
     HttpClientModule,
     HttpModule,
-    sidebarRouting
+    sidebarRouting,
+    ToasterModule.forRoot(),
+    BrowserAnimationsModule
   ],
-  providers: [AuthenticationService,HttpClient,SupplierService,ProductService],
+  providers: [AuthenticationService,HttpClient,SupplierService,ProductService,InventoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
