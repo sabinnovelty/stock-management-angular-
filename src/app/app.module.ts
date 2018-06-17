@@ -24,6 +24,7 @@ import { SearchComponent } from './components/search/search.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster';
+import { InventoryService } from './services/inventoryService';
  
 
 @NgModule({
@@ -47,7 +48,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
     ToasterModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [AuthenticationService,HttpClient,SupplierService,ProductService],
+  providers: [AuthenticationService,HttpClient,SupplierService,ProductService,InventoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

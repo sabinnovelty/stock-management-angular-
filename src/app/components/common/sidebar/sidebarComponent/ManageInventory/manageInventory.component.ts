@@ -1,4 +1,6 @@
 declare var hideModel: any;
+declare var showModel: any;
+declare var hideTableFilter: any;
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ManageInventoryModel } from '../../../../../model/manageInventoryMode';
 import { NgForm } from '@angular/forms';
@@ -6,8 +8,10 @@ import { SupplierService } from '../../../../../services/supplierServices';
 import { SupplierModel } from '../../../../../model/supplierModel';
 import { ProductService } from '../../../../../services/productService';
 
-
 import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
+import { InventoryService } from '../../../../../services/inventoryService';
+
+
 @Component({
   selector: 'app-manageInventory',
   templateUrl: './manageInventory.component.html',
@@ -19,9 +23,12 @@ export class ManageInventory {
   @ViewChild('productModel') productModel: ElementRef;
   manageInventory: ManageInventoryModel = new ManageInventoryModel();
   title: string = "search product";
+  inventoryValue: any = 0;
+  totalProduct: any = 0;
 
   constructor(private supplierService: SupplierService,
-    private productrService: ProductService, private toasterSetvice: ToasterService) {
+    private productrService: ProductService, private toasterSetvice: ToasterService,
+    private inventoryService: InventoryService) {
 
   }
 
@@ -32,9 +39,13 @@ export class ManageInventory {
   products = [];
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
+  editProduct:any;
 
 
   ngOnInit() {
+    hideTableFilter();
+    this.fetchTotalNoProduct();
+    this.fetchTotalInventoryValue()
     this.supplierService.fetchSupplier()
       .subscribe(
         response => {
@@ -45,8 +56,32 @@ export class ManageInventory {
     this.fetchProduct();
   }
 
+  onsellingPriceChange(event:any){
+    console.log(event)
+  }
+
   resetForm(f: NgForm) {
     f.resetForm();
+  }
+
+  fetchTotalInventoryValue() {
+    this.inventoryService.fetchTotalInventoryValue()
+      .subscribe(
+        data => {
+          console.log(data.value, "inventory value")
+          this.inventoryValue = data.value
+        }
+      )
+  }
+
+  fetchTotalNoProduct() {
+    this.inventoryService.fetchTotalNoProduct()
+      .subscribe(
+        data => {
+          console.log(data.count, "count")
+          this.totalProduct = data.count
+        }
+      )
   }
 
   fetchProduct() {
@@ -63,23 +98,34 @@ export class ManageInventory {
 
   onSubmit(f: NgForm) {
     console.log(f, "form")
-    this.manageInventory.measurement = f.value.measurement;
-    this.manageInventory.originalPrice = f.value.originalPrice;
-    this.manageInventory.productName = f.value.productName
-    this.manageInventory.profit = f.value.profit;
-    this.manageInventory.quantity = f.value.quantity;
-    this.manageInventory.supplierId = f.value.supplierId;
-    this.manageInventory.date = f.value.date1;
-    this.productrService.addProduct(this.manageInventory)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.productList.push(response.data)
+    if (this.addOrEdit.toLocaleLowerCase() === "add product") {
+      this.manageInventory.measurement = f.value.measurement;
+      this.manageInventory.originalPrice = f.value.originalPrice;
+      this.manageInventory.productName = f.value.productName
+      this.manageInventory.profit = f.value.profit;
+      this.manageInventory.quantity = f.value.quantity;
+      this.manageInventory.supplierId = f.value.supplierId;
+      this.manageInventory.date = f.value.date1;
+      this.productrService.addProduct(this.manageInventory)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.productList.push(response.data);
+            this.fetchTotalNoProduct();
+            this.fetchTotalInventoryValue();
+            hideModel();
+          }
+        )
+    }else{
+      console.log("edit product")
+    }
 
-        }
-      )
-    hideModel();
+    // hideModel();
     f.resetForm();
+  }
+
+  showModels() {
+    showModel()
   }
 
   calculateSp(event: any) {
@@ -104,9 +150,7 @@ export class ManageInventory {
           error => console.log(error),
           () => console.log("completed")
         )
-    } else {
-
-    }
+    } 
 
   }
 
@@ -138,17 +182,21 @@ export class ManageInventory {
     new ToasterConfig({
       showCloseButton: true,
       tapToDismiss: false,
-      timeout: 1500
+      timeout: 5000,
+
     });
 
   popToast() {
-    this.toasterSetvice.pop('warning', 'Status', 'Inventory Deleted');
+    this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
   }
 
   updateProduct(product: any) {
-    console.log(product)
+    
     this.addOrEdit = "Update Product";
-    console.log(product, "update product")
+    this.editProduct=product;
+    console.log(this.editProduct)
   }
+
+ 
 
 }
