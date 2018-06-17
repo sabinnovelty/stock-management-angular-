@@ -2,7 +2,7 @@ declare var hideModel: any;
 declare var showModel: any;
 declare var hideTableFilter: any;
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ManageInventoryModel } from '../../../../../model/manageInventoryMode';
+import { ManageInventoryModel } from '../../../../../model/manageInventoryModel';
 import { NgForm } from '@angular/forms';
 import { SupplierService } from '../../../../../services/supplierServices';
 import { SupplierModel } from '../../../../../model/supplierModel';
@@ -39,7 +39,7 @@ export class ManageInventory {
   products = [];
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
-  editProduct:any;
+  editProduct: any;
 
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class ManageInventory {
     this.fetchProduct();
   }
 
-  onsellingPriceChange(event:any){
+  onsellingPriceChange(event: any) {
     console.log(event)
   }
 
@@ -91,14 +91,13 @@ export class ManageInventory {
           console.log(response, "porudct")
           this.productList = response.data;
           this.products = response.data;
-          console.log(response)
         }
       )
   }
 
   onSubmit(f: NgForm) {
     console.log(f, "form")
-    if (this.addOrEdit.toLocaleLowerCase() === "add product") {
+    if (this.addOrEdit.toLocaleLowerCase() === "add inventory") {
       this.manageInventory.measurement = f.value.measurement;
       this.manageInventory.originalPrice = f.value.originalPrice;
       this.manageInventory.productName = f.value.productName
@@ -109,6 +108,7 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
+            this.popToast();
             console.log(response);
             this.productList.push(response.data);
             this.fetchTotalNoProduct();
@@ -116,7 +116,7 @@ export class ManageInventory {
             hideModel();
           }
         )
-    }else{
+    } else {
       console.log("edit product")
     }
 
@@ -142,7 +142,7 @@ export class ManageInventory {
         .subscribe(
           response => {
             console.log(response);
-            this.popToast()
+            this.popToast();
             this.deleteProductMsg = `${response.data.productName} has been
            deleted from stock sucessfully.`;
             this.removeProductFromList(response.data)
@@ -150,7 +150,7 @@ export class ManageInventory {
           error => console.log(error),
           () => console.log("completed")
         )
-    } 
+    }
 
   }
 
@@ -187,16 +187,18 @@ export class ManageInventory {
     });
 
   popToast() {
-    this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    if (this.addOrEdit.toLocaleLowerCase() === 'add product') {
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+    } else {
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    }
   }
 
   updateProduct(product: any) {
-    
-    this.addOrEdit = "Update Product";
-    this.editProduct=product;
-    console.log(this.editProduct)
-  }
 
- 
+    this.addOrEdit = "Update Product";
+    this.editProduct = product;
+    console.log(this.editProduct);
+  }
 
 }
