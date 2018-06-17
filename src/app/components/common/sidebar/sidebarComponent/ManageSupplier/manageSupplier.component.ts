@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { SupplierModel } from '../../../../../model/supplierModel';
 import { SupplierService } from './../../../../../services/supplierServices'
 
+import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
 
 @Component({
   selector: 'app-manageSupplier',
@@ -11,13 +12,22 @@ import { SupplierService } from './../../../../../services/supplierServices'
 
 })
 export class ManageSupplier {
-  constructor(private supplierService: SupplierService) { }
+  constructor(
+    private supplierService: SupplierService,
+    private toasterSetvice: ToasterService
+  ) { }
+
+  public config: ToasterConfig =
+    new ToasterConfig({
+      showCloseButton: true,
+      tapToDismiss: false,
+      timeout: 5000
+    });
 
   suppliers = [];
   supplierFlag: boolean = false;
   buttonName = "Add Supplier";
   updateFlag: boolean = false;
-
 
   supplier: SupplierModel = new SupplierModel();
   ngOnInit() {
@@ -30,8 +40,6 @@ export class ManageSupplier {
       )
   }
 
-
-
   onSubmit(form: NgForm) {
     if (this.buttonName.toLocaleLowerCase() === "add supplier") {
       const newSupplier = new SupplierModel();
@@ -43,6 +51,7 @@ export class ManageSupplier {
         .subscribe(
           response => {
             console.log(response, "supplier added sucesfully");
+            this.popToast();
             this.supplierFlag = true;
             this.suppliers.push(response.data)
             setTimeout(() => {
@@ -70,38 +79,27 @@ export class ManageSupplier {
           }
         );
     }
-    // this.supplierService.addSupplierInfo(this.supplier)
-    // .subscribe(
-    //   response=>{
-    //     this.supplierFlag=true;
-    //    this.suppliers.push(response.data);
-    //    setTimeout(()=>{
-    //      this.supplierFlag=false;
-    //    },3000)
-    //   },
-    //   error=>console.log(error)
-    // )
   }
 
-  deleteSupplier(supplier:any) {
+  deleteSupplier(supplier: any) {
     if (window.confirm("Are you sure you want to delete Supplier?")) {
       this.supplierService.deleteSupplier(supplier._id)
         .subscribe(
           response => {
+            this.popToast();
             console.log(response);
-           this.removeSupplierFromList(response.data)
+            this.removeSupplierFromList(response.data)
           }
         )
     }
-
   }
 
-removeSupplierFromList(supplier:any){
-  var index=this.suppliers.findIndex((supp)=>{
-      return supp._id===supplier._id
-  });
-  this.suppliers.splice(index,1);
-}
+  removeSupplierFromList(supplier: any) {
+    var index = this.suppliers.findIndex((supp) => {
+      return supp._id === supplier._id
+    });
+    this.suppliers.splice(index, 1);
+  }
 
   updateSupplier(supplier) {
     console.log(supplier)
@@ -111,11 +109,16 @@ removeSupplierFromList(supplier:any){
   }
 
   reset(form: NgForm) {
-
     this.buttonName = "Add Supplier";
     form.reset();
   }
 
-
+  popToast() {
+    if (this.updateFlag) {
+      this.toasterSetvice.pop('success', 'Status', 'Supplier Added Successfully!');
+    } else {
+      this.toasterSetvice.pop('warning', 'Status', 'Supplier Deleted Successfully!');
+    }   
+  }
 
 }

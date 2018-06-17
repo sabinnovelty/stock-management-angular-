@@ -10,10 +10,11 @@ import { NgForm } from '@angular/forms';
      
 })
 export class DashboardComponent {
+
+  cardTitle: string = '';
+
   constructor(){}
 
-  
-    
   ngOnInit(){
    
   }
