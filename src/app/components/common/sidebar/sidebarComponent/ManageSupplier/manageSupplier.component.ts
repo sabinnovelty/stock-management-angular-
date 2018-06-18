@@ -35,6 +35,7 @@ export class ManageSupplier {
       .subscribe(
         response => {
           this.suppliers = response.data;
+          console.log(this.suppliers);
         },
         error => console.log(error)
       )
