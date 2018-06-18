@@ -118,7 +118,7 @@
                                 <span class="error" *ngIf="f.submitted && supplier.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
                                 <select name="supplierId" value="{{editProduct?.supplier}}" class="form-control" #supplier="ngModel" 
                                 [(ngModel)]="manageInventory.supplier" required>
-                                    <option *ngFor="let supplier of supplierList" value="{{supplier.supplierName}}">{{supplier.supplierName}}</option>
+                                    <option *ngFor="let supplier of supplierList" value="{{supplier.name}}">{{supplier.name}}</option>
                                 </select>
                             </div>
                         </div>

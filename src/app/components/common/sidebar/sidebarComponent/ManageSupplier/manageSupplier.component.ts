@@ -34,6 +34,7 @@ export class ManageSupplier {
     this.supplierService.fetchSupplier()
       .subscribe(
         response => {
+          console.log(response,"supplier list")
           this.suppliers = response.data;
         },
         error => console.log(error)
