@@ -5,6 +5,8 @@ import { ManageSupplier } from './components/common/sidebar/sidebarComponent/Man
 import { ManageInventory } from './components/common/sidebar/sidebarComponent/ManageInventory/manageInventory.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
 import { SupplierListComponent } from "./components/common/sidebar/sidebarComponent/Supplier/supplier.component"
+import { SalesListComponent } from './components/common/sidebar/sidebarComponent/Sales/sales.component';
+import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
 
 const app_Routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,7 +17,9 @@ const app_Routes: Routes = [
       { path:'', redirectTo: 'dashboard',pathMatch:"prefix"},
       { path :'manageSupplier', component: ManageSupplier },
       { path :'manageInventory', component: ManageInventory },
-      { path :'supplierDetails', component: SupplierListComponent }
+      { path :'supplierDetails', component: SupplierListComponent },
+      { path: 'salesDetails', component: SalesListComponent },
+      { path: 'customerDetails', component: CustomerListComponent }
     ]
   },
   { path: '**', redirectTo: '' }

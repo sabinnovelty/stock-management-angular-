@@ -7,7 +7,7 @@ import { SupplierService } from './../../../../../services/supplierServices'
 @Component({
   selector: 'app-supplierList',
   templateUrl: './supplier.component.html',
-  styleUrls: ['./supplier .component.style.css']
+  styleUrls: ['./supplier.component.style.css']
 
 })
 export class SupplierListComponent {

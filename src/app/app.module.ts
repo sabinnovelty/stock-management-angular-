@@ -26,6 +26,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { InventoryService } from './services/inventoryService';
 import { SupplierListComponent } from './components/common/sidebar/sidebarComponent/Supplier/supplier.component';
+import { SalesListComponent } from './components/common/sidebar/sidebarComponent/Sales/sales.component';
+import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
  
 
 @NgModule({
@@ -38,7 +40,9 @@ import { SupplierListComponent } from './components/common/sidebar/sidebarCompon
     ManageSupplier,
     ManageInventory,
     SearchComponent,
-    SupplierListComponent
+    SupplierListComponent,
+    SalesListComponent,
+    CustomerListComponent
   ],
   imports: [
     BrowserModule,
