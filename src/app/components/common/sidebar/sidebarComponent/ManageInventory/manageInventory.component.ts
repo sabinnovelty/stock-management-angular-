@@ -2,7 +2,7 @@ declare var hideModel: any;
 declare var showModel: any;
 declare var hideTableFilter: any;
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ManageInventoryModel } from '../../../../../model/manageInventoryMode';
+import { ManageInventoryModel } from '../../../../../model/manageInventoryModel';
 import { NgForm } from '@angular/forms';
 import { SupplierService } from '../../../../../services/supplierServices';
 import { SupplierModel } from '../../../../../model/supplierModel';
@@ -112,6 +112,7 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
+            this.popToast();
             console.log(response);
             this.productList.push(response.data);
             this.fetchTotalNoProduct();
@@ -119,13 +120,13 @@ export class ManageInventory {
             hideModel();
           }
         )
-      
+  
     } else {
       this.inventoryService.updateProduct(this.manageInventory).subscribe(
         data=>console.log(data),
         error=>console.log("error occured on update product")
       )
-    }
+    } 
 
     // hideModel();
     // f.resetForm();
@@ -157,6 +158,9 @@ export class ManageInventory {
           //  deleted from stock sucessfully.`;
           this.fetchTotalNoProduct();
           this.fetchTotalInventoryValue();
+            this.popToast();
+            this.deleteProductMsg = `${response.data.productName} has been
+           deleted from stock sucessfully.`;
             this.removeProductFromList(response.data)
           },
           error => console.log(error),
@@ -199,18 +203,23 @@ export class ManageInventory {
     });
 
   popToast() {
-    this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    if (this.addOrEdit.toLocaleLowerCase() === 'add product') {
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+    } else {
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    }
   }
 
   updateProduct(product: any) {
-
     this.addOrEdit = "Update Product";
     // this.manageInventory=product;
     this.manageInventory = product;
     this.calculateSp();
     console.log(this.editProduct)
   }
-
+    // this.editProduct = product;
+    // console.log(this.editProduct);
+  // }
 
 
 }

@@ -36,8 +36,5 @@ export class InventoryService {
         .map((res:Response)=>res.json())
         .catch((err:Response)=>Observable.throw(err.json()))
     }
-
-
-
-    
+ 
 }

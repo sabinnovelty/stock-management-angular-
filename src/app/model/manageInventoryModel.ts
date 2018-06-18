@@ -2,8 +2,10 @@ export class ManageInventoryModel {
   productName: string;
   quantity: number;
   measurement: string;
-  originalPrice: number;
-  profit: number;
-  sellingPrice: number;
+  originalPrice: string;
+  profit: string;
+  sellingPrice: string;
   supplier: string;
+  supplierId:string;
+  date:Date
 }
