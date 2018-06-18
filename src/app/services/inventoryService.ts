@@ -18,6 +18,12 @@ export class InventoryService {
     ngOnInit(){
 
     }
+
+    fetchAllProduct() {
+        return this.http.get(API_BASE_URL + '/api/inventory')
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
  
     fetchTotalNoProduct(){
         return this.http.get(API_BASE_URL+"/api/inventory/totalNoProduct")
