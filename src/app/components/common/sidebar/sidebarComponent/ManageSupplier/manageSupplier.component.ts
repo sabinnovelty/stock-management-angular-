@@ -37,6 +37,7 @@ export class ManageSupplier {
         response => {
           console.log(response,"supplier list")
           this.suppliers = response.data;
+          console.log(this.suppliers);
         },
         error => console.log(error)
       )

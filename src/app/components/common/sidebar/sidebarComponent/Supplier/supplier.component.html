@@ -1,3 +1,32 @@
 <div class="container">
-    <p>Supplier component is comming soon</p>
+	<div class="card mb-3">
+		<div class="card-header">
+			<i class="fa fa-table"></i> Supplier Details</div>
+		<div class="card-body">
+
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Supplier Name</th>
+							<th scope="col">Address</th>
+							<th scope="col">Contact Number</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr *ngFor="let s of suppliers;let i=index">
+							<th scope="row">{{i+1}}</th>
+							<td>{{s.name}}</td>
+							<td>{{s.address}}</td>
+							<td>{{s.contact}}</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
