@@ -59,7 +59,7 @@
                             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
                                 <label for="productName">Product Name</label>
                                 <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                <input type="text" value="{{editProduct?.productName}}" name="productName" class="form-control" 
+                                <input type="text" [ngModel]="manageInventory?.productName" name="productName" class="form-control" 
                                 #productName="ngModel" [(ngModel)]="manageInventory.productName"
                                     required>
                             </div>
@@ -103,7 +103,6 @@
                                 <!-- <span class="error" *ngIf="f.submitted && sellingPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
                                 <input type="text" name="sellingPrice" class="form-control" #sellingPrice="ngModel"
                                 [(ngModel)]="manageInventory.sellingPrice"
-                                (ngModelChange)="onsellingPriceChange($event)"
                                     disabled required [value]="sellingPrice">
                             </div>
 
@@ -119,7 +118,7 @@
                                 <span class="error" *ngIf="f.submitted && supplier.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
                                 <select name="supplierId" value="{{editProduct?.supplier}}" class="form-control" #supplier="ngModel" 
                                 [(ngModel)]="manageInventory.supplier" required>
-                                    <option *ngFor="let supplier of supplierList" value="{{supplier.supplierName}}">{{supplier.supplierName}}</option>
+                                    <option *ngFor="let supplier of supplierList" value="{{supplier.name}}">{{supplier.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -140,7 +139,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal">
     Add Product
 </button>
 <br>

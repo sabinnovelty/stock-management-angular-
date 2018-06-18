@@ -25,6 +25,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { InventoryService } from './services/inventoryService';
+import { SupplierListComponent } from './components/common/sidebar/sidebarComponent/Supplier/supplier.component';
  
 
 @NgModule({
@@ -36,7 +37,8 @@ import { InventoryService } from './services/inventoryService';
     SidebarComponent,
     ManageSupplier,
     ManageInventory,
-    SearchComponent
+    SearchComponent,
+    SupplierListComponent
   ],
   imports: [
     BrowserModule,

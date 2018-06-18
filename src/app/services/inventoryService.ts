@@ -31,7 +31,10 @@ export class InventoryService {
         .catch((err:Response)=>Observable.throw(err.json()))
     }
 
-
-
-    
+    updateProduct(product:any){
+        return this.http.put(API_BASE_URL+"/api/inventory/update",product)
+        .map((res:Response)=>res.json())
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
+ 
 }

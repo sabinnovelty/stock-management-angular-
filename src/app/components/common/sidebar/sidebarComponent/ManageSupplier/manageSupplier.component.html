@@ -72,18 +72,18 @@
                 </thead>
 
                 <tbody>
-                  <tr  *ngFor="let supplier of suppliers;let i=index">
+                  <tr  *ngFor="let s of suppliers;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{supplier.name}}</td>
-                    <td>{{supplier.address}}</td>
-                    <td>{{supplier.contact}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{s.address}}</td>
+                    <td>{{s.contact}}</td>
                     <td>
-                      <button type="button" (click)="updateSupplier(supplier)">
+                      <button type="button" (click)="updateSupplier(s)">
                         <span><i class="fas fa-edit"></i></span>
                     </button>
                     </td>
                     <td>
-                      <button type="button" (click)="deleteSupplier(supplier)">
+                      <button type="button" (click)="deleteSupplier(s)">
                           <span><i class="fas fa-trash"></i></span>
                       </button>
                     </td>
