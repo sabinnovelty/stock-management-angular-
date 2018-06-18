@@ -13,16 +13,20 @@ import { SupplierService } from './../../../../../services/supplierServices'
 export class SupplierListComponent {
   constructor(private supplierService: SupplierService) { }
 
+  suppliers = [];
+
   supplier: SupplierModel = new SupplierModel();
+
   ngOnInit() {
- 
+    this.supplierService.fetchSupplier()
+      .subscribe(
+        response => {
+          console.log("suppliers", response.data);
+          this.suppliers = response.data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
-
-
-
-
-
-
-
-
 }
