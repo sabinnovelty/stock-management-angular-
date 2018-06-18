@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/Dashboard/dashboard.component';
 import { ManageSupplier } from './components/common/sidebar/sidebarComponent/ManageSupplier/manageSupplier.component';
 import { ManageInventory } from './components/common/sidebar/sidebarComponent/ManageInventory/manageInventory.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
+import { SupplierListComponent } from "./components/common/sidebar/sidebarComponent/Supplier/supplier.component"
 
 const app_Routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,7 +14,8 @@ const app_Routes: Routes = [
     children: [
       { path:'', redirectTo: 'dashboard',pathMatch:"prefix"},
       { path :'manageSupplier', component: ManageSupplier },
-      { path :'manageInventory', component: ManageInventory }
+      { path :'manageInventory', component: ManageInventory },
+      { path :'supplierDetails', component: SupplierListComponent }
     ]
   },
   { path: '**', redirectTo: '' }

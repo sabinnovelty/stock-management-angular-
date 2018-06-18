@@ -60,7 +60,7 @@
                             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
                                 <label for="productName">Product Name</label>
                                 <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                <input type="text" value="{{editProduct?.productName}}" name="productName" class="form-control" 
+                                <input type="text" [ngModel]="manageInventory?.productName" name="productName" class="form-control" 
                                 #productName="ngModel" [(ngModel)]="manageInventory.productName"
                                     required>
                             </div>
@@ -104,7 +104,6 @@
                                 <!-- <span class="error" *ngIf="f.submitted && sellingPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
                                 <input type="text" name="sellingPrice" class="form-control" #sellingPrice="ngModel"
                                 [(ngModel)]="manageInventory.sellingPrice"
-                                (ngModelChange)="onsellingPriceChange($event)"
                                     disabled required [value]="sellingPrice">
                             </div>
 
@@ -127,7 +126,7 @@
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">save</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)" >Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -141,7 +140,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal">
     Add Product
 </button>
 <br>

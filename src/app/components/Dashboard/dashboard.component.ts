@@ -18,5 +18,9 @@ export class DashboardComponent {
    
   }
 
+  supplierrDetails(){
+    console.log("supplier details")
+  }
+
 
 }
