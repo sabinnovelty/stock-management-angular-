@@ -21,13 +21,14 @@ export class ManageSupplier {
     new ToasterConfig({
       showCloseButton: true,
       tapToDismiss: false,
-      timeout: 5000
+      timeout: 8000
     });
 
   suppliers = [];
   supplierFlag: boolean = false;
   buttonName = "Add Supplier";
   updateFlag: boolean = false;
+  deleteFlag:boolean=false;
 
   supplier: SupplierModel = new SupplierModel();
   ngOnInit() {
@@ -52,12 +53,13 @@ export class ManageSupplier {
         .subscribe(
           response => {
             console.log(response, "supplier added sucesfully");
-            this.popToast();
+           
             this.supplierFlag = true;
             this.suppliers.push(response.data)
-            setTimeout(() => {
-              this.supplierFlag = false;
-            }, 2000)
+            this.popToast();
+            // setTimeout(() => {
+            //   this.supplierFlag = false;
+            // }, 2000)
 
           }
         )
@@ -71,11 +73,13 @@ export class ManageSupplier {
       this.supplierService.updateSupplier(updateSupplier)
         .subscribe(
           data => {
+            console.log(data,"update supplier successfull")
             if (data.success) {
               this.updateFlag = true;
-              setTimeout(() => {
-                this.updateFlag = false;
-              }, 2000)
+              this.popToast();
+              // setTimeout(() => {
+              //   this.updateFlag = false;
+              // }, 2000)
             }
           }
         );
@@ -87,6 +91,7 @@ export class ManageSupplier {
       this.supplierService.deleteSupplier(supplier._id)
         .subscribe(
           response => {
+            this.deleteFlag=true;
             this.popToast();
             console.log(response);
             this.removeSupplierFromList(response.data)
@@ -100,6 +105,7 @@ export class ManageSupplier {
       return supp._id === supplier._id
     });
     this.suppliers.splice(index, 1);
+  
   }
 
   updateSupplier(supplier) {
@@ -116,10 +122,12 @@ export class ManageSupplier {
 
   popToast() {
     if (this.updateFlag) {
+      this.toasterSetvice.pop('success', 'Status', 'Supplier Updated Successfully!');
+    } else if(this.supplierFlag){
       this.toasterSetvice.pop('success', 'Status', 'Supplier Added Successfully!');
-    } else {
-      this.toasterSetvice.pop('warning', 'Status', 'Supplier Deleted Successfully!');
-    }   
+    }else if(this.deleteFlag){
+      this.toasterSetvice.pop('success', 'Status', 'Supplier Added Successfully!');
+    }
   }
 
 }
