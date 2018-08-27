@@ -127,7 +127,7 @@ export class ManageSupplier {
     } else if(this.supplierFlag){
       this.toasterSetvice.pop('success', 'Status', 'Supplier Added Successfully!');
     }else if(this.deleteFlag){
-      this.toasterSetvice.pop('success', 'Status', 'Supplier Added Successfully!');
+      this.toasterSetvice.pop('success', 'Status', 'Supplier Deleted Successfully!');
     }
   }
 

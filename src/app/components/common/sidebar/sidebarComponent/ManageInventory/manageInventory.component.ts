@@ -22,7 +22,7 @@ export class ManageInventory {
 
   @ViewChild('productModel') productModel: ElementRef;
   manageInventory: ManageInventoryModel = new ManageInventoryModel();
-  cloneManageInventory:ManageInventoryModel=new ManageInventoryModel();
+  cloneManageInventory: ManageInventoryModel = new ManageInventoryModel();
   title: string = "search product";
   inventoryValue: any = 0;
   totalProduct: any = 0;
@@ -42,6 +42,8 @@ export class ManageInventory {
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
   editProduct: any;
+  deleteFlag:boolean=false;
+  addFlag:boolean=false;
 
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class ManageInventory {
       .subscribe(
         response => {
           this.supplierList = response.data;
-       
+
         }
       )
     this.fetchProduct();
@@ -63,9 +65,9 @@ export class ManageInventory {
   }
 
   resetForm(f: NgForm) {
-    
+    // console.log("reset form")
     // f.resetForm();
-    this.manageInventory=this.cloneManageInventory;
+    // this.manageInventory = this.cloneManageInventory;
   }
 
   fetchTotalInventoryValue() {
@@ -100,7 +102,7 @@ export class ManageInventory {
 
   onSubmit(f: NgForm) {
     console.log(f, "form")
-    if (this.addOrEdit=="Add Inventory") {
+    if (this.addOrEdit == "Add Inventory") {
       console.log("add product", this.addOrEdit)
       this.manageInventory.measurement = f.value.measurement;
       this.manageInventory.originalPrice = f.value.originalPrice;
@@ -112,6 +114,8 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
+            this.deleteFlag=false;
+            this.addFlag=true;
             this.popToast();
             console.log(response);
             this.productList.push(response.data);
@@ -120,13 +124,13 @@ export class ManageInventory {
             hideModel();
           }
         )
-  
+
     } else {
       this.inventoryService.updateProduct(this.manageInventory).subscribe(
-        data=>console.log(data),
-        error=>console.log("error occured on update product")
+        data => console.log(data),
+        error => console.log("error occured on update product")
       )
-    } 
+    }
 
     // hideModel();
     // f.resetForm();
@@ -152,12 +156,13 @@ export class ManageInventory {
       this.productrService.deleteProduct(productId)
         .subscribe(
           response => {
-            console.log(response);
-            this.popToast()
-          //   this.deleteProductMsg = `${response.data.productName} has been
-          //  deleted from stock sucessfully.`;
-          this.fetchTotalNoProduct();
-          this.fetchTotalInventoryValue();
+            //   this.deleteProductMsg = `${response.data.productName} has been
+            //  deleted from stock sucessfully.`;
+            this.addFlag=false
+            this.deleteFlag=true;
+            
+            this.fetchTotalNoProduct();
+            this.fetchTotalInventoryValue();
             this.popToast();
             this.deleteProductMsg = `${response.data.productName} has been
            deleted from stock sucessfully.`;
@@ -202,10 +207,17 @@ export class ManageInventory {
 
     });
 
+  // popToast() {
+  //   if (this.addOrEdit.toLocaleLowerCase() === 'add inventory') {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+  //   } else {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+  //   }
+  // }
   popToast() {
-    if (this.addOrEdit.toLocaleLowerCase() === 'add product') {
+    if (this.addFlag) {
       this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
-    } else {
+    } else if(this.deleteFlag){
       this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
     }
   }
@@ -217,8 +229,8 @@ export class ManageInventory {
     this.calculateSp();
     console.log(this.editProduct)
   }
-    // this.editProduct = product;
-    // console.log(this.editProduct);
+  // this.editProduct = product;
+  // console.log(this.editProduct);
   // }
 
 

@@ -36,7 +36,7 @@ export class AuthenticationComponent {
             this.errorMsg=data.message;
            
         }else{
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/dashboard/manageSupplier');
         }
      },
      error=>console.log(error)

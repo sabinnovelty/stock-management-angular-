@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:5px;">
-                            <h3 class="display-4" class="heading">Total Inventory Value</h3>
+                            <h3 class="display-6" class="heading">Total Inventory Value</h3>
                         </div>
                         <div class="col-sm-6">
                             <p class="lead">
@@ -139,7 +139,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal">
+<button type="button" class="btn btn-primary" (click)="resetForm(f)" data-toggle="modal"  data-target="#exampleModal">
     Add Product
 </button>
 <br>
@@ -212,5 +212,5 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
 </div>

@@ -33,7 +33,7 @@ describe('InventoryService', () => {
     .compileComponents();
   });
 
-  it('should return 2', async(inject(
+  it('For the total inventory count', async(inject(
     [InventoryService, MockBackend], (service, mockBackend) => {
 
       mockBackend.connections.subscribe(conn => {
