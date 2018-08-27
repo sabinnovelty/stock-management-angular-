@@ -1,0 +1,17 @@
+
+<h1>Add Product Category</h1>
+<hr>
+<div class="alert alert-success" role="alert" *ngIf="category_success">
+  {{category_success}}
+</div>
+    <div class="form-group">
+      <label >Category</label>
+      <input type="text" class="form-control" #category   aria-describedby="emailHelp" placeholder="category">
+      <small  class="form-text text-muted"><Table>Add the category here..</Table></small>
+    </div>
+    <button type="button" (click)="addCategory(category.value)" class="btn btn-primary">save</button>
+<ul>
+  <li *ngFor="let c of category">{{c.category}}</li>
+</ul>
+
+<p>{{category}}</p>

@@ -42,5 +42,17 @@ export class InventoryService {
         .map((res:Response)=>res.json())
         .catch((err:Response)=>Observable.throw(err.json()))
     }
+
+    addCategory(category:any){
+        let url=API_BASE_URL+"/api/inventory/category";
+        return this.http.post(url,{category:category})
+        .map((res:Response)=>res.json())
+    }
+
+    getCategory(){
+        return this.http.get(API_BASE_URL+"/api/inventory/category")
+        .map((res:Response)=>res.json())
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
  
 }

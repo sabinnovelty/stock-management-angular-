@@ -25,7 +25,7 @@ export class AuthenticationService {
     console.log(credentials,"userinfo")
     // credentials.password = this.base64utility.encodeBase64(model.password);
     // decode the encode the password  and put in credential password
-    return this.http.post(API_BASE_URL+"/api/auth/login", JSON.stringify(credentials))
+    return this.http.post(API_BASE_URL+"/api/auth/login", credentials)
       .map((response: Response) => {
           return response.json();
       });

@@ -29,17 +29,15 @@ export class HttpClient {
       console.log(url,data,"httpclient")
     const headers = new Headers();
     this.createHeader(headers);
-    return this.http.post(url, data, {
-      headers: headers
+    return this.http.post(url, data,{
+      headers:headers
     });
   }
 
   put(url, data) {
     const headers = new Headers();
     this.createHeader(headers);
-    return this.http.put(url, data, {
-      headers: headers
-    });
+    return this.http.put(url, data);
   }
 
   delete(url){
