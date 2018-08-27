@@ -22,6 +22,7 @@ export class ManageInventory {
 
   @ViewChild('productModel') productModel: ElementRef;
   manageInventory: ManageInventoryModel = new ManageInventoryModel();
+  cloneManageInventory: ManageInventoryModel = new ManageInventoryModel();
   title: string = "search product";
   inventoryValue: any = 0;
   totalProduct: any = 0;
@@ -35,11 +36,14 @@ export class ManageInventory {
   supplierList: SupplierModel[];
   sellingPrice: number = 0;
   productList = [];
+  cloneProductList = [];
   cloneProducts = [];
   products = [];
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
   editProduct: any;
+  deleteFlag:boolean=false;
+  addFlag:boolean=false;
 
 
   ngOnInit() {
@@ -50,7 +54,7 @@ export class ManageInventory {
       .subscribe(
         response => {
           this.supplierList = response.data;
-          console.log(this.supplierList, "supplierList")
+
         }
       )
     this.fetchProduct();
@@ -61,7 +65,9 @@ export class ManageInventory {
   }
 
   resetForm(f: NgForm) {
-    f.resetForm();
+    // console.log("reset form")
+    // f.resetForm();
+    // this.manageInventory = this.cloneManageInventory;
   }
 
   fetchTotalInventoryValue() {
@@ -88,7 +94,6 @@ export class ManageInventory {
     this.productrService.fetchAllProducts()
       .subscribe(
         response => {
-          console.log(response, "porudct")
           this.productList = response.data;
           this.products = response.data;
         }
@@ -97,7 +102,8 @@ export class ManageInventory {
 
   onSubmit(f: NgForm) {
     console.log(f, "form")
-    if (this.addOrEdit.toLocaleLowerCase() === "add inventory") {
+    if (this.addOrEdit == "Add Inventory") {
+      console.log("add product", this.addOrEdit)
       this.manageInventory.measurement = f.value.measurement;
       this.manageInventory.originalPrice = f.value.originalPrice;
       this.manageInventory.productName = f.value.productName
@@ -108,6 +114,8 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
+            this.deleteFlag=false;
+            this.addFlag=true;
             this.popToast();
             console.log(response);
             this.productList.push(response.data);
@@ -116,23 +124,30 @@ export class ManageInventory {
             hideModel();
           }
         )
+
     } else {
-      console.log("edit product")
+      this.inventoryService.updateProduct(this.manageInventory).subscribe(
+        data => console.log(data),
+        error => console.log("error occured on update product")
+      )
     }
 
     // hideModel();
-    f.resetForm();
+    // f.resetForm();
   }
 
   showModels() {
     showModel()
   }
 
-  calculateSp(event: any) {
+  calculateSp() {
     if (this.manageInventory.originalPrice !== null && this.manageInventory.profit !== null) {
       let sellingPrice = parseInt(this.manageInventory.originalPrice) + parseInt(this.manageInventory.profit);
       this.manageInventory.sellingPrice = String(sellingPrice)
       console.log(this.manageInventory)
+    } else if (this.editProduct.originalPrice !== null && this.editProduct.profit !== null) {
+      let sellingPrice = parseInt(this.editProduct.originalPrice) + parseInt(this.editProduct.profit);
+      this.sellingPrice = sellingPrice;
     }
   }
 
@@ -141,7 +156,13 @@ export class ManageInventory {
       this.productrService.deleteProduct(productId)
         .subscribe(
           response => {
-            console.log(response);
+            //   this.deleteProductMsg = `${response.data.productName} has been
+            //  deleted from stock sucessfully.`;
+            this.addFlag=false
+            this.deleteFlag=true;
+            
+            this.fetchTotalNoProduct();
+            this.fetchTotalInventoryValue();
             this.popToast();
             this.deleteProductMsg = `${response.data.productName} has been
            deleted from stock sucessfully.`;
@@ -186,19 +207,31 @@ export class ManageInventory {
 
     });
 
+  // popToast() {
+  //   if (this.addOrEdit.toLocaleLowerCase() === 'add inventory') {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+  //   } else {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+  //   }
+  // }
   popToast() {
-    if (this.addOrEdit.toLocaleLowerCase() === 'add product') {
+    if (this.addFlag) {
       this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
-    } else {
+    } else if(this.deleteFlag){
       this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
     }
   }
 
   updateProduct(product: any) {
-
     this.addOrEdit = "Update Product";
-    this.editProduct = product;
-    console.log(this.editProduct);
+    // this.manageInventory=product;
+    this.manageInventory = product;
+    this.calculateSp();
+    console.log(this.editProduct)
   }
+  // this.editProduct = product;
+  // console.log(this.editProduct);
+  // }
+
 
 }

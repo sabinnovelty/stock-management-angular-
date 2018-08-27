@@ -1,9 +1,9 @@
 <div class="container-fluid manage-supplier" style="margin-top:0px;">
   <h1 class="heading">Manage Supplier</h1>
   <hr>
-  <div class="alert alert-primary" role="alert" *ngIf="updateFlag">
+  <!-- <div class="alert alert-primary" role="alert" *ngIf="updateFlag">
     <p>Supplier updated successfully !.</p>
-  </div>
+  </div> -->
   <form (ngSubmit)="   f.form.valid && onSubmit(f)" #f="ngForm">
     <div class="form-group">
       <label for="exampleInputPassword1">
@@ -47,9 +47,9 @@
 <hr>
 <br>
   <div>
-    <div class="alert alert-primary" role="alert" *ngIf="supplierFlag">
+    <!-- <div class="alert alert-primary" role="alert" *ngIf="supplierFlag">
       <p>Your Supplier has been added sucessfully !</p>
-    </div>
+    </div> -->
   </div>
 
   <div class="card mb-3">
@@ -70,34 +70,26 @@
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <!-- <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot> -->
+
                 <tbody>
-                  <tr  *ngFor="let supplier of suppliers;let i=index">
+                  <tr  *ngFor="let s of suppliers;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{supplier.supplierName}}</td>
-                    <td>{{supplier.address}}</td>
-                    <td>{{supplier.contact_no}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{s.address}}</td>
+                    <td>{{s.contact}}</td>
                     <td>
-                      <button type="button" (click)="updateSupplier(supplier)">
+                      <button type="button" (click)="updateSupplier(s)">
                         <span><i class="fas fa-edit"></i></span>
                     </button>
                     </td>
                     <td>
-                      <button type="button" (click)="deleteSupplier(supplier)">
+                      <button type="button" (click)="deleteSupplier(s)">
                           <span><i class="fas fa-trash"></i></span>
                       </button>
                     </td>
                   </tr>
                 </tbody>
+                
             </table>
         </div>
     </div>

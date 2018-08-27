@@ -3,15 +3,15 @@
       <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
       <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" (ngSubmit)="f.form.valid && login(f)" #f="ngForm" >
+      <form class="form-signin" (ngSubmit)="login(f)" #f="ngForm" >
           <!-- <span id="reauth-email" *ngIf="f.submitted && email.errors?.required " >&nbsp;&nbsp;&nbsp; &nbsp;required</span> -->
          <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && email.!valid">
            <p>Email is required !</p> 
           </div>  -->
-        
+          <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" -->
           <input type="email" id="inputEmail"  [ngClass]="{ 'has-error' : f.submitted && !email.valid } " class="form-control" placeholder="Email address"
            name="text" #email="ngModel" [(ngModel)]="model.email" required autofocus
-           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+        
            >
           <input type="password" id="inputPassword" [(ngModel)]="model.password" name="password"
            #password="ngModel" class="form-control"  [ngClass]="{ 'has-error' : f.submitted && !password.valid } " placeholder="Password" required>
@@ -20,15 +20,15 @@
                   <input type="checkbox" value="remember-me"> Remember me
               </label>
           </div>
-          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+          <button  type="submit"  class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
       </form><!-- /form -->
-      <a href="#" class="forgot-password">
+      <!-- <a href="#" class="forgot-password">
           Forgot the password?
-      </a>
+      </a> -->
       <div class="alert alert-danger" role="alert" *ngIf="errorFlag">
         <p>{{errorMsg}}</p>
       </div>
-      {{errorFlag}}
+      
       
   </div><!-- /card-container -->
 </div><!-- /container -->
