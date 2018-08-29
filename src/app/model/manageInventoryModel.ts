@@ -1,5 +1,6 @@
 export class ManageInventoryModel {
   productName: string;
+  productCategory: string;
   quantity: number;
   measurement: string;
   originalPrice: string;

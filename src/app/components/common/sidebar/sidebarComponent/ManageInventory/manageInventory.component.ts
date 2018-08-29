@@ -45,6 +45,9 @@ export class ManageInventory {
   deleteFlag:boolean=false;
   addFlag:boolean=false;
 
+  // for category list
+  categoryList = [];
+
 
   ngOnInit() {
     hideTableFilter();
@@ -58,6 +61,7 @@ export class ManageInventory {
         }
       )
     this.fetchProduct();
+    this.getCategory();
   }
 
   onsellingPriceChange(event: any) {
@@ -111,6 +115,7 @@ export class ManageInventory {
       this.manageInventory.quantity = f.value.quantity;
       this.manageInventory.supplierId = f.value.supplierId;
       this.manageInventory.date = f.value.date1;
+      this.manageInventory.productCategory = f.value.productCategory;
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
@@ -233,5 +238,11 @@ export class ManageInventory {
   // console.log(this.editProduct);
   // }
 
-
+  getCategory() {
+    this.inventoryService.getCategory()
+      .subscribe(response => {
+        this.categoryList = response.data;
+        console.log(this.categoryList, 'response category')
+      })
+  }
 }

@@ -64,6 +64,22 @@
                                     required>
                             </div>
 
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productCategory.valid }">
+                                <label for="productCategory">Product Category</label>
+                                <span class="error" *ngIf="f.submitted && productCategory.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <!-- <input type="text" [ngModel]="manageInventory?.productCategory" name="productCategory" class="form-control" 
+                                #productName="ngModel" [(ngModel)]="manageInventory.productCategory"
+                                    required> -->
+                                <select name="productCategory" class="form-control" value="{{editProduct?.measurement}}"
+                                        #productCategory="ngModel" [(ngModel)]="manageInventory.productCategory" required
+                                >   
+                                    <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>
+                                    <!-- <option>Kilo</option>
+                                    <option>Liter</option> -->
+
+                                </select>      
+                            </div>
+
                             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
                                 <label for="quantity">Quantity</label>
                                 <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
