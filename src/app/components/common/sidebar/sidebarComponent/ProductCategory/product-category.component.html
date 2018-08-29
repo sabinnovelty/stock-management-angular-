@@ -11,7 +11,6 @@
     </div>
     <button type="button" (click)="addCategory(category.value)" class="btn btn-primary">save</button>
 <ul>
-  <li *ngFor="let c of category">{{c.category}}</li>
+  <li *ngFor="let c of categoryList">{{c.category}}</li>
 </ul>
 
-<p>{{category}}</p>

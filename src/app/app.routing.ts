@@ -8,6 +8,7 @@ import { SupplierListComponent } from "./components/common/sidebar/sidebarCompon
 import { SalesListComponent } from './components/common/sidebar/sidebarComponent/Sales/sales.component';
 import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
 import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component'
+import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 const app_Routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AuthenticationComponent },
@@ -18,7 +19,8 @@ const app_Routes: Routes = [
       { path :'manageSupplier', component: ManageSupplier },
       { path :'manageInventory', component: ManageInventory },
       { path :'supplierDetails', component: SupplierListComponent },
-      { path: 'salesDetails', component: SalesListComponent },
+      { path: 'addSales', component: AddSalesComponent },
+      { path: 'sales', component: SalesListComponent },
       { path: 'customerDetails', component: CustomerListComponent },
       { path:'category',component:ProductCategory }
     ]

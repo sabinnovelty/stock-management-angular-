@@ -10,7 +10,7 @@ import {InventoryService } from './../../../../../services/inventoryService'
 export class ProductCategory implements OnInit {
  
   category_success:string;
-  category=[{id:1,name:"dfd"}];
+  categoryList=[];
  
   constructor( private inventoryService:InventoryService) { }
 
@@ -19,11 +19,8 @@ export class ProductCategory implements OnInit {
       this.inventoryService.getCategory()
       .subscribe(
         result=>{
-          // this.category=Object.values(result.data.values)
-          // result.data.map(v=>{
-          //   this.category.push(v)
-          // })
-          // console.log(this.category,"result")
+         
+          console.log(result,"result")
         }
       )
    }
@@ -34,7 +31,7 @@ export class ProductCategory implements OnInit {
         .subscribe(
           result=>{
             this.category_success=result.message;
-            this.category.push(result.data);
+            this.categoryList.push(result.data);
           },
           error=>console.log(error,"error")
         )
