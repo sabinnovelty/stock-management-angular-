@@ -1,0 +1,93 @@
+<form id="salesForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+  <div class="container">
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
+          <label for="productName">Product Name</label>
+          <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <select 
+            name="productName" 
+            [ngModel]="addSales?.productName" 
+            class="form-control" 
+            #productName="ngModel" 
+            [(ngModel)]="addSales.productName"
+            required
+          >
+          <option *ngFor="let p of productList" value="{{ p._id }}">{{ p.productName }}</option>
+          </select>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
+          <label for="category">Product Category</label>
+          <span class="error" *ngIf="f.submitted && category.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <select 
+            name="category" 
+            class="form-control"
+            #category="ngModel" 
+            [(ngModel)]="addSales.category" 
+            required
+          >   
+            <option value="a">asd</option>
+              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option> -->
+          </select>      
+      </div>
+
+      <div class="form-group">
+        <label for="sellingPrice">Date</label>
+        <span class="error" *ngIf="f.submitted && date.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+        <input 
+          type="date" 
+          name="date" 
+          value="" 
+          class="form-control" 
+          [(ngModel)]="addSales.date"
+          #date="ngModel" 
+          required
+        >
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+          <label for="quantity">Quantity</label>
+          <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <input 
+            type="text" 
+            value="" 
+            name="quantity" 
+            class="form-control" 
+            #quantity="ngModel" 
+            [(ngModel)]="addSales.quantity" 
+            required
+          >
+      </div>
+
+      <div class="form-group">
+          <label for="rate">Rate</label>
+          <!-- <span class="error" *ngIf="f.submitted && rate.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+          <input 
+            type="text" 
+            name="rate" 
+            class="form-control" 
+            [value]="rate"
+            [(ngModel)]="addSales.rate"
+            #rate="ngModel"
+            required
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="total">Total</label>
+        <input 
+          type="text" 
+          name="total" 
+          class="form-control" 
+          [value]="addSales"
+          [(ngModel)]="addSales.sellingPrice"
+          #addSales="ngModel"
+          required
+        >
+      </div>
+      
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)">Cancel</button>
+    </div>
+  </div>
+</form>

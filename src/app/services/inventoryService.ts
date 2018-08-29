@@ -54,5 +54,12 @@ export class InventoryService {
         .map((res:Response)=>res.json())
         .catch((err:Response)=>Observable.throw(err.json()))
     }
+
+    addSales(salesModel) {
+        console.log(salesModel, 'asdasdasdas sales model');
+        return this.http.post(API_BASE_URL + '/api/inventory/addSales', salesModel)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()))
+    }
  
 }

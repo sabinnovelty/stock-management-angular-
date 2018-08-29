@@ -25,6 +25,12 @@
           <span class="nav-link-text">Manage Inventory</span>
         </a>
       </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" [routerLink]="['sales']">
+          <i class="fa fa-fw fa-table"></i>
+          <span class="nav-link-text">Sales</span>
+        </a>
+      </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
           <i class="fa fa-fw fa-wrench"></i>
@@ -38,7 +44,10 @@
             <a [routerLink]="['inventoryReport']">Inventory Report</a>
           </li>
           <li>
-            <a href="cards.html">Transaction Report</a>
+            <a [routerLink]="['sales']">Sales Report</a>
+          </li>
+          <li>
+            <a [routerLink]="">Transaction Report</a>
           </li>
         </ul>
       </li>
