@@ -30,7 +30,7 @@ import { SalesListComponent } from './components/common/sidebar/sidebarComponent
 import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
 import { ProductCategoryComponent } from './common/sidebar/sidebar-component/manage-inventory/product-category/product-category.component';
 import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component';
-
+import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,8 @@ import { ProductCategory } from './components/common/sidebar/sidebarComponent/Pr
     SalesListComponent,
     CustomerListComponent,
     ProductCategoryComponent,
-    ProductCategory
+    ProductCategory,
+    InventoryReport
   ],
   imports: [
     BrowserModule,

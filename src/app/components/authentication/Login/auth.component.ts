@@ -21,27 +21,28 @@ export class AuthenticationComponent {
   errorFlag:boolean=false;
     
   ngOnInit(){
-    console.log("ingonit")
+
   }
 
   login(form:NgForm){
-   console.log("signin clicked")
-   this.authService.login(this.model)
-   .subscribe(
-     data=>{
-       console.log(data)
-        localStorage.setItem("loggedInUser",JSON.stringify(data));
-        if(!data.success){
-          console.log("login failed")
-          this.errorFlag=true;
-            this.errorMsg=data.message;
+    console.log(form,"form");
+    this.router.navigateByUrl('/dashboard');
+  //  this.authService.login(this.model)
+  //  .subscribe(
+  //    data=>{
+  //      console.log(data)
+  //       localStorage.setItem("loggedInUser",JSON.stringify(data));
+  //       if(!data.success){
+  //         this.errorFlag=true;
+  //           this.errorMsg=data.message;
            
-        }else{
-          this.router.navigateByUrl('/dashboard/manageSupplier');
-        }
-     },
-     error=>console.log(error)
-   )
+  //       }else{
+  //         console.log("naviage")
+  //         this.router.navigateByUrl('/dashboard');
+  //       }
+  //    },
+  //    error=>console.log(error)
+  //  )
   }
 
 }
