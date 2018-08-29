@@ -6,57 +6,43 @@
         <div class="col-sm-6">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container-fluid">
-                    <h5 class="display-4" class="heading">Total Inventory Value</h5>
-                    <p class="lead">Total invetory value is comming soon... </p>
+                    <div class="row">
+                        <div class="col-sm-4" style="margin-top:5px;">
+                            <h3 class="display-6" class="heading">Total Inventory Value</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="lead">
+                                <img src="../../../../../../assets/icons/money-bag-with-dollar-symbol.svg" width="50" height="50" />
+                                <b class="value">{{inventoryValue}}</b>
+                            </p>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h5 class="display-4" class="heading">Total Products </h5>
-                    <p class="lead">Total number of producsts is comming soon..</p>
+                        <div class="row">
+                                <div class="col-sm-4" style="margin-top:5px;">
+                                    <h3 class="display-4" class="heading">Total Products </h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="lead">
+                                        <img src="../../../../../../assets/icons/forefinger-and-thumb.svg" width="50" height="50" />
+                                        <b class="value">{{totalProduct}}</b>
+                                    </p>
+                                </div>
+                            </div>
+                    
+                   
                 </div>
             </div>
         </div>
     </div>
 
-   <app-search [title]="title" (emitSerchValue)="receiveSearchValue($event)"></app-search>
-
-    <table class="table table-dark">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">ProductName</th>
-                <th scope="col">Measurement</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Profit</th>
-                <th scope="col">Selling Price</th>
-                <th scope="col">Date</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of productList;let i=index">
-                <th scope="row">{{i+1}}</th>
-                <td>{{product.productName}}</td>
-                <td>{{product.measurement}}</td>
-                <td>{{product.quantity}}</td>
-                <td>{{product.originalPrice}}</td>
-                <td>{{product.profit}}</td>
-                <td>{{product.sellingPrice}}</td>
-                <td>{{product.date}}</td>
-                <td>
-                    <button type="button" (click)="updateProduct(product)" data-toggle="modal" data-target="#exampleModal"><span><i class="fas fa-edit"></i></span></button>
-                </td>
-                <td>
-                    <button (click)="deleteProduct(product._id)"><span><i class="fas fa-trash-alt"></i></span></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -68,118 +54,96 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                        <form id="productForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" >
-                                <div class="modal-body container">
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
-                                    <label for="productName">Product Name</label>
-                                    <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <input type="text" 
-                                           name="productName" 
-                                           class="form-control"
-                                           #productName="ngModel"
-                                           [(ngModel)]="manageInventory.productName"
-                                           required
-                                    >
-                                  </div>
-                        
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
-                                    <label for="quantity">Quantity</label>
-                                    <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <input type="text" 
-                                           name="quantity" 
-                                           class="form-control"
-                                           #quantity="ngModel"
-                                           [(ngModel)]="manageInventory.quantity"
-                                           required
-                                    >
-                                  </div>
-                        
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !measurement.valid }">
-                                    <label for="measurement">Measurement</label>
-                                    <span class="error" *ngIf="f.submitted && measurement.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <select name="measurement" 
-                                            class="form-control"
-                                            #measurement="ngModel"
-                                            [(ngModel)]="manageInventory.measurement"
-                                            required
-                                    >
-                                      <option>Pieces</option>
-                                      <option>Kilo</option>
-                                      <option>Liter</option>
-                                     
-                                    </select>
-                                  </div>
-                        
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !originalPrice.valid }">
-                                    <label for="originalPrice">Original Price</label>
-                                    <span class="error" *ngIf="f.submitted && originalPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <input type="text" 
-                                           name="originalPrice" 
-                                           class="form-control"
-                                           #originalPrice="ngModel"
-                                           [(ngModel)]="manageInventory.originalPrice"
-                                           required
-                                    >
-                                  </div>
-                        
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !profit.valid }">
-                                    <label for="profit">Profit</label>
-                                    <span class="error" *ngIf="f.submitted && profit.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <input type="text" 
-                                           name="profit" 
-                                           class="form-control"
-                                           #profit="ngModel"
-                                           [(ngModel)]="manageInventory.profit"
-                                           required
-                                           (keyup)="calculateSp($event)"
-                                    >
-                                  </div>
-                        
-                                  <div class="form-group" >
-                                    <label for="sellingPrice">Selling Price</label>
-                                    <!-- <span class="error" *ngIf="f.submitted && sellingPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
-                                    <input type="text" 
-                                           name="sellingPrice" 
-                                           class="form-control"
-                                           #sellingPrice="ngModel"
-                                           [(ngModel)]="manageInventory.sellingPrice"
-                                           disabled
-                                           required
-                                           [value]="sellingPrice"
-                                    >
-                                  </div>
+                    <form id="productForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+                        <div class="modal-body container">
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
+                                <label for="productName">Product Name</label>
+                                <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <input type="text" [ngModel]="manageInventory?.productName" name="productName" class="form-control" 
+                                #productName="ngModel" [(ngModel)]="manageInventory.productName"
+                                    required>
+                            </div>
 
-                                  <div class="form-group" >
-                                    <label for="sellingPrice">Date</label>
-                                    <span class="error" *ngIf="f.submitted && date.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <input type="date" 
-                                           name="date1" 
-                                           class="form-control"
-                                           [(ngModel)]="manageInventory.date"
-                                           required
-                                           #date="ngModel"
-                                    >
-                                  </div>
-                        
-                                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !supplier.valid }">
-                                    <label for="supplier">Supplier</label>
-                                    <span class="error" *ngIf="f.submitted && supplier.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-                                    <select name="supplierId" 
-                                            class="form-control"
-                                            #supplier="ngModel"
-                                            [(ngModel)]="manageInventory.supplier"
-                                            required  
-                                    >
-                                      <option *ngFor="let supplier of supplierList" value="{{supplier.supplierName}}">{{supplier.name}}</option>
-                                    </select>
-                                  </div>
-                                </div>
-                        
-                                <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary" >save</button>
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)" >Cancel</button>
-                                </div>
-                              </form>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productCategory.valid }">
+                                <label for="productCategory">Product Category</label>
+                                <span class="error" *ngIf="f.submitted && productCategory.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <!-- <input type="text" [ngModel]="manageInventory?.productCategory" name="productCategory" class="form-control" 
+                                #productName="ngModel" [(ngModel)]="manageInventory.productCategory"
+                                    required> -->
+                                <select name="productCategory" class="form-control" value="{{editProduct?.measurement}}"
+                                        #productCategory="ngModel" [(ngModel)]="manageInventory.productCategory" required
+                                >   
+                                    <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>
+                                    <!-- <option>Kilo</option>
+                                    <option>Liter</option> -->
+
+                                </select>      
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+                                <label for="quantity">Quantity</label>
+                                <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <input type="text" value="{{editProduct?.quantity}}" name="quantity" class="form-control" 
+                                #quantity="ngModel" [(ngModel)]="manageInventory.quantity" required>
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !measurement.valid }">
+                                <label for="measurement">Measurement</label>
+                                <span class="error" *ngIf="f.submitted && measurement.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <select name="measurement" class="form-control" value="{{editProduct?.measurement}}" 
+                                #measurement="ngModel" [(ngModel)]="manageInventory.measurement" required>
+                                    <option>Pieces</option>
+                                    <option>Kilo</option>
+                                    <option>Liter</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !originalPrice.valid }">
+                                <label for="originalPrice">Original Price</label>
+                                <span class="error" *ngIf="f.submitted && originalPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <input type="text" name="originalPrice" value="{{editProduct?.originalPrice}}"
+                                 class="form-control" #originalPrice="ngModel" [(ngModel)]="manageInventory.originalPrice"
+                                    required>
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !profit.valid }">
+                                <label for="profit">Profit</label>
+                                <span class="error" *ngIf="f.submitted && profit.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <input type="text" name="profit" value="{{editProduct?.profit}}" class="form-control"
+                                 #profit="ngModel" [(ngModel)]="manageInventory.profit" required (keyup)="calculateSp($event)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sellingPrice">Selling Price</label>
+                                <!-- <span class="error" *ngIf="f.submitted && sellingPrice.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+                                <input type="text" name="sellingPrice" class="form-control" #sellingPrice="ngModel"
+                                [(ngModel)]="manageInventory.sellingPrice"
+                                    disabled required [value]="sellingPrice">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sellingPrice">Date</label>
+                                <span class="error" *ngIf="f.submitted && date.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <input type="date" name="date1" value="{{editProduct?.date}}" class="form-control" 
+                                [(ngModel)]="manageInventory.date" required #date="ngModel">
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !supplier.valid }">
+                                <label for="supplier">Supplier</label>
+                                <span class="error" *ngIf="f.submitted && supplier.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+                                <select name="supplierId" value="{{editProduct?.supplier}}" class="form-control" #supplier="ngModel" 
+                                [(ngModel)]="manageInventory.supplier" required>
+                                    <option *ngFor="let supplier of supplierList" value="{{supplier.name}}">{{supplier.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(f)">Cancel</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -191,46 +155,78 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" (click)="resetForm(f)" data-toggle="modal"  data-target="#exampleModal">
     Add Product
 </button>
-<br><br>
+<br>
+<br>
 
 
 
-<!-- <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Product Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> Product Details</div>
+    <div class="card-body">
+        <app-search [title]="title" style="float:right;" (emitSerchValue)="receiveSearchValue($event)"></app-search>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ProductName</th>
+                        <th scope="col">Measurement</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Profit</th>
+                        <th scope="col">Selling Price</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <!-- <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                </tfoot> -->
+                <tbody>
+                    <tr *ngFor="let product of productList;let i=index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{product.productName}}</td>
+                        <td>{{product.measurement}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>{{product.originalPrice}}</td>
+                        <td>{{product.profit}}</td>
+                        <td>{{product.sellingPrice}}</td>
+                        <td>{{product.date}}</td>
+                        <td>
+                            <button type="button" (click)="updateProduct(product)" data-toggle="modal" data-target="#exampleModal">
+                                <span>
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="deleteProduct(product._id)">
+                                <span>
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Quantity</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Quantity">
-        </div>
-        <div class="form-group">
-                <label for="exampleInputEmail1">Measurement</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Orginal Price</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Quantity">
-            </div>
-            <div class="form-group">
-                    <label for="exampleInputEmail1">Margin</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Selling Price</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Quantity">
-                </div>
-                <div class="form-group">
-                        <label for="exampleInputEmail1">Product Name</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Supplier</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="supplier">
-                    </div>
-       
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form> -->
+    </div>
+    <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+</div>

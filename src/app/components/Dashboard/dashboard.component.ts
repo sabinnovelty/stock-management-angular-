@@ -10,12 +10,17 @@ import { NgForm } from '@angular/forms';
      
 })
 export class DashboardComponent {
+
+  cardTitle: string = '';
+
   constructor(){}
 
-  
-    
   ngOnInit(){
    
+  }
+
+  supplierrDetails(){
+    console.log("supplier details")
   }
 
 

@@ -27,7 +27,8 @@ input:focus{
 
 .display-4{
     font-size:2em !important;
-    font-family: cursive
+    font-family: cursive;
+    color:#003399
 }
 
 .has-error input {
@@ -59,4 +60,8 @@ input[type=date]{
   border-right:none;
   border-left:none;
   border-radius:0;
+}
+
+p .value{
+  font-family: cursive
 }

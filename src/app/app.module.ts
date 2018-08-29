@@ -24,7 +24,12 @@ import { SearchComponent } from './components/search/search.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster';
- 
+import { InventoryService } from './services/inventoryService';
+import { SupplierListComponent } from './components/common/sidebar/sidebarComponent/Supplier/supplier.component';
+import { SalesListComponent } from './components/common/sidebar/sidebarComponent/Sales/sales.component';
+import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
+import { ProductCategoryComponent } from './common/sidebar/sidebar-component/manage-inventory/product-category/product-category.component';
+import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
     SidebarComponent,
     ManageSupplier,
     ManageInventory,
-    SearchComponent
+    SearchComponent,
+    SupplierListComponent,
+    SalesListComponent,
+    CustomerListComponent,
+    ProductCategoryComponent,
+    ProductCategory
   ],
   imports: [
     BrowserModule,
@@ -47,7 +57,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
     ToasterModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [AuthenticationService,HttpClient,SupplierService,ProductService],
+  providers: [AuthenticationService,HttpClient,SupplierService,ProductService,InventoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

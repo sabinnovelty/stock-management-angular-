@@ -21,10 +21,11 @@ export class AuthenticationComponent {
   errorFlag:boolean=false;
     
   ngOnInit(){
-   
+    console.log("ingonit")
   }
 
   login(form:NgForm){
+   console.log("signin clicked")
    this.authService.login(this.model)
    .subscribe(
      data=>{
@@ -36,7 +37,7 @@ export class AuthenticationComponent {
             this.errorMsg=data.message;
            
         }else{
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/dashboard/manageSupplier');
         }
      },
      error=>console.log(error)

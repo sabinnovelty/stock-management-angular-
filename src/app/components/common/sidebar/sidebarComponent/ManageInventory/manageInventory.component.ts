@@ -1,13 +1,17 @@
 declare var hideModel: any;
+declare var showModel: any;
+declare var hideTableFilter: any;
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ManageInventoryModel } from '../../../../../model/manageInventoryMode';
+import { ManageInventoryModel } from '../../../../../model/manageInventoryModel';
 import { NgForm } from '@angular/forms';
 import { SupplierService } from '../../../../../services/supplierServices';
 import { SupplierModel } from '../../../../../model/supplierModel';
 import { ProductService } from '../../../../../services/productService';
 
-
 import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
+import { InventoryService } from '../../../../../services/inventoryService';
+
+
 @Component({
   selector: 'app-manageInventory',
   templateUrl: './manageInventory.component.html',
@@ -18,75 +22,137 @@ export class ManageInventory {
 
   @ViewChild('productModel') productModel: ElementRef;
   manageInventory: ManageInventoryModel = new ManageInventoryModel();
+  cloneManageInventory: ManageInventoryModel = new ManageInventoryModel();
   title: string = "search product";
+  inventoryValue: any = 0;
+  totalProduct: any = 0;
 
   constructor(private supplierService: SupplierService,
-    private productrService: ProductService, private toasterSetvice: ToasterService) {
+    private productrService: ProductService, private toasterSetvice: ToasterService,
+    private inventoryService: InventoryService) {
 
   }
 
   supplierList: SupplierModel[];
   sellingPrice: number = 0;
   productList = [];
+  cloneProductList = [];
   cloneProducts = [];
   products = [];
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
+  editProduct: any;
+  deleteFlag:boolean=false;
+  addFlag:boolean=false;
+
+  // for category list
+  categoryList = [];
 
 
   ngOnInit() {
+    hideTableFilter();
+    this.fetchTotalNoProduct();
+    this.fetchTotalInventoryValue()
     this.supplierService.fetchSupplier()
       .subscribe(
         response => {
           this.supplierList = response.data;
-          console.log(this.supplierList, "supplierList")
+
         }
       )
     this.fetchProduct();
+    this.getCategory();
+  }
+
+  onsellingPriceChange(event: any) {
+    console.log(event)
   }
 
   resetForm(f: NgForm) {
-    f.resetForm();
+    // console.log("reset form")
+    // f.resetForm();
+    // this.manageInventory = this.cloneManageInventory;
+  }
+
+  fetchTotalInventoryValue() {
+    this.inventoryService.fetchTotalInventoryValue()
+      .subscribe(
+        data => {
+          console.log(data.value, "inventory value")
+          this.inventoryValue = data.value
+        }
+      )
+  }
+
+  fetchTotalNoProduct() {
+    this.inventoryService.fetchTotalNoProduct()
+      .subscribe(
+        data => {
+          console.log(data.count, "count")
+          this.totalProduct = data.count
+        }
+      )
   }
 
   fetchProduct() {
     this.productrService.fetchAllProducts()
       .subscribe(
         response => {
-          console.log(response, "porudct")
           this.productList = response.data;
           this.products = response.data;
-          console.log(response)
         }
       )
   }
 
   onSubmit(f: NgForm) {
     console.log(f, "form")
-    this.manageInventory.measurement = f.value.measurement;
-    this.manageInventory.originalPrice = f.value.originalPrice;
-    this.manageInventory.productName = f.value.productName
-    this.manageInventory.profit = f.value.profit;
-    this.manageInventory.quantity = f.value.quantity;
-    this.manageInventory.supplierId = f.value.supplierId;
-    this.manageInventory.date = f.value.date1;
-    this.productrService.addProduct(this.manageInventory)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.productList.push(response.data)
+    if (this.addOrEdit == "Add Inventory") {
+      console.log("add product", this.addOrEdit)
+      this.manageInventory.measurement = f.value.measurement;
+      this.manageInventory.originalPrice = f.value.originalPrice;
+      this.manageInventory.productName = f.value.productName
+      this.manageInventory.profit = f.value.profit;
+      this.manageInventory.quantity = f.value.quantity;
+      this.manageInventory.supplierId = f.value.supplierId;
+      this.manageInventory.date = f.value.date1;
+      this.manageInventory.productCategory = f.value.productCategory;
+      this.productrService.addProduct(this.manageInventory)
+        .subscribe(
+          response => {
+            this.deleteFlag=false;
+            this.addFlag=true;
+            this.popToast();
+            console.log(response);
+            this.productList.push(response.data);
+            this.fetchTotalNoProduct();
+            this.fetchTotalInventoryValue();
+            hideModel();
+          }
+        )
 
-        }
+    } else {
+      this.inventoryService.updateProduct(this.manageInventory).subscribe(
+        data => console.log(data),
+        error => console.log("error occured on update product")
       )
-    hideModel();
-    f.resetForm();
+    }
+
+    // hideModel();
+    // f.resetForm();
   }
 
-  calculateSp(event: any) {
+  showModels() {
+    showModel()
+  }
+
+  calculateSp() {
     if (this.manageInventory.originalPrice !== null && this.manageInventory.profit !== null) {
       let sellingPrice = parseInt(this.manageInventory.originalPrice) + parseInt(this.manageInventory.profit);
       this.manageInventory.sellingPrice = String(sellingPrice)
       console.log(this.manageInventory)
+    } else if (this.editProduct.originalPrice !== null && this.editProduct.profit !== null) {
+      let sellingPrice = parseInt(this.editProduct.originalPrice) + parseInt(this.editProduct.profit);
+      this.sellingPrice = sellingPrice;
     }
   }
 
@@ -95,8 +161,14 @@ export class ManageInventory {
       this.productrService.deleteProduct(productId)
         .subscribe(
           response => {
-            console.log(response);
-            this.popToast()
+            //   this.deleteProductMsg = `${response.data.productName} has been
+            //  deleted from stock sucessfully.`;
+            this.addFlag=false
+            this.deleteFlag=true;
+            
+            this.fetchTotalNoProduct();
+            this.fetchTotalInventoryValue();
+            this.popToast();
             this.deleteProductMsg = `${response.data.productName} has been
            deleted from stock sucessfully.`;
             this.removeProductFromList(response.data)
@@ -104,8 +176,6 @@ export class ManageInventory {
           error => console.log(error),
           () => console.log("completed")
         )
-    } else {
-
     }
 
   }
@@ -138,17 +208,41 @@ export class ManageInventory {
     new ToasterConfig({
       showCloseButton: true,
       tapToDismiss: false,
-      timeout: 1500
+      timeout: 5000,
+
     });
 
+  // popToast() {
+  //   if (this.addOrEdit.toLocaleLowerCase() === 'add inventory') {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+  //   } else {
+  //     this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+  //   }
+  // }
   popToast() {
-    this.toasterSetvice.pop('warning', 'Status', 'Inventory Deleted');
+    if (this.addFlag) {
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
+    } else if(this.deleteFlag){
+      this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    }
   }
 
   updateProduct(product: any) {
-    console.log(product)
     this.addOrEdit = "Update Product";
-    console.log(product, "update product")
+    // this.manageInventory=product;
+    this.manageInventory = product;
+    this.calculateSp();
+    console.log(this.editProduct)
   }
+  // this.editProduct = product;
+  // console.log(this.editProduct);
+  // }
 
+  getCategory() {
+    this.inventoryService.getCategory()
+      .subscribe(response => {
+        this.categoryList = response.data;
+        console.log(this.categoryList, 'response category')
+      })
+  }
 }
