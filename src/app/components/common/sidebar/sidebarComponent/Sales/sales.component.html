@@ -1,6 +1,6 @@
 <div class="container">
   <button class="btn btn-primary" (click)="toggleSalesReport()">{{ !showSalesReport ? 'View' : 'Hide' }} Sales Report</button>
-  <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
+  <a style="text-decoration: none" [routerLink]="['/dashboard/addSales']"><button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button></a>
 </div>
 
 <br />

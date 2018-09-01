@@ -55,6 +55,18 @@ export class InventoryService {
         .catch((err:Response)=>Observable.throw(err.json()))
     }
 
+    deleteCategory(categoryId) {
+        return this.http.delete(API_BASE_URL + '/api/inventory/category/' + categoryId)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()));
+    }
+
+    updateCategory(category: any) {
+        return this.http.put(API_BASE_URL + '/api/inventory/category', category)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()));
+    }
+
     addSales(salesModel) {
         console.log(salesModel, 'asdasdasdas sales model');
         return this.http.post(API_BASE_URL + '/api/inventory/addSales', salesModel)

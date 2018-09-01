@@ -25,8 +25,8 @@
             [(ngModel)]="addSales.category" 
             required
           >   
-            <option value="a">asd</option>
-              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option> -->
+            <!-- <option value="a">asd</option> -->
+              <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>
           </select>      
       </div>
 

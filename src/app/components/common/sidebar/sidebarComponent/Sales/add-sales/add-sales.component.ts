@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SalesModel } from '../../../../../../model/salesModel';
 import { NgForm } from '@angular/forms';
 import { InventoryService } from '../../../../../../services/inventoryService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-sales',
@@ -15,8 +16,12 @@ export class AddSalesComponent implements OnInit {
     // for product list
     productList = [];
 
+    // for category list
+    categoryList = [];
+
   constructor(
-    private inventoryService: InventoryService
+    private inventoryService: InventoryService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +30,12 @@ export class AddSalesComponent implements OnInit {
       this.productList = response.data;
       console.log(this.productList, 'fetched all inventory')
     })
+
+    this.inventoryService.getCategory()
+      .subscribe(response => {
+        this.categoryList = response.data;
+        console.log('category response', response.data);
+      })
   }
 
   onSubmit(form: NgForm) {
@@ -34,6 +45,8 @@ export class AddSalesComponent implements OnInit {
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
         console.log(response, 'response after adding sales')
+        this.router.navigateByUrl('/dashboard/sales');
+
       })
   }
 
