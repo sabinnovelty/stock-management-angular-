@@ -1,5 +1,18 @@
-.navbar-custome{
+/* .navbar-custome{
     
     width:100% !important
+} */
+
+#collapseComponents li{
+    list-style: none;
 }
 
+#collapseComponents li a{
+    text-decoration: none;
+    color:black;
+    font-family: fantasy
+}
+
+.bg-color-nav{
+    background: black
+}

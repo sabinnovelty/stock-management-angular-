@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { InventoryService } from '../../services/inventoryService'
+import { InventoryService } from '../../../../../services/inventoryService'
 
 
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl:'./dashboard.component.html',
-    styleUrls:['./dashboard.component.style.css']
+    selector: 'app-notification',
+    templateUrl:'./notification.component.html',
+    styleUrls:['./notification.component.style.css']
      
 })
-export class DashboardComponent {
+
+export class Notification {
 
   cardTitle: string = '';
   productList=[];

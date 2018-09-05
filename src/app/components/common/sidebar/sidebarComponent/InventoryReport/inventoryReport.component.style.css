@@ -15,6 +15,10 @@ input:focus{
         border-radius: 0;
 }
 
+.chart{
+  width:600px;
+}
+
 .heading{
   color:blue;
   font-family: italic;

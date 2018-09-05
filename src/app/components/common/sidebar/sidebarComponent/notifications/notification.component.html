@@ -1,0 +1,20 @@
+<button type="button" class="btn btn-primary" (click)="showDashboardItem()">
+    Notifications <span class="badge badge-light">{{notification}}</span>
+  </button>
+<div class="card" *ngIf="stockFlag">
+  <div class="card-body" *ngIf="productList">
+    <p><b>We in need these products</b></p>
+      <small>This Products are out of Stocks.&nbsp;Buy these Products From specific Vendor.</small>
+      <ul class="list-group">
+          <li class="list-group-item active">Products</li>
+          <table>
+            <tr *ngFor="let product of productList">
+              <td><li class="list-group-item" >{{product.productName}}</li></td>
+              <td><li class="list-group-item" >{{product.quantity}}&nbsp; <span class="badge badge-danger">out of stock</span></li></td>
+                
+            </tr>
+          </table>
+          
+        </ul>
+  </div>
+</div>

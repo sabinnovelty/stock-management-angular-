@@ -24,9 +24,8 @@
             #category="ngModel" 
             [(ngModel)]="addSales.category" 
             required
-          >   
-            <option value="a">asd</option>
-              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option> -->
+          > 
+              <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>
           </select>      
       </div>
 
@@ -54,6 +53,7 @@
             class="form-control" 
             #quantity="ngModel" 
             [(ngModel)]="addSales.quantity" 
+            (keyup)="getQuantity($event)"
             required
           >
       </div>
@@ -68,6 +68,7 @@
             [value]="rate"
             [(ngModel)]="addSales.rate"
             #rate="ngModel"
+            (keyup)="calculateRate($event)"
             required
           >
       </div>
@@ -78,9 +79,10 @@
           type="text" 
           name="total" 
           class="form-control" 
-          [value]="addSales"
-          [(ngModel)]="addSales.sellingPrice"
+          value="{{totalRate}}"
+          [(ngModel)]="addSales.total"
           #addSales="ngModel"
+          disabled
           required
         >
       </div>

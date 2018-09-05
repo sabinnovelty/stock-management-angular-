@@ -1,11 +1,28 @@
-<div class="container">
-  <button class="btn btn-primary" (click)="toggleSalesReport()">{{ !showSalesReport ? 'View' : 'Hide' }} Sales Report</button>
-  <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
-</div>
 
+<div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="container" >
+        <button class="btn btn-primary" (click)="toggleSalesReport()">{{ !showSalesReport ? 'View' : 'Hide' }} Sales Report</button>
+        <button class="btn btn-info" (click)="viewChart()">Visualize Sales Report</button>
+        <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="container">
+        <select class="form-control" [(ngModel)]="sortType" (ngModelChange)="sortingType($event)">
+          <option value="SORT_PRICE_ASCENDING" selected>sort by price(ascending order)</option>
+          <option value="SORT_PRICE_DESCENDING">sort by price(descending order)</option>
+          <option value="SORT_DATE_ASCENDING">sort by date(ascending order)</option>
+          <option value="SORT_DATE_DESCENDING">sort by date(descending order)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
 <br />
 
-<div *ngIf="showSalesReport">
+<div *ngIf="showSalesReport" >
   <div class="card mb-3">
     <div class="card-header">
       <i class="fa fa-table"></i> Sales Details</div>
@@ -29,13 +46,13 @@
 
           <tbody>
             <tr *ngFor="let p of productList;let i=index">
-              <th scope="row">{{i+1}}</th>
-              <td>{{p.productName}}</td>
-              <td>{{p.cid}}</td>
+              <th >{{i+1}}</th>
+              <td>{{p.pid.productName}}</td>
+              <td>{{p.category.category}}</td>
               <td>{{p.date}}</td>
-              <td>{{p.sellingPrice}}</td>
+              <td>{{p.pid.sellingPrice}}</td>
               <td>{{p.quantity}}</td>
-              <td>{{p.sellingPrice * p.quantity}}</td>
+              <td>{{p.rate * p.quantity}}</td>
               <td>
                 <button type="button" (click)="updateSupplier(s)">
                   <span><i class="fas fa-edit"></i></span>
@@ -45,14 +62,19 @@
                 </button>
               </td>
             </tr>
+            <tr>
+              <td class="total">
+                <input type="text" disabled value="{{totalSales}}" />
+              </td>
+            </tr>
           </tbody>
-
         </table>
       </div>
     </div>
   </div>
 </div>
-  
+<canvas  id="lineChart"></canvas>
 <div *ngIf="addSales">
   <app-add-sales></app-add-sales>
 </div>
+

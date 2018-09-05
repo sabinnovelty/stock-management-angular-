@@ -10,6 +10,8 @@ import { CustomerListComponent } from './components/common/sidebar/sidebarCompon
 import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component'
 import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
+import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component';
+import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component'
 const app_Routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AuthenticationComponent },
@@ -19,12 +21,15 @@ const app_Routes: Routes = [
       { path:'', redirectTo: 'dashboard',pathMatch:"prefix"},
       { path :'manageSupplier', component: ManageSupplier },
       { path :'manageInventory', component: ManageInventory },
+      { path :'notification', component: Notification },
       { path :'supplierDetails', component: SupplierListComponent },
       { path: 'addSales', component: AddSalesComponent },
       { path: 'sales', component: SalesListComponent },
       { path: 'customerDetails', component: CustomerListComponent },
       { path:'category',component:ProductCategory },
-      { path:'inventoryReport',component:InventoryReport }
+      { path:'inventoryReport',component:InventoryReport,children:[
+        { path:'inventorySummary',component:InventorySummary }
+      ] }
     ]
   },
   { path: '**', redirectTo: '' }
