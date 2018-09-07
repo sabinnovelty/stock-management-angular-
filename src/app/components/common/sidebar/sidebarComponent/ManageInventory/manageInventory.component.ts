@@ -78,8 +78,8 @@ export class ManageInventory {
     this.inventoryService.fetchTotalInventoryValue()
       .subscribe(
         data => {
-          console.log(data.value, "inventory value")
-          this.inventoryValue = data.value
+          console.log(data, "inventory value")
+          this.inventoryValue = data.inventoryValue
         }
       )
   }
@@ -119,6 +119,8 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
+            this.fetchTotalInventoryValue();
+            this.inventoryValue=this.inventoryValue+(f.value.quantity)*(f.value.originalPrice)
             this.deleteFlag=false;
             this.addFlag=true;
             this.popToast();
@@ -134,7 +136,6 @@ export class ManageInventory {
       this.inventoryService.updateProduct(this.manageInventory).subscribe(
         data => {
           console.log(data,'Upaded');
-
           hideModel();
           this.popToast();
         },
