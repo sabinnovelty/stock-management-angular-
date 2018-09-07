@@ -51,13 +51,10 @@ export class SalesListComponent implements OnInit {
      salesList=this.productList.filter(sales=>{
       let salesDate=moment(sales.date).format("YYYY MM D");
       if(salesDate<=edate && salesDate>=sdate){
-        return {
-            ...sales,
-            salesDate
-        };
+        return sales;
       }
-      salesList.length>0?this.salesMessage=false:this.salesMessage=true;
     })
+    salesList.length>0?this.salesMessage=false:this.salesMessage=true;
     console.log(salesList,"filterd sales");
     this.salesDetails=salesList;
   }
