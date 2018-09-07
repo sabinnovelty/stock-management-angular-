@@ -25,7 +25,7 @@ export class InventorySummary {
         labels: this.productLabels,
         datasets: [
           {
-            label: "# of Votes",
+            label: "products",
             data: this.productExpenses,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",

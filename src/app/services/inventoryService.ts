@@ -91,4 +91,14 @@ export class InventoryService {
         .map((res: Response) => res.json())
         .catch((err: Response) => Observable.throw(err.json()))
     }
+    fetchWinterProducts(){
+        return this.http.get(API_BASE_URL +"/api/inventory/winterProducts")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
+    fetchMonthlyProducts(){
+        return this.http.get(API_BASE_URL +"/api/sales/monthly")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
 }

@@ -1,3 +1,6 @@
+<div class="alert alert-success" role="alert" *ngIf="salesMessageFlag">
+  {{salesAddedMessage}}
+</div>
 <form id="salesForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
   <div class="container">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">

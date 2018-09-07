@@ -26,7 +26,7 @@ export class AuthenticationComponent {
 
   login(form:NgForm){
     console.log(form,"form");
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/dashboard/notification');
   //  this.authService.login(this.model)
   //  .subscribe(
   //    data=>{

@@ -1,14 +1,14 @@
-
 <div>
   <div class="row">
     <div class="col-sm-8">
-      <div class="container" >
-        <button class="btn btn-primary" (click)="toggleSalesReport()">{{ !showSalesReport ? 'View' : 'Hide' }} Sales Report</button>
-        <button class="btn btn-info" (click)="viewChart()">Visualize Sales Report</button>
+      <div class="container">
+        <button class="btn btn-primary" (click)="toggleSalesReport()">{{ !showSalesReport ? 'View' : 'Hide' }} Sales
+          Report</button>
+        <!-- <button class="btn btn-info" (click)="viewChart()">Visualize Sales Report</button> -->
         <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
       </div>
     </div>
-    <div class="col-sm-4">
+    <!-- <div class="col-sm-4">
       <div class="container">
         <select class="form-control" [(ngModel)]="sortType" (ngModelChange)="sortingType($event)">
           <option value="SORT_PRICE_ASCENDING" selected>sort by price(ascending order)</option>
@@ -17,20 +17,44 @@
           <option value="SORT_DATE_DESCENDING">sort by date(descending order)</option>
         </select>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <br />
-
-<div *ngIf="showSalesReport" >
+<div class="alert alert-info winterProduct" *ngIf="salesMessage">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    ×</button>
+  <span class="glyphicon glyphicon-info-sign">No sales record is found.</span>
+</div>
+<div *ngIf="showSalesReport">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fa fa-table"></i> Sales Details</div>
     <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <input type="date" class="form-control" [(ngModel)]="startDate">
+        </div>
+        <div class="col-sm-3">
+          <input type="date" class="form-control" [(ngModel)]="endDate">
+        </div>
+        <div class="col-sm-2">
+          <input type="button" class="form-control btn-primary btn-sm" (click)="salesList()" value="search">
+        </div>
+        <!-- <div class="col-sm-2">
+          <button type="button" class="btn btn-info btn-sm" (click)="salesDetails(p)">
+            daily sales details
+          </button>
+        </div> -->
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-primary btn-sm" (click)="setMonthlyFlag()">
+            monthly sales details
+          </button>
+        </div>
+      </div>
 
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -39,33 +63,24 @@
               <th scope="col">Date</th>
               <th scope="col">Rate</th>
               <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
-              <th scope="col">Action</th>
+              <th scope="col">Amount</th>
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let p of productList;let i=index">
-              <th >{{i+1}}</th>
+              <th>{{i+1}}</th>
               <td>{{p.pid.productName}}</td>
               <td>{{p.category.category}}</td>
-              <td>{{p.date}}</td>
+              <td>{{p.date | date: 'medium'}}</td>
               <td>{{p.pid.sellingPrice}}</td>
               <td>{{p.quantity}}</td>
-              <td>{{p.rate * p.quantity}}</td>
-              <td>
-                <button type="button" (click)="updateSupplier(s)">
-                  <span><i class="fas fa-edit"></i></span>
-                </button>
-                <button type="button" (click)="deleteSupplier(s)">
-                  <span><i class="fas fa-trash"></i></span>
-                </button>
-              </td>
+              <td>{{p.quantity * p.pid.sellingPrice }}</td>
             </tr>
             <tr>
-              <td class="total">
+              <!-- <td class="total">
                 <input type="text" disabled value="{{totalSales}}" />
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -73,8 +88,65 @@
     </div>
   </div>
 </div>
-<canvas  id="lineChart"></canvas>
+<!-- <canvas id="lineChart"></canvas> -->
 <div *ngIf="addSales">
   <app-add-sales></app-add-sales>
+</div>
+
+<!-- <canvas id="salesChart" width="400" height="400">{{lineChart}}</canvas> -->
+
+<table class="table table-striped" *ngIf="salesDetails.length>0">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Quntatiy</th>
+      <th scope="col">Date</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sales of salesDetails;let i=index">
+      <td scope="row">{{i+1}}</td>
+      <td>
+        {{sales.pid.productName}}
+      </td>
+      <td>
+        {{sales.pid.quantity}}
+      </td>
+      <td>
+        {{sales.pid.date}}
+      </td>
+      <td>
+        {{sales.pid.sellingPrice *sales.pid.quantity}} Rs
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<div class="container">
+  <!-- <ul class="list-group" *ngIf="monthlySalesFlag">
+    <li class="list-group-item active">Monthly</li>
+    <li class="list-group-item" *ngFor="let sales of monthlySales">{{sales.month}}&nbsp;|{{sales.productName}}</li>
+  </ul> -->
+  <table class="table" *ngIf="monthlySalesFlag">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Month</th>
+        <th scope="col">Product</th>
+        <th scope="col">Total sales</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let sales of monthlySales;let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{sales.month}}</td>
+        <td>{{sales.productName}}</td>
+        <td><small><b>Rs</b></small>{{sales.rate*sales.quantity}}</td>
+      </tr>
+  
+    </tbody>
+  </table>
 </div>
 

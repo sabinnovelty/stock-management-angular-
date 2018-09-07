@@ -59,7 +59,7 @@
             <li>Sell Price:&nbsp;{{ salesData.rate }}</li>
             <li>Quantity:&nbsp;{{ salesData.quantity }}</li>
             <li>Total Sales:&nbsp;{{ (salesData.quantity * 1) * (salesData.rate *1) }}</li>
-            <li>Date:&nbsp;{{ salesData.date}}</li>
+            <li>Date:&nbsp;{{ salesData.date | date: 'medium'}}</li>
           </ul>
         </div>
       </div>

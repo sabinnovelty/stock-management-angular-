@@ -132,7 +132,12 @@ export class ManageInventory {
 
     } else {
       this.inventoryService.updateProduct(this.manageInventory).subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data,'Upaded');
+
+          hideModel();
+          this.popToast();
+        },
         error => console.log("error occured on update product")
       )
     }

@@ -18,6 +18,8 @@ export class AddSalesComponent implements OnInit {
     categoryList=[];
     totalRate:Number=0;
     quantity:any
+    salesAddedMessage:string;
+    salesMessageFlag:boolean;
 
   constructor(
     private inventoryService: InventoryService
@@ -53,6 +55,8 @@ export class AddSalesComponent implements OnInit {
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
         console.log(response, 'response after adding sales')
+        this.salesAddedMessage=response.message;
+        this.salesMessageFlag=true;
       })
   }
 
