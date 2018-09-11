@@ -8,7 +8,7 @@
         <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
       </div>
     </div>
-    <!-- <div class="col-sm-4">
+    <div class="col-sm-4">
       <div class="container">
         <select class="form-control" [(ngModel)]="sortType" (ngModelChange)="sortingType($event)">
           <option value="SORT_PRICE_ASCENDING" selected>sort by price(ascending order)</option>
@@ -17,7 +17,7 @@
           <option value="SORT_DATE_DESCENDING">sort by date(descending order)</option>
         </select>
       </div>
-    </div> -->
+    </div>
   </div>
 </div>
 <br />
@@ -62,9 +62,9 @@
               <th scope="col">Product Name</th>
               <th scope="col">Category</th>
               <th scope="col">Date</th>
-              <th scope="col">Rate</th>
+              <th scope="col">Cost per Item</th>
               <th scope="col">Quantity</th>
-              <th scope="col">Amount</th>
+              <th scope="col">Total Value</th>
             </tr>
           </thead>
 
@@ -74,9 +74,9 @@
               <td>{{p.pid.productName}}</td>
               <td>{{p.category.category}}</td>
               <td>{{p.date | date: 'medium'}}</td>
-              <td>{{p.pid.sellingPrice}}</td>
+              <td>{{p.rate}}</td>
               <td>{{p.quantity}}</td>
-              <td>{{p.quantity * p.pid.sellingPrice }}</td>
+              <td>{{p.quantity * p.rate }}</td>
             </tr>
             <tr>
               <!-- <td class="total">

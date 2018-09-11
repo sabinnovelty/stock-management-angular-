@@ -127,19 +127,61 @@ export class SalesListComponent implements OnInit {
   }
 
   sortingType() {
-    console.log(this.sortType, "sortype");
     if (this.sortType === "SORT_PRICE_ASCENDING") {
       this.sortPriceAscending();
     } else if (this.sortType === "SORT_PRICE_DESCENDING") {
-      console.log("2");
+     this.sortPriceDescending();
     } else if (this.sortType === "SORT_DATE_ASCENDING") {
-      console.log("3");
+     this.sortDateAscending();
     } else if (this.sortType === "SORT_DATE_DESCENDING") {
-      console.log("4");
+      this.sortDateDescending();
     }
   }
 
-  sortPriceAscending() {}
+  sortDateAscending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+          return -1;
+      }else if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+        return 1;
+      }
+    })
+    console.log(this.productList,"date productlist")
+  }
+  sortDateDescending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+          return 1;
+      }else if(moment(a.date).format("YYYY MM DD")>moment(b.date).format("YYYY MM DD")){
+        return -1;
+      }
+    })
+    console.log(this.productList,"date productlist")
+  }
+  sortPriceDescending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(a.rate<b.rate){
+          return 1;
+      }else if(a.rate>b.rate){
+        return -1;
+      }
+    })
+  }
+
+  sortPriceAscending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(a.rate<b.rate){
+          return -1;
+      }else if(a.rate>b.rate){
+        return 1;
+      }
+    })
+    console.log(this.productList,"new salesdetails")
+  }
 
   toggleSalesReport() {
     this.showSalesReport = !this.showSalesReport;

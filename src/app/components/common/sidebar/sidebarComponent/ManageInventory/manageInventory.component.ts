@@ -47,6 +47,7 @@ export class ManageInventory {
 
   // for category list
   categoryList = [];
+  updateStock=false;
 
 
   ngOnInit() {
@@ -119,16 +120,28 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
-            this.fetchTotalInventoryValue();
-            this.inventoryValue=this.inventoryValue+(f.value.quantity)*(f.value.originalPrice)
-            this.deleteFlag=false;
-            this.addFlag=true;
-            this.popToast();
-            console.log(response);
-            this.productList.push(response.data);
-            this.fetchTotalNoProduct();
-            this.fetchTotalInventoryValue();
-            hideModel();
+            console.log(response,"inventory reesult")
+            if(response.updateStock){
+              console.log("update sotkc ")
+               this.updateStockInProductList(this.productList,this.manageInventory);
+               this.updateStock=true;
+               this.fetchTotalInventoryValue();
+              //  this.inventoryValue=this.inventoryValue+(f.value.quantity)*(f.value.originalPrice);
+               this.popToast();
+               hideModel();
+            }else{
+              this.fetchTotalInventoryValue();
+              this.inventoryValue=this.inventoryValue+(f.value.quantity)*(f.value.originalPrice)
+              this.deleteFlag=false;
+              this.addFlag=true;
+              this.popToast();
+              console.log(response);
+              this.productList.push(response.data);
+              this.fetchTotalNoProduct();
+              this.fetchTotalInventoryValue();
+              hideModel();
+            }
+            
           }
         )
 
@@ -146,7 +159,16 @@ export class ManageInventory {
     // hideModel();
     // f.resetForm();
   }
-
+  updateStockInProductList(productList:any,product:any){
+    console.log(productList,product,"updateStockInProductList");
+    let index=productList.findIndex(value=>value.productName==product.productName);
+    console.log(index,"produt index");
+    let newStock=parseInt(productList[index].quantity)+parseInt(product.quantity);
+    console.log(newStock,"newstockvalue")
+     let newProduct=Object.assign({},product,{quantity:newStock});
+     console.log( newProduct,"new porudr")
+    productList.splice(index,1,newProduct);
+  }
   showModels() {
     showModel()
   }
@@ -230,6 +252,8 @@ export class ManageInventory {
       this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
     } else if(this.deleteFlag){
       this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
+    }else if(this.updateStock){
+      this.toasterSetvice.pop('success', 'Status', 'Inventory stock updated successfully!');
     }
   }
 

@@ -33,7 +33,8 @@ import { ProductCategory } from './components/common/sidebar/sidebarComponent/Pr
 import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component'
-import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component'
+import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component';
+import { Registration } from './components/authentication/Registration/registration.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { Notification } from './components/common/sidebar/sidebarComponent/notif
     InventoryReport,
     AddSalesComponent,
     InventorySummary,
-    Notification
+    Notification,
+    Registration
   ],
   imports: [
     BrowserModule,

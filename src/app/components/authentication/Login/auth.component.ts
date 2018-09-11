@@ -26,23 +26,22 @@ export class AuthenticationComponent {
 
   login(form:NgForm){
     console.log(form,"form");
-    this.router.navigateByUrl('/dashboard/notification');
-  //  this.authService.login(this.model)
-  //  .subscribe(
-  //    data=>{
-  //      console.log(data)
-  //       localStorage.setItem("loggedInUser",JSON.stringify(data));
-  //       if(!data.success){
-  //         this.errorFlag=true;
-  //           this.errorMsg=data.message;
+   this.authService.login(this.model)
+   .subscribe(
+     data=>{
+       console.log(data)
+        localStorage.setItem("loggedInUser",JSON.stringify(data));
+        if(!data.success){
+          this.errorFlag=true;
+            this.errorMsg=data.message;
            
-  //       }else{
-  //         console.log("naviage")
-  //         this.router.navigateByUrl('/dashboard');
-  //       }
-  //    },
-  //    error=>console.log(error)
-  //  )
+        }else{
+          console.log(data,"succes login")
+          this.router.navigateByUrl('/dashboard/notification');
+        }
+     },
+     error=>console.log(error)
+   )
   }
 
 }

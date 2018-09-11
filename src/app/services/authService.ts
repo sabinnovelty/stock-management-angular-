@@ -5,6 +5,7 @@ import { HttpClient } from './httpService';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {Admin} from './../model/admin';
 
 declare var app: any;
 
@@ -29,6 +30,12 @@ export class AuthenticationService {
       .map((response: Response) => {
           return response.json();
       });
+  }
+
+  registerAdmin(admin:Admin){
+    return this.http.post(API_BASE_URL+"/api/auth/registration",admin)
+    .map((res:Response)=>res.json())
+    .catch((err:Response)=>Observable.throw(err.json()))
   }
 
   logout() {

@@ -15,10 +15,13 @@
            >
           <input type="password" id="inputPassword" [(ngModel)]="model.password" name="password"
            #password="ngModel" class="form-control"  [ngClass]="{ 'has-error' : f.submitted && !password.valid } " placeholder="Password" required>
-          <div id="remember" class="checkbox">
+          <!-- <div id="remember" class="checkbox">
               <label>
                   <input type="checkbox" value="remember-me"> Remember me
               </label>
+          </div> -->
+          <div>
+              <p><b>New ? &nbsp;</b><a [routerLink]="['/registration']">Register here.</a></p>
           </div>
           <button  type="submit"  class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
       </form><!-- /form -->
@@ -32,3 +35,4 @@
       
   </div><!-- /card-container -->
 </div><!-- /container -->
+

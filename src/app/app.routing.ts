@@ -12,9 +12,12 @@ import { InventoryReport } from './components/common/sidebar/sidebarComponent/In
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component';
 import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component'
+import { Registration } from './components/authentication/Registration/registration.component';
+
 const app_Routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AuthenticationComponent },
+  { path:'registration',component:Registration },
   {
     path: 'dashboard', component: DashboardComponent,
     children: [
