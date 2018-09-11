@@ -5,11 +5,11 @@
           <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
           <select 
             name="productName" 
-            [ngModel]="addSales?.productName" 
             class="form-control" 
             #productName="ngModel" 
             [(ngModel)]="addSales.productName"
             required
+            (ngModelChange)="getCategory(productName)"
           >
           <option *ngFor="let p of productList" value="{{ p._id }}">{{ p.productName }}</option>
           </select>
@@ -18,16 +18,16 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
           <label for="category">Product Category</label>
           <span class="error" *ngIf="f.submitted && category.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-          <select 
+          <input 
             name="category" 
             class="form-control"
             #category="ngModel" 
             [(ngModel)]="addSales.category" 
+            disabled
+            [value]="categoryList[0]?.category"
             required
-          >   
-            <!-- <option value="a">asd</option> -->
-              <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>
-          </select>      
+          >
+              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>      -->
       </div>
 
       <div class="form-group">
@@ -47,6 +47,7 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
           <label for="quantity">Quantity</label>
           <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <span class="error" *ngIf="f.submitted && quantity.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Enter valid quantity</span>
           <input 
             type="text" 
             value="" 
@@ -54,20 +55,25 @@
             class="form-control" 
             #quantity="ngModel" 
             [(ngModel)]="addSales.quantity" 
+            pattern="^[0-9]*$"
             required
           >
       </div>
 
       <div class="form-group">
           <label for="rate">Rate</label>
-          <!-- <span class="error" *ngIf="f.submitted && rate.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+          <span class="error" *ngIf="f.submitted && rate.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <span class="error" *ngIf="f.submitted && rate.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
           <input 
             type="text" 
+            [value]="productById[0]?.sellingPrice"
             name="rate" 
             class="form-control" 
             [value]="rate"
             [(ngModel)]="addSales.rate"
             #rate="ngModel"
+            pattern="^[0-9]*$"
+            disabled
             required
           >
       </div>
@@ -76,11 +82,13 @@
         <label for="total">Total</label>
         <input 
           type="text" 
+          value=""
           name="total" 
           class="form-control" 
           [value]="addSales"
           [(ngModel)]="addSales.sellingPrice"
           #addSales="ngModel"
+          disabled
           required
         >
       </div>

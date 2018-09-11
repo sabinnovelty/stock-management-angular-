@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, APP_ID } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { config } from '../config';
 import { HttpClient } from './httpService';
@@ -24,7 +24,20 @@ export class InventoryService {
         .map((res: Response) => res.json())
         .catch((err: Response) => Observable.throw(err.json()));
     }
- 
+
+    fetchProductById(id) {
+        return this.http.get(API_BASE_URL + '/api/inventory/' + id)
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
+
+    fetchCategoryByInventoryId(id) {
+        console.log(id)
+        return this.http.get(API_BASE_URL + `/api/inventory/category/`+ id)
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    } 
+
     fetchTotalNoProduct(){
         return this.http.get(API_BASE_URL+"/api/inventory/totalNoProduct")
         .map((res:Response)=>res.json())

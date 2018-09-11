@@ -26,6 +26,7 @@ export class ManageInventory {
   title: string = "search product";
   inventoryValue: any = 0;
   totalProduct: any = 0;
+  p: boolean;
 
   constructor(private supplierService: SupplierService,
     private productrService: ProductService, private toasterSetvice: ToasterService,
@@ -42,8 +43,8 @@ export class ManageInventory {
   deleteProductMsg: string;
   addOrEdit = "Add Inventory";
   editProduct: any;
-  deleteFlag:boolean=false;
-  addFlag:boolean=false;
+  deleteFlag: boolean = false;
+  addFlag: boolean = false;
 
   // for category list
   categoryList = [];
@@ -105,12 +106,27 @@ export class ManageInventory {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f, "form")
+    console.log(f, "form");
+    // console.log(this.productList);
+    // const pName = f.value.productName.replace(/ /g,'').toLowerCase();
+
+    // let tempProductName = [];
+    // this.productList.filter(data => {
+    //   console.log(data.productName, 'sdfsdf')
+    //   if(data.productName.replace(/ /g,'').toLowerCase() == pName) {
+    //     tempProductName.push(data)
+    //     // console.log(tempProductName, 'ADQSDA')
+    //   }
+    // });
+    // console.log(tempProductName, 'ADQSDA')
+    // console.log(tempProductName.forEach(data => data));
+    // if(pName != tempProductName.forEach(data=> data.productName))
     if (this.addOrEdit == "Add Inventory") {
+    // if ((pName != tempProductName.forEach(data => data.productName)) || tempProductName == [] ) {
       console.log("add product", this.addOrEdit)
       this.manageInventory.measurement = f.value.measurement;
       this.manageInventory.originalPrice = f.value.originalPrice;
-      this.manageInventory.productName = f.value.productName
+      this.manageInventory.productName = f.value.productName;
       this.manageInventory.profit = f.value.profit;
       this.manageInventory.quantity = f.value.quantity;
       this.manageInventory.supplierId = f.value.supplierId;
@@ -119,8 +135,8 @@ export class ManageInventory {
       this.productrService.addProduct(this.manageInventory)
         .subscribe(
           response => {
-            this.deleteFlag=false;
-            this.addFlag=true;
+            this.deleteFlag = false;
+            this.addFlag = true;
             this.popToast();
             console.log(response);
             this.productList.push(response.data);
@@ -163,9 +179,9 @@ export class ManageInventory {
           response => {
             //   this.deleteProductMsg = `${response.data.productName} has been
             //  deleted from stock sucessfully.`;
-            this.addFlag=false
-            this.deleteFlag=true;
-            
+            this.addFlag = false
+            this.deleteFlag = true;
+
             this.fetchTotalNoProduct();
             this.fetchTotalInventoryValue();
             this.popToast();
@@ -222,7 +238,7 @@ export class ManageInventory {
   popToast() {
     if (this.addFlag) {
       this.toasterSetvice.pop('success', 'Status', 'Inventory Added successfully!');
-    } else if(this.deleteFlag){
+    } else if (this.deleteFlag) {
       this.toasterSetvice.pop('success', 'Status', 'Inventory Deleted successfully!');
     }
   }

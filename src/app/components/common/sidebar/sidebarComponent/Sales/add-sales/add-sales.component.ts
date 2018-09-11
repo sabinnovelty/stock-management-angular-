@@ -15,8 +15,9 @@ export class AddSalesComponent implements OnInit {
 
     // for product list
     productList = [];
+    productById = [];
 
-    // for category list
+    // for category
     categoryList = [];
 
   constructor(
@@ -31,11 +32,11 @@ export class AddSalesComponent implements OnInit {
       console.log(this.productList, 'fetched all inventory')
     })
 
-    this.inventoryService.getCategory()
-      .subscribe(response => {
-        this.categoryList = response.data;
-        console.log('category response', response.data);
-      })
+    // this.inventoryService.getCategory()
+    //   .subscribe(response => {
+    //     this.categoryList = response.data;
+    //     console.log('category response', response.data);
+    //   })
   }
 
   onSubmit(form: NgForm) {
@@ -47,6 +48,21 @@ export class AddSalesComponent implements OnInit {
         console.log(response, 'response after adding sales')
         this.router.navigateByUrl('/dashboard/sales');
 
+      })
+  }
+
+  getCategory(data) {
+    console.log(data, 'asdas');
+    this.inventoryService.fetchCategoryByInventoryId(data.viewModel)
+      .subscribe(response => {
+        this.categoryList.push(response.data)
+        console.log(response, 'adasdasdsa');
+      })
+
+    this.inventoryService.fetchProductById(data.viewModel)
+      .subscribe(response => {
+        this.productById.push(response.data);
+        console.log(response, 'adasdasdsa');
       })
   }
 
