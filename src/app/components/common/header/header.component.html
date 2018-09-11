@@ -14,19 +14,19 @@
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-        <a class="nav-link" [routerLink]="['manageSupplier']">
+        <a class="nav-link" [routerLink]="['/dashboard/manageSupplier']">
           <i class="fa fa-fw fa-area-chart"></i>
           <span class="nav-link-text">Manage Supplier</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" [routerLink]="['manageInventory']">
+        <a class="nav-link" [routerLink]="['/dashboard/manageInventory']">
           <i class="fa fa-fw fa-table"></i>
           <span class="nav-link-text">Manage Inventory</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" [routerLink]="['sales']">
+        <a class="nav-link" [routerLink]="['/dashboard/sales']">
           <i class="fa fa-fw fa-table"></i>
           <span class="nav-link-text">Sales</span>
         </a>
@@ -38,16 +38,16 @@
         </a>
         <ul  id="collapseComponents">
           <li>
-            <a [routerLink]="['category']">Add Category</a>
+            <a [routerLink]="['/dashboard/category']">Add Category</a>
           </li>
           <li>
             <a [routerLink]="">Inventory Report</a>
           </li>
           <li>
-            <a [routerLink]="['sales']">Sales Report</a>
+            <a [routerLink]="['/dashboard/salesDetails']">Sales Report</a>
           </li>
           <li>
-            <a [routerLink]="">Transaction Report</a>
+            <a [routerLink]="['/dashboard/manageInventory']">Transaction Report</a>
           </li>
         </ul>
       </li>
