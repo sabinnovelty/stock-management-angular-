@@ -1,7 +1,7 @@
 <div class="alert alert-success" role="alert" *ngIf="salesMessageFlag">
   {{salesAddedMessage}}
 </div>
-<form id="salesForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+<form id="salesForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
   <div class="container">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
           <label for="productName">Product Name</label>
@@ -27,7 +27,7 @@
             class="form-control"
             #category="ngModel" 
             [(ngModel)]="addSales.category" 
-            [value]="categoryObject.category"
+            [value]="categoryByProductId[0]?.category"
             readonly="readonly"
           >
               <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>      -->
@@ -52,7 +52,7 @@
           <span class="error" *ngIf="f.submitted && quantity.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Enter valid quantity</span>
           <input 
             type="text" 
-            value="" 
+            value="{{addSales.quantity}}" 
             name="quantity" 
             class="form-control" 
             #quantity="ngModel" 
@@ -69,7 +69,7 @@
         <!-- <span class="error" *ngIf="f.submitted && rate.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
         <input 
           type="text" 
-          value="{{ productObject.sellingPrice }}"
+          value="{{ productById[0]?.sellingPrice }}"
           name="rate" 
           class="form-control" 
           [(ngModel)]="addSales.rate"
@@ -84,12 +84,11 @@
         <label for="total">Total</label>
         <input 
           type="text" 
-          value="{{totalRate}}"
+          value=""
           name="total" 
           class="form-control" 
-          [(ngModel)]="addSales.sellingPrice"
+          [(ngModel)]="addSales.total"
           #addSales="ngModel"
-          disabled
           required
         >
       </div>

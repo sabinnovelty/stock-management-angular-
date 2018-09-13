@@ -14,18 +14,18 @@ export class AddSalesComponent implements OnInit {
 
   addSales: SalesModel = new SalesModel();
 
-    // for product list
-    productList = [];
-    productById = [];
-    productObject = {};
+  // for product list
+  productList = [];
+  productById = [];
+  productObject = {};
 
-    // for category
-    categoryList = [];
-    categoryObject = {};
-    totalRate:Number=0;
-    quantity:any
-    salesAddedMessage:string;
-    salesMessageFlag:boolean;
+  // for category
+  categoryList = [];
+  categoryByProductId = [];
+  totalRate: Number = 0;
+  quantity: any
+  salesAddedMessage: string;
+  salesMessageFlag: boolean;
 
   constructor(
     private inventoryService: InventoryService,
@@ -34,14 +34,14 @@ export class AddSalesComponent implements OnInit {
 
   ngOnInit() {
     this.inventoryService.getCategory()
-    .subscribe(
-      result=>this.categoryList=result.data
-    )
+      .subscribe(
+        result => this.categoryList = result.data
+      )
     this.inventoryService.fetchAllProduct()
-    .subscribe(response => {
-      this.productList = response.data;
-      console.log(this.productList, 'fetched all inventory')
-    })
+      .subscribe(response => {
+        this.productList = response.data;
+        console.log(this.productList, 'fetched all inventory')
+      })
 
     // this.inventoryService.getCategory()
     //   .subscribe(response => {
@@ -49,45 +49,52 @@ export class AddSalesComponent implements OnInit {
     //     console.log('category response', response.data);
     //   })
   }
-  getQuantity(event){
-    console.log(event.target.value,"quantyity")
-    this.quantity=event.target.value;
-  }
-  calculateRate(event){
-    console.log("keyup venet")
-      if(this.addSales.quantity!==null){
-       console.log(this.quantity,event.target.value,"vau")
-        this.totalRate=parseInt(this.quantity) * parseInt(event.target.value);
-      }
+
+  getQuantity(event) {
+    console.log(event.target.value, "quantyity")
+    this.quantity = event.target.value;
   }
 
-  onSubmit(form: NgForm) {
-    console.log(this.addSales, 'form');
-    this.addSales = form.value;
-    console.log(this.addSales,"submit")
+  calculateRate(event) {
+    console.log("keyup venet")
+    if (this.addSales.quantity !== null) {
+      console.log(this.quantity, event.target.value, "vau")
+      this.totalRate = parseInt(this.quantity) * parseInt(event.target.value);
+    }
+  }
+
+  onSubmit(f) {
+    console.log(f,'f')
+    this.addSales.category = this.categoryByProductId[0].category;
+    this.addSales.rate = this.productById[0].sellingPrice;
+    this.addSales.productName = f.value.productName;
+    this.addSales.date = f.value.date;
+    this.addSales.quantity = f.value.quantity;
+    this.addSales.total = f.value.total;
+    console.log(this.addSales, 'addSales');
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
         console.log(response, 'response after adding sales')
-        this.salesAddedMessage=response.message;
-        this.salesMessageFlag=true;
+        this.salesAddedMessage = response.message;
+        this.salesMessageFlag = true;
       })
   }
 
   getCategory(data) {
     console.log(data, 'asdas');
+    this.categoryByProductId = [];
+    this.productById = [];
     this.inventoryService.fetchCategoryByInventoryId(data.viewModel)
       .subscribe(response => {
-        this.categoryObject = Object.assign(response.data, this.categoryObject);
-        console.log(this.categoryObject, 'object after category assigned');
+        this.categoryByProductId.push(response.data)
         console.log(response, 'fetch category by inventory id');
       })
 
     this.inventoryService.fetchProductById(data.viewModel)
       .subscribe(response => {
-        this.productObject = Object.assign(response.data, this.productObject);
-        console.log(this.productObject, 'product object');
-        console.log(response, 'fetch product by id');
+        this.productById.push(response.data);
+        console.log(this.productById, 'product object');
       })
-    }
+  }
 
 }

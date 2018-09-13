@@ -6,6 +6,7 @@
           Report</button>
         <!-- <button class="btn btn-info" (click)="viewChart()">Visualize Sales Report</button> -->
         <button class="btn btn-primary" (click)="toggleAddSales()">Add Sales</button>
+        <button class="btn btn-primary" (click)="analyzeSalesReport()">Analyze Sales Report</button>
       </div>
     </div>
     <div class="col-sm-4">
@@ -71,8 +72,8 @@
           <tbody>
             <tr *ngFor="let p of productList;let i=index">
               <th>{{i+1}}</th>
-              <td>{{p.pid.productName}}</td>
-              <td>{{p.category.category}}</td>
+              <td>{{p.pid?.productName}}</td>
+              <td>{{p.cid?.category}}</td>
               <td>{{p.date | date: 'medium'}}</td>
               <td>{{p.rate}}</td>
               <td>{{p.quantity}}</td>
@@ -86,6 +87,7 @@
           </tbody>
         </table>
       </div>
+      <canvas id="analyzeSales"></canvas>
     </div>
   </div>
 </div>
@@ -101,7 +103,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Product</th>
-      <th scope="col">Quntatiy</th>
+      <th scope="col">Quntatity</th>
       <th scope="col">Date</th>
       <th>Sales</th>
     </tr>
