@@ -16,9 +16,11 @@ export class AddSalesComponent implements OnInit {
     // for product list
     productList = [];
     productById = [];
+    productObject = {};
 
     // for category
     categoryList = [];
+    categoryObject = {};
 
   constructor(
     private inventoryService: InventoryService,
@@ -40,13 +42,19 @@ export class AddSalesComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form, 'form');
-    this.addSales = form.value;
-    console.log(this.addSales)
+    console.log(form.value, 'form');
+    this.addSales.productName = form.value.productName;
+    // this.addSales.category = this.categoryObject.category;
+    this.addSales.date = form.value.date;
+    // this.addSales.rate = this.productObject.sellingPrice;
+    this.addSales.quantity = form.value.quantity;
+    this.addSales.total = form.value.total;
+
+    console.log(this.addSales, 'sales details')
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
         console.log(response, 'response after adding sales')
-        this.router.navigateByUrl('/dashboard/sales');
+        this.router.navigateByUrl('/dashboard/salesDetails');
 
       })
   }
@@ -55,15 +63,17 @@ export class AddSalesComponent implements OnInit {
     console.log(data, 'asdas');
     this.inventoryService.fetchCategoryByInventoryId(data.viewModel)
       .subscribe(response => {
-        this.categoryList.push(response.data)
-        console.log(response, 'adasdasdsa');
+        this.categoryObject = Object.assign(response.data, this.categoryObject);
+        console.log(this.categoryObject, 'object after category assigned');
+        console.log(response, 'fetch category by inventory id');
       })
 
     this.inventoryService.fetchProductById(data.viewModel)
       .subscribe(response => {
-        this.productById.push(response.data);
-        console.log(response, 'adasdasdsa');
+        this.productObject = Object.assign(response.data, this.productObject);
+        console.log(this.productObject, 'product object');
+        console.log(response, 'fetch product by id');
       })
-  }
+    }
 
 }

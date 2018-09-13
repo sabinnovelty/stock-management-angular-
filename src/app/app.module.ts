@@ -33,6 +33,7 @@ import { ProductCategory } from './components/common/sidebar/sidebarComponent/Pr
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { RouterModule } from '@angular/router';
     sidebarRouting,
     ToasterModule.forRoot(),
     RouterModule.forRoot(Routing),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [
     AuthenticationService,

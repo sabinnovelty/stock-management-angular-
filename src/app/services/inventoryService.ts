@@ -26,6 +26,7 @@ export class InventoryService {
     }
 
     fetchProductById(id) {
+        console.log(id)
         return this.http.get(API_BASE_URL + '/api/inventory/' + id)
         .map((res: Response) => res.json())
         .catch((err: Response) => Observable.throw(err.json()));
