@@ -70,7 +70,7 @@
                                 <!-- <input type="text" [ngModel]="manageInventory?.productCategory" name="productCategory" class="form-control" 
                                 #productName="ngModel" [(ngModel)]="manageInventory.productCategory"
                                     required> -->
-                                <select name="productCategory" class="form-control" value="{{editProduct?.measurement}}"
+                                <select name="productCategory" class="form-control" value="{{manageInventory?.productCategory}}"
                                         #productCategory="ngModel" [(ngModel)]="manageInventory.productCategory" required
                                 >   
                                     <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>

@@ -61,6 +61,12 @@ export class InventoryService {
         .catch((err:Response)=>Observable.throw(err.json()))
     }
 
+    getCategoryById(cid){
+        return this.http.get(API_BASE_URL+"/api/inventory/category/"+cid)
+        .map((res:Response)=>res.json())
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
+
     addSales(salesModel) {
         console.log(salesModel, 'asdasdasdas sales model');
         return this.http.post(API_BASE_URL + '/api/inventory/addSales', salesModel)
