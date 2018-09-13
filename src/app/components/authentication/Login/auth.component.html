@@ -3,7 +3,7 @@
       <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
       <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" (ngSubmit)="login(f)" #f="ngForm" >
+      <form class="form-signin"  #f="ngForm"  (ngSubmit)="f.valid && login(f)">
           <!-- <span id="reauth-email" *ngIf="f.submitted && email.errors?.required " >&nbsp;&nbsp;&nbsp; &nbsp;required</span> -->
          <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && email.!valid">
            <p>Email is required !</p> 
@@ -15,10 +15,13 @@
            >
           <input type="password" id="inputPassword" [(ngModel)]="model.password" name="password"
            #password="ngModel" class="form-control"  [ngClass]="{ 'has-error' : f.submitted && !password.valid } " placeholder="Password" required>
-          <div id="remember" class="checkbox">
+          <!-- <div id="remember" class="checkbox">
               <label>
                   <input type="checkbox" value="remember-me"> Remember me
               </label>
+          </div> -->
+          <div>
+              <p><b>New ? &nbsp;</b><a [routerLink]="['/registration']">Register here.</a></p>
           </div>
           <button  type="submit"  class="btn btn-lg btn-primary btn-block btn-signin">Sign in</button>
       </form><!-- /form -->
@@ -32,3 +35,4 @@
       
   </div><!-- /card-container -->
 </div><!-- /container -->
+

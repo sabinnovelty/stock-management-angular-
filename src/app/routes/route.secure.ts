@@ -8,6 +8,9 @@ import { AddSalesComponent } from '../components/common/sidebar/sidebarComponent
 import { SalesListComponent } from '../components/common/sidebar/sidebarComponent/Sales/sales.component';
 import { CustomerListComponent } from '../components/common/sidebar/sidebarComponent/Customers/customer.component';
 import { ProductCategory } from '../components/common/sidebar/sidebarComponent/ProductCategory/product-category.component';
+import { InventoryReport } from '../components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
+import { InventorySummary } from '../components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component';
+import { Notification } from '../components/common/sidebar/sidebarComponent/notifications/notification.component';
 
 export const RouteSecure: Routes = [
 
@@ -16,8 +19,14 @@ export const RouteSecure: Routes = [
   { 
     path: 'dashboard', canActivate: [AuthGuard],
     children: [
+        { path: 'notification', component: Notification, canActivate: [AuthGuard] },
         { path: 'manageSupplier', component: ManageSupplier, canActivate: [AuthGuard] },
         { path: 'manageInventory', component: ManageInventory, canActivate: [AuthGuard] },
+        { path: 'inventoryReport', component: InventoryReport, canActivate: [AuthGuard],
+          children: [
+            {path: 'inventorySummary', component: InventorySummary, canActivate: [AuthGuard] }
+          ] 
+        },
         { path: 'supplierDetails', component: SupplierListComponent, canActivate: [AuthGuard] },
         { path: 'addSales', component: AddSalesComponent, canActivate: [AuthGuard] },
         { path: 'salesDetails', component: SalesListComponent, canActivate: [AuthGuard] },

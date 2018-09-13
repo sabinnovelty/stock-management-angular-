@@ -39,6 +39,12 @@ export class InventoryService {
         .catch((err: Response) => Observable.throw(err.json()));
     } 
 
+    fetchInventoryReport(){
+        return this.http.get(API_BASE_URL + '/api/inventory/report')
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
+ 
     fetchTotalNoProduct(){
         return this.http.get(API_BASE_URL+"/api/inventory/totalNoProduct")
         .map((res:Response)=>res.json())
@@ -80,6 +86,11 @@ export class InventoryService {
             .map((res: Response) => res.json())
             .catch((err: Response) => Observable.throw(err.json()));
     }
+    getCategoryById(cid){
+        return this.http.get(API_BASE_URL+"/api/inventory/category/"+cid)
+        .map((res:Response)=>res.json())
+        .catch((err:Response)=>Observable.throw(err.json()))
+    }
 
     addSales(salesModel) {
         console.log(salesModel, 'asdasdasdas sales model');
@@ -87,5 +98,38 @@ export class InventoryService {
             .map((res: Response) => res.json())
             .catch((err: Response) => Observable.throw(err.json()))
     }
- 
+
+    fetchSalesReportById(id){
+        return this.http.get(API_BASE_URL +"/api/sales/report/"+id)
+        .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()))
+    }
+
+    fetchSales(){
+        return this.http.get(API_BASE_URL +"/api/sales/report")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
+
+    fetchInventorySummary(){
+        return this.http.get(API_BASE_URL +"/api/inventory/summary/day")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
+    
+    fetchOutOfStockProduct(){
+        return this.http.get(API_BASE_URL +"/api/inventory/outOfStock")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
+    fetchWinterProducts(){
+        return this.http.get(API_BASE_URL +"/api/inventory/winterProducts")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
+    fetchMonthlyProducts(){
+        return this.http.get(API_BASE_URL +"/api/sales/monthly")
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()))
+    }
 }

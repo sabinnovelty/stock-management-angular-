@@ -1,3 +1,6 @@
+<div class="alert alert-success" role="alert" *ngIf="salesMessageFlag">
+  {{salesAddedMessage}}
+</div>
 <form id="salesForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
   <div class="container">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
@@ -55,6 +58,7 @@
             #quantity="ngModel" 
             [(ngModel)]="addSales.quantity" 
             pattern="^[0-9]*$"
+            (keyup)="getQuantity($event)"
             required
           >
       </div>
@@ -70,7 +74,9 @@
           class="form-control" 
           [(ngModel)]="addSales.rate"
           #rate="ngModel"
+          (keyup)="calculateRate($event)"
           readonly
+          required
         >
       </div>
 
@@ -78,11 +84,12 @@
         <label for="total">Total</label>
         <input 
           type="text" 
-          value=""
+          value="{{totalRate}}"
           name="total" 
           class="form-control" 
           [(ngModel)]="addSales.sellingPrice"
           #addSales="ngModel"
+          disabled
           required
         >
       </div>

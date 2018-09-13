@@ -3,6 +3,7 @@ import { SalesModel } from '../../../../../../model/salesModel';
 import { NgForm } from '@angular/forms';
 import { InventoryService } from '../../../../../../services/inventoryService';
 import { Router } from '@angular/router';
+// import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-sales',
@@ -21,6 +22,10 @@ export class AddSalesComponent implements OnInit {
     // for category
     categoryList = [];
     categoryObject = {};
+    totalRate:Number=0;
+    quantity:any
+    salesAddedMessage:string;
+    salesMessageFlag:boolean;
 
   constructor(
     private inventoryService: InventoryService,
@@ -28,6 +33,10 @@ export class AddSalesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.inventoryService.getCategory()
+    .subscribe(
+      result=>this.categoryList=result.data
+    )
     this.inventoryService.fetchAllProduct()
     .subscribe(response => {
       this.productList = response.data;
@@ -40,22 +49,27 @@ export class AddSalesComponent implements OnInit {
     //     console.log('category response', response.data);
     //   })
   }
+  getQuantity(event){
+    console.log(event.target.value,"quantyity")
+    this.quantity=event.target.value;
+  }
+  calculateRate(event){
+    console.log("keyup venet")
+      if(this.addSales.quantity!==null){
+       console.log(this.quantity,event.target.value,"vau")
+        this.totalRate=parseInt(this.quantity) * parseInt(event.target.value);
+      }
+  }
 
   onSubmit(form: NgForm) {
-    console.log(form.value, 'form');
-    this.addSales.productName = form.value.productName;
-    // this.addSales.category = this.categoryObject.category;
-    this.addSales.date = form.value.date;
-    // this.addSales.rate = this.productObject.sellingPrice;
-    this.addSales.quantity = form.value.quantity;
-    this.addSales.total = form.value.total;
-
-    console.log(this.addSales, 'sales details')
+    console.log(this.addSales, 'form');
+    this.addSales = form.value;
+    console.log(this.addSales,"submit")
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
         console.log(response, 'response after adding sales')
-        this.router.navigateByUrl('/dashboard/salesDetails');
-
+        this.salesAddedMessage=response.message;
+        this.salesMessageFlag=true;
       })
   }
 

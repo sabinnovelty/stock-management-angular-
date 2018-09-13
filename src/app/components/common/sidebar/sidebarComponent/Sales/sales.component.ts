@@ -1,29 +1,186 @@
-import { Component, OnInit } from '@angular/core';
-import { InventoryService } from '../../../../../services/inventoryService';
+import { Component, OnInit } from "@angular/core";
+import { InventoryService } from "../../../../../services/inventoryService";
+import Chart from "chart.js";
+import * as moment from 'moment';
 
 @Component({
-  selector: 'app-salesList',
-  templateUrl: 'sales.component.html',
-  styleUrls: ['./sales.component.style.css']
+  selector: "app-salesList",
+  templateUrl: "sales.component.html",
+  styleUrls: ["./sales.component.style.css"]
 })
-
 export class SalesListComponent implements OnInit {
-
   showSalesReport: boolean = true;
   addSales: boolean = false;
+  totalSales: number = 0;
+  sortType: "SORT_PRICE_ASCENDING";
+  productExpenses = [];
+  productLabels = [];
+  salesDetails=[];
+  salesMessage=false;
+  monthlySales=[];
+
+  lineChart = [];
+  startDate:string;
+  endDate:string;
+  monthlySalesFlag=false;
+
 
   // for product list
   productList = [];
-  constructor(
-    private inventoryService: InventoryService
-  ) { }
+  constructor(private inventoryService: InventoryService) {}
 
   ngOnInit() {
-    this.inventoryService.fetchAllProduct()
-      .subscribe(response => {
-        this.productList = response.data;
-        console.log(this.productList, 'fetched all inventory')
-      })
+    this.salesReport();
+    this.viewChart();
+    this.getMonthlySales();
+    this.inventoryService.fetchSales().subscribe(response => {
+      this.productList = response.data;
+      console.log(this.productList,"productlist")
+      this.calclateTotalSales();
+    });
+  }
+
+
+
+  salesList(){
+   let salesList=[];
+    console.log(this.startDate,this.endDate,"date");
+    let sdate=moment(this.startDate).format("YYYY MM D");
+    let edate=moment(this.endDate).format("YYYY MM D");
+    console.log(edate,"edate")
+     salesList=this.productList.filter(sales=>{
+      let salesDate=moment(sales.date).format("YYYY MM D");
+      if(salesDate<=edate && salesDate>=sdate){
+        return sales;
+      }
+    })
+    salesList.length>0?this.salesMessage=false:this.salesMessage=true;
+    console.log(salesList,"filterd sales");
+    this.salesDetails=salesList;
+  }
+  setMonthlyFlag(){
+    this.monthlySalesFlag=true;
+  }
+
+  getMonthlySales(){
+    this.inventoryService.fetchMonthlyProducts()
+    .subscribe(
+      result=>{
+        console.log(result,"monnthly products");
+        this.monthlySales=result;
+        console.log(this.monthlySales,"monnthly products");
+
+      }
+    )
+  }
+
+  
+
+  salesReport() {
+    console.log(this.productLabels, this.productExpenses, "sales");
+    this.inventoryService.fetchInventorySummary().subscribe(result => {
+      result.data.forEach(element => {
+        this.productLabels.push(element._id);
+        this.productExpenses.push(element.totalAmount);
+      });
+    });
+  }
+
+  viewChart() {
+    this.lineChart = new Chart('salesChart', {
+      type: 'bar',
+      data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+  console.log(this.lineChart,"sales chart")
+  }
+
+  sortingType() {
+    if (this.sortType === "SORT_PRICE_ASCENDING") {
+      this.sortPriceAscending();
+    } else if (this.sortType === "SORT_PRICE_DESCENDING") {
+     this.sortPriceDescending();
+    } else if (this.sortType === "SORT_DATE_ASCENDING") {
+     this.sortDateAscending();
+    } else if (this.sortType === "SORT_DATE_DESCENDING") {
+      this.sortDateDescending();
+    }
+  }
+
+  sortDateAscending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+          return -1;
+      }else if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+        return 1;
+      }
+    })
+    console.log(this.productList,"date productlist")
+  }
+  sortDateDescending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(moment(a.date).format("YYYY MM DD")<moment(b.date).format("YYYY MM DD")){
+          return 1;
+      }else if(moment(a.date).format("YYYY MM DD")>moment(b.date).format("YYYY MM DD")){
+        return -1;
+      }
+    })
+    console.log(this.productList,"date productlist")
+  }
+  sortPriceDescending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(a.rate<b.rate){
+          return 1;
+      }else if(a.rate>b.rate){
+        return -1;
+      }
+    })
+  }
+
+  sortPriceAscending() {
+    this.productList=this.productList.sort((a,b)=>{
+      console.log(a,b,"data")
+      if(a.rate<b.rate){
+          return -1;
+      }else if(a.rate>b.rate){
+        return 1;
+      }
+    })
+    console.log(this.productList,"new salesdetails")
   }
 
   toggleSalesReport() {
@@ -36,47 +193,13 @@ export class SalesListComponent implements OnInit {
     this.showSalesReport = false;
   }
 
-    // Chart data
-    public barChartOptions:any = {
-      scaleShowVerticalLines: false,
-      responsive: true
-    };
-    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
-   
-    public barChartData:any[] = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-    ];
-   
-    // events
-    public chartClicked(e:any):void {
-      console.log(e);
-    }
-   
-    public chartHovered(e:any):void {
-      console.log(e);
-    }
-   
-    public randomize():void {
-      // Only Change 3 values
-      let data = [
-        Math.round(Math.random() * 100),
-        59,
-        80,
-        (Math.random() * 100),
-        56,
-        (Math.random() * 100),
-        40];
-      let clone = JSON.parse(JSON.stringify(this.barChartData));
-      clone[0].data = data;
-      this.barChartData = clone;
-      /**
-       * (My guess), for Angular to recognize the change in the dataset
-       * it has to change the dataset variable directly,
-       * so one way around it, is to clone the data, change it and then
-       * assign it;
-       */
-    }
+  calclateTotalSales() {
+    console.log("caleld", this.productList);
+    // let total=0;
+    // this.productList.forEach(product=>{
+    //   console.log(product,"dfd")
+    //   total=product.sellingPrice * product.quantity+total;
+    // })
+    // this.totalSales=total;
+  }
 }

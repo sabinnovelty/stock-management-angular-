@@ -5,6 +5,5 @@ export class SalesModel {
     date: string;
     rate: string;
     quantity: string;
-    total: string;
 }
 

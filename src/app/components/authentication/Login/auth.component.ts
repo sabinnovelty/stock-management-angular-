@@ -25,8 +25,6 @@ export class AuthenticationComponent {
   errorMsg: string;
   errorFlag: boolean = false;
 
-  e;
-
   ngOnInit() {
     localStorage.removeItem('loggedInUser');
 
@@ -52,7 +50,7 @@ export class AuthenticationComponent {
             this.errorMsg = data.message;
 
           } else {
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/dashboard/notification');
           }
         },
         error => console.log(error)

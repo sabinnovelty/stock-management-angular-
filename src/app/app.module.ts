@@ -30,11 +30,15 @@ import { SalesListComponent } from './components/common/sidebar/sidebarComponent
 import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
 import { ProductCategoryComponent } from './common/sidebar/sidebar-component/manage-inventory/product-category/product-category.component';
 import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component';
-import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 
+import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
+import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
+import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component'
+import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component';
+import { Registration } from './components/authentication/Registration/registration.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +54,11 @@ import { ChartsModule } from 'ng2-charts';
     CustomerListComponent,
     ProductCategoryComponent,
     ProductCategory,
-    AddSalesComponent
+    InventoryReport,
+    AddSalesComponent,
+    InventorySummary,
+    Notification,
+    Registration
   ],
   imports: [
     BrowserModule,

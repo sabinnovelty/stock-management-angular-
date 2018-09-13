@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {InventoryService } from './../../../../../services/inventoryService'
+import { Component, OnInit } from "@angular/core";
+import { InventoryService } from "./../../../../../services/inventoryService";
 
 @Component({
-  selector: 'app-product-category',
-  templateUrl: './product-category.component.html',
-  styleUrls: ['./product-category.component.style.css']
+  selector: "app-product-category",
+  templateUrl: "./product-category.component.html",
+  styleUrls: ["./product-category.component.style.css"]
 })
-
 export class ProductCategory implements OnInit {
  
   category_success:string;
@@ -19,8 +18,7 @@ export class ProductCategory implements OnInit {
     cname: ''
   }
  
-  constructor( private inventoryService:InventoryService) { }
-
+  constructor(private inventoryService: InventoryService) {}
 
   ngOnInit() {
       this.inventoryService.getCategory()
