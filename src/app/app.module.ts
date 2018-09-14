@@ -9,9 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './components/authentication/Login/auth.component';
 
-import { routing } from './app.routing';
+import { Routing } from './app.routing';
 import { AuthenticationService, HttpClient } from './services/index';
-import { DashboardComponent } from  './components/Dashboard/dashboard.component';
+import { DashboardComponent } from './components/Dashboard/dashboard.component';
 import { HeaderComponent } from './components/common/header/header.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component'
 import { sidebarRouting } from './components/common/sidebar/sidebar.routes';
@@ -21,15 +21,19 @@ import { ManageInventory } from './components/common/sidebar/sidebarComponent/Ma
 import { SupplierService } from './services/supplierServices';
 import { ProductService } from './services/productService';
 import { SearchComponent } from './components/search/search.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { InventoryService } from './services/inventoryService';
 import { SupplierListComponent } from './components/common/sidebar/sidebarComponent/Supplier/supplier.component';
 import { SalesListComponent } from './components/common/sidebar/sidebarComponent/Sales/sales.component';
 import { CustomerListComponent } from './components/common/sidebar/sidebarComponent/Customers/customer.component';
 import { ProductCategoryComponent } from './common/sidebar/sidebar-component/manage-inventory/product-category/product-category.component';
 import { ProductCategory } from './components/common/sidebar/sidebarComponent/ProductCategory/product-category.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
+
 import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component'
@@ -58,15 +62,23 @@ import { Registration } from './components/authentication/Registration/registrat
   ],
   imports: [
     BrowserModule,
-    routing,
     FormsModule,
     HttpClientModule,
     HttpModule,
     sidebarRouting,
     ToasterModule.forRoot(),
-    BrowserAnimationsModule
+    RouterModule.forRoot(Routing),
+    BrowserAnimationsModule,
+    ChartsModule
   ],
-  providers: [AuthenticationService,HttpClient,SupplierService,ProductService,InventoryService],
+  providers: [
+    AuthenticationService,
+    HttpClient,
+    SupplierService,
+    ProductService,
+    InventoryService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

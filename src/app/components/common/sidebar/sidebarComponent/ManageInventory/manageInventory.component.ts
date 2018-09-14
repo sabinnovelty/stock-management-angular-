@@ -25,6 +25,7 @@ export class ManageInventory {
   title: string = "search product";
   inventoryValue: any = 0;
   totalProduct: any = 0;
+  p: boolean;
 
   constructor(
     private supplierService: SupplierService,
@@ -93,8 +94,23 @@ export class ManageInventory {
 
   onSubmit(f: NgForm) {
     console.log(f, "form");
+    // console.log(this.productList);
+    // const pName = f.value.productName.replace(/ /g,'').toLowerCase();
+
+    // let tempProductName = [];
+    // this.productList.filter(data => {
+    //   console.log(data.productName, 'sdfsdf')
+    //   if(data.productName.replace(/ /g,'').toLowerCase() == pName) {
+    //     tempProductName.push(data)
+    //     // console.log(tempProductName, 'ADQSDA')
+    //   }
+    // });
+    // console.log(tempProductName, 'ADQSDA')
+    // console.log(tempProductName.forEach(data => data));
+    // if(pName != tempProductName.forEach(data=> data.productName))
     if (this.addOrEdit == "Add Inventory") {
-      console.log("add product", this.addOrEdit);
+    // if ((pName != tempProductName.forEach(data => data.productName)) || tempProductName == [] ) {
+      console.log("add product", this.addOrEdit)
       this.manageInventory.measurement = f.value.measurement;
       this.manageInventory.originalPrice = f.value.originalPrice;
       this.manageInventory.productName = f.value.productName;

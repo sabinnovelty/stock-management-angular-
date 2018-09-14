@@ -24,6 +24,10 @@ export class SalesListComponent implements OnInit {
   endDate:string;
   monthlySalesFlag=false;
 
+  // chart for sales report 
+  salesReportChart = [];
+  salesReportLabels = [];
+  salesResportData = [];
 
   // for product list
   productList = [];
@@ -36,6 +40,11 @@ export class SalesListComponent implements OnInit {
     this.inventoryService.fetchSales().subscribe(response => {
       this.productList = response.data;
       console.log(this.productList,"productlist")
+      this.salesReportLabels = this.productList.map(data => data.pid);
+      this.salesReportLabels = this.salesReportLabels.map(data => data.productName);
+      this.salesResportData = this.productList.map(data => data.total);
+      console.log(this.salesReportLabels, 'sales report label')
+      console.log(this.salesResportData, 'sales report data')
       this.calclateTotalSales();
     });
   }
@@ -201,5 +210,46 @@ export class SalesListComponent implements OnInit {
     //   total=product.sellingPrice * product.quantity+total;
     // })
     // this.totalSales=total;
+  }
+
+  analyzeSalesReport() {
+    this.salesReportChart = new Chart('analyzeSales', {
+      type: 'bar',
+      data: {
+          labels: this.salesReportLabels,
+          datasets: [{
+              label: 'Total Sales',
+              data: this.salesResportData,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+  console.log(this.salesReportChart, "sales report chart")
+
   }
 }

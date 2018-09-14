@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, APP_ID } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { config } from '../config';
 import { HttpClient } from './httpService';
@@ -24,6 +24,20 @@ export class InventoryService {
         .map((res: Response) => res.json())
         .catch((err: Response) => Observable.throw(err.json()));
     }
+
+    fetchProductById(id) {
+        console.log(id)
+        return this.http.get(API_BASE_URL + '/api/inventory/' + id)
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
+
+    fetchCategoryByInventoryId(id) {
+        console.log(id)
+        return this.http.get(API_BASE_URL + `/api/inventory/category/`+ id)
+        .map((res: Response) => res.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    } 
 
     fetchInventoryReport(){
         return this.http.get(API_BASE_URL + '/api/inventory/report')
@@ -61,6 +75,17 @@ export class InventoryService {
         .catch((err:Response)=>Observable.throw(err.json()))
     }
 
+    deleteCategory(categoryId) {
+        return this.http.delete(API_BASE_URL + '/api/inventory/category/' + categoryId)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()));
+    }
+
+    updateCategory(category: any) {
+        return this.http.put(API_BASE_URL + '/api/inventory/category', category)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => Observable.throw(err.json()));
+    }
     getCategoryById(cid){
         return this.http.get(API_BASE_URL+"/api/inventory/category/"+cid)
         .map((res:Response)=>res.json())

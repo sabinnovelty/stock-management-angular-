@@ -9,7 +9,6 @@ export class HttpClient {
 
   createHeader(headers: Headers) {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    console.log(loggedInUser,"header loged in user")
     if (loggedInUser) {
       const token = loggedInUser.token;
       headers.append('x-access-token', token);
@@ -26,7 +25,6 @@ export class HttpClient {
   }
 
   post(url, data) {
-      console.log(url,data,"httpclient")
     const headers = new Headers();
     this.createHeader(headers);
     return this.http.post(url, data,{
