@@ -44,3 +44,4 @@ export class AuthenticationComponent {
      error=>console.log(error)
    )
   }
+}
