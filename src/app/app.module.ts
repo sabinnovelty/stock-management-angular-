@@ -33,12 +33,14 @@ import { ProductCategory } from './components/common/sidebar/sidebarComponent/Pr
 import { AuthGuard } from './guards/auth.guard';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
+import { MailService } from './services/mailController';
 
 import { InventoryReport } from './components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 import { AddSalesComponent } from './components/common/sidebar/sidebarComponent/Sales/add-sales/add-sales.component';
 import { InventorySummary } from './components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component'
 import { Notification } from './components/common/sidebar/sidebarComponent/notifications/notification.component';
 import { Registration } from './components/authentication/Registration/registration.component';
+import { MailComponent } from './components/common/sidebar/sidebarComponent/MailController/mailcomponent';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +60,8 @@ import { Registration } from './components/authentication/Registration/registrat
     AddSalesComponent,
     InventorySummary,
     Notification,
-    Registration
+    Registration,
+    MailComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { Registration } from './components/authentication/Registration/registrat
     SupplierService,
     ProductService,
     InventoryService,
-    AuthGuard
+    AuthGuard,
+    MailService
   ],
   bootstrap: [AppComponent]
 })

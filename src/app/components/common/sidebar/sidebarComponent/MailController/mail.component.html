@@ -1,0 +1,49 @@
+<div class="container">
+    <h1 class="brand"><span></span> </h1>
+    <div class="wrapper animated bounceInLeft">
+      <div class="company-info">
+        <h3>Your stock Info</h3>
+        <div *ngIf="productList.length==0">
+          <div class="alert alert-info" role="alert">
+            You have a healthy stock.
+            <small>You have a sufficient stock...</small>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let product of productList"><i class="fa fa-road"><b>ProductName &nbsp;;</b></i> {{product.productName}}</li>
+         
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>Email </h3>
+        <div class="alert alert-info" role="alert" *ngIf="mailFlag">
+          You have send email to the &nbsp;<b>{{mail.to}}</b>
+        </div>
+        <form #f="ngForm" (ngSubmit)="sendMail(f)">
+          <p>
+            <label>Name</label>
+            <input type="text" name="name" [(ngModel)]="mail.name" #name="ngModel" required>
+          </p>
+          <p>
+            <label>Email Address:(To)</label>
+            <input type="email" name="to" #to="ngModel" [(ngModel)]="mail.to" required>
+          </p>
+          <p>
+            <label>Phone Number</label>
+            <input type="text" name="phone" #phone="ngModel" [(ngModel)]="mail.phone_no" required>
+          </p>
+          <p>
+            <label>subject</label>
+            <input type="text" name="subject" #subject="ngModel" [(ngModel)]="mail.subject" required>
+          </p>
+          <p class="full">
+            <label>Order Message</label>
+            <textarea name="message" rows="5" #message="ngModel" [(ngModel)]="mail.message"></textarea>
+          </p>
+          <p class="full">
+            <button type="submit">send order</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>

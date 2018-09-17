@@ -16,7 +16,7 @@ export class AddSalesComponent implements OnInit {
 
   // for product list
   productList = [];
-  productById = [];
+  productById:any;
   productObject = {};
 
   // for category
@@ -53,24 +53,23 @@ export class AddSalesComponent implements OnInit {
   getQuantity(event) {
     console.log(event.target.value, "quantyity")
     this.quantity = event.target.value;
+    this.calculateRate(event.target.value)
   }
 
-  calculateRate(event) {
-    console.log("keyup venet")
-    if (this.addSales.quantity !== null) {
-      console.log(this.quantity, event.target.value, "vau")
-      this.totalRate = parseInt(this.quantity) * parseInt(event.target.value);
-    }
+  calculateRate(quantity) {
+      this.totalRate = parseInt(quantity) * parseInt(this.productById.sellingPrice);
+    
   }
 
   onSubmit(f) {
     console.log(f,'f')
-    this.addSales.category = this.categoryByProductId[0].category;
-    this.addSales.rate = this.productById[0].sellingPrice;
+    this.addSales.category = this.productById.cid.category;
+    this.addSales.rate = this.productById.sellingPrice;
     this.addSales.productName = f.value.productName;
     this.addSales.date = f.value.date;
     this.addSales.quantity = f.value.quantity;
-    this.addSales.total = f.value.total;
+    this.addSales.total = this.totalRate;
+    this.addSales.cid=this.productById.cid._id
     console.log(this.addSales, 'addSales');
     this.inventoryService.addSales(this.addSales)
       .subscribe(response => {
@@ -81,18 +80,19 @@ export class AddSalesComponent implements OnInit {
   }
 
   getCategory(data) {
-    console.log(data, 'asdas');
-    this.categoryByProductId = [];
-    this.productById = [];
-    this.inventoryService.fetchCategoryByInventoryId(data.viewModel)
-      .subscribe(response => {
-        this.categoryByProductId.push(response.data)
-        console.log(response, 'fetch category by inventory id');
-      })
+    // console.log(data, 'asdas');
+    // this.categoryByProductId = [];
+    // this.productById = [];
+    // this.inventoryService.fetchCategoryByInventoryId(data.viewModel)
+    //   .subscribe(response => {
+    //     this.categoryByProductId.push(response.data)
+    //     console.log(response, 'fetch category by inventory id');
+    //   })
 
     this.inventoryService.fetchProductById(data.viewModel)
       .subscribe(response => {
-        this.productById.push(response.data);
+        console.log(response,"response")
+        this.productById=response.data
         console.log(this.productById, 'product object');
       })
   }

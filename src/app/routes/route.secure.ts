@@ -11,6 +11,7 @@ import { ProductCategory } from '../components/common/sidebar/sidebarComponent/P
 import { InventoryReport } from '../components/common/sidebar/sidebarComponent/InventoryReport/inventoryReport.component';
 import { InventorySummary } from '../components/common/sidebar/sidebarComponent/InventoryReport/InventorySummary/inventorySummary.component';
 import { Notification } from '../components/common/sidebar/sidebarComponent/notifications/notification.component';
+import { MailComponent } from '../components/common/sidebar/sidebarComponent/MailController/mailcomponent';
 
 export const RouteSecure: Routes = [
 
@@ -28,6 +29,8 @@ export const RouteSecure: Routes = [
           ] 
         },
         { path: 'supplierDetails', component: SupplierListComponent, canActivate: [AuthGuard] },
+        { path: 'sendMail', component: MailComponent, canActivate: [AuthGuard] },
+
         { path: 'addSales', component: AddSalesComponent, canActivate: [AuthGuard] },
         { path: 'salesDetails', component: SalesListComponent, canActivate: [AuthGuard] },
         { path: 'customerFetails', component: CustomerListComponent, canActivate: [AuthGuard] },
