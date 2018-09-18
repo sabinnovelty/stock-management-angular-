@@ -149,17 +149,26 @@ export class ManageInventory {
           }
         });
     } else {
+      console.log("update block",this.manageInventory)
       this.inventoryService.updateProduct(this.manageInventory).subscribe(
         data => {
-          console.log(data, "Upaded");
+          console.log(data,"update product message");
+          this.filterUpdate(data.data)
           hideModel();
           this.popToast();
         },
         error => console.log("error occured on update product")
       );
     }
-
   }
+
+  filterUpdate(updatedProduct){
+    console.log(this.productList,"productList")
+    let index=this.productList.findIndex(product=>product._id==updatedProduct._id);
+    console.log(index,"index");
+    this.productList.splice(index,1,updatedProduct)
+  }
+
   updateStockInProductList(productList: any, product: any) {
     let index = productList.findIndex(
       value => value.productName == product.productName
@@ -280,15 +289,13 @@ export class ManageInventory {
 
   updateProduct(product: any) {
     this.addOrEdit = "Update Product";
-    console.log(product, "updateproduct");
     this.getCategoryById(product.cid);
+    console.log(this.editProduct, "category addded");
     let p=Object.assign({},product,{date:moment(product.date).format("YYYY MM DD")})
     this.manageInventory = p;
     this.editProduct=p;
     console.log(this.manageInventory,"abc")
     this.calculateSp();
-  
-
   }
 
   getCategory() {
@@ -299,9 +306,9 @@ export class ManageInventory {
   }
   getCategoryById(cid):any {
     this.inventoryService.getCategoryById(cid).subscribe(response => {
-      console.log(response,"categor")
       this.manageInventory.productCategory=response.data.category;
-     
+   this.editProduct=Object.assign({},this.editProduct,{category:response.data});
+   console.log(this.editProduct,"categor")
     });
   }
 }
