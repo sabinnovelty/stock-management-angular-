@@ -37,7 +37,7 @@ export class SalesListComponent implements OnInit {
     this.salesReport();
     this.getMonthlySales();
     this.inventoryService.fetchSales().subscribe(response => {
-      console.log(response, 'response')
+      console.log(response, 'fetchSales')
       this.productList = response.data;
       console.log(this.productList,"productlist")
       this.salesReportLabels = this.productList.map(data => data.pid);

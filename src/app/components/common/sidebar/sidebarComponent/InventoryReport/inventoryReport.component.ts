@@ -94,6 +94,7 @@ export class InventoryReport {
   }
 
   salesReportById(pid) {
+    console.log(pid, 'pid')
     this.inventoryService.fetchSalesReportById(pid).subscribe(result => {
       console.log(result, "result");
       if (result.data.length == 0) {

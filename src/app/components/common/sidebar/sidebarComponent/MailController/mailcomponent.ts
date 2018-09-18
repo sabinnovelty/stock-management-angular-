@@ -1,5 +1,5 @@
 
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { InventoryService } from './../../../../../services/inventoryService';
 import { NgForm } from '@angular/forms'
 import { MailService } from './../../../../../services/mailController';
@@ -10,6 +10,8 @@ import { MailService } from './../../../../../services/mailController';
   styleUrls: ["./mail.component.style.css"]
 })
 export class MailComponent {
+
+  @ViewChild('f') mailForm;
 
 
   constructor(private inventoryService:InventoryService,
@@ -47,6 +49,7 @@ mailFlag=false;
          },5000)
         }
       )
+      // this.mailForm.reset();
   }
 
 

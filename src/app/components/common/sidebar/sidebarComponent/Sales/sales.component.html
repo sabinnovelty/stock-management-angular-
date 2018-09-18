@@ -112,7 +112,7 @@
     <tr *ngFor="let sales of salesDetails;let i=index">
       <td scope="row">{{i+1}}</td>
       <td>
-        {{sales.pid.productName}}
+        {{sales.pid?.productName}}
       </td>
       <td>
         {{sales.quantity}}

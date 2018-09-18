@@ -22,23 +22,29 @@
         <form #f="ngForm" (ngSubmit)="sendMail(f)">
           <p>
             <label>Name</label>
+            <span class="error" *ngIf="f.submitted && name.errors?.required">Enter Name</span>
             <input type="text" name="name" [(ngModel)]="mail.name" #name="ngModel" required>
           </p>
           <p>
             <label>Email Address:(To)</label>
-            <input type="email" name="to" #to="ngModel" [(ngModel)]="mail.to" required>
+            <span class="error" *ngIf="f.submitted && to.errors?.required">Enter Receipient Email</span>
+            <input type="email" name="to"  [(ngModel)]="mail.to" #to="ngModel" required>
           </p>
           <p>
             <label>Phone Number</label>
-            <input type="text" name="phone" #phone="ngModel" [(ngModel)]="mail.phone_no" required>
+            <span class="error" *ngIf="f.submitted && phone.errors?.required">Enter Phone Number</span>
+            <span class="error" *ngIf="f.submitted && phone.errors.pattern">Enter 10 digit Phone Number</span>
+            <input type="text" name="phone"  [(ngModel)]="mail.phone_no" #phone="ngModel" required pattern="^[0-9]{10}">
           </p>
           <p>
             <label>subject</label>
+            <span class="error" *ngIf="f.submitted && subject.errors?.required">Enter Subject</span>
             <input type="text" name="subject" #subject="ngModel" [(ngModel)]="mail.subject" required>
           </p>
           <p class="full">
             <label>Order Message</label>
-            <textarea name="message" rows="5" #message="ngModel" [(ngModel)]="mail.message"></textarea>
+            <span class="error" *ngIf="f.submitted && message.errors?.required">Enter message</span>
+            <textarea name="message" rows="5"  [(ngModel)]="mail.message" #message="ngModel" required></textarea>
           </p>
           <p class="full">
             <button type="submit">send order</button>

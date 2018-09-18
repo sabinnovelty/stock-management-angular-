@@ -14,8 +14,8 @@ export class ProductCategory implements OnInit {
   addOrEditFlag = 'Add';
 
   categoryModel = {
-    cid: '',
-    cname: ''
+    cname: '',
+    cid: ''
   }
  
   constructor(private inventoryService: InventoryService) {}
@@ -32,7 +32,7 @@ export class ProductCategory implements OnInit {
 
   addCategory(category){
     console.log(this.addOrEditFlag)
-    console.log(this.categoryModel,"categorymodel")
+    console.log(category,"categorymodel")
     if(this.addOrEditFlag == 'Add') {
       this.inventoryService.addCategory(category)
       .subscribe(
@@ -52,11 +52,20 @@ export class ProductCategory implements OnInit {
 
   }
 
+  filterCategory(category){
+    this.categoryList=this.categoryList.filter(c=>{
+    if(c._id!==category._id){
+      return true;
+      }
+    })
+  }
+
   deleteCategory(id) {
     console.log(id, 'category id')
     this.inventoryService.deleteCategory(id)
       .subscribe(result => {
         console.log(result)
+        this.filterCategory(result.data)
       })
   }
 

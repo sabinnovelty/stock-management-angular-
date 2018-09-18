@@ -103,3 +103,9 @@ ul{
     text-align: left;
   }
 }
+
+.error{
+  color:red;
+  font-family: cursive;
+  border-bottom:red;
+}

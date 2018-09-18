@@ -194,7 +194,7 @@
                         <td>{{product.originalPrice}}</td>
                         <td>{{product.profit}}</td>
                         <td>{{product.sellingPrice}}</td>
-                        <td>{{product.date}}</td>
+                        <td>{{product.date | date: 'medium'}}</td>
                         <td>
                             <button type="button" (click)="updateProduct(product)" data-toggle="modal" data-target="#exampleModal">
                                 <span>
