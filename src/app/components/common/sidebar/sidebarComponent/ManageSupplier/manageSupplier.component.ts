@@ -29,6 +29,7 @@ export class ManageSupplier {
   buttonName = "Add Supplier";
   updateFlag: boolean = false;
   deleteFlag:boolean=false;
+  message1:string;
 
   supplier: SupplierModel = new SupplierModel();
   ngOnInit() {
@@ -54,9 +55,9 @@ export class ManageSupplier {
         .subscribe(
           response => {
             console.log(response, "supplier added sucesfully");
-           
             this.supplierFlag = true;
-            this.suppliers.push(response.data)
+            this.suppliers.push(response.data);
+            this.message1="supplier added sucesfully"
             this.popToast();
             // setTimeout(() => {
             //   this.supplierFlag = false;

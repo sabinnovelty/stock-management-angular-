@@ -1,0 +1,55 @@
+<div class="container">
+    <h1 class="brand"><span></span> </h1>
+    <div class="wrapper animated bounceInLeft">
+      <div class="company-info">
+        <h3>Your stock Info</h3>
+        <div *ngIf="productList.length==0">
+          <div class="alert alert-info" role="alert">
+            You have a healthy stock.
+            <small>You have a sufficient stock...</small>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let product of productList"><i class="fa fa-road"><b>ProductName &nbsp;;</b></i> {{product.productName}}</li>
+         
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>Email </h3>
+        <div class="alert alert-info" role="alert" *ngIf="mailFlag">
+          You have send email to the &nbsp;<b>{{mail.to}}</b>
+        </div>
+        <form #f="ngForm" (ngSubmit)="sendMail(f)">
+          <p>
+            <label>Name</label>
+            <span class="error" *ngIf="f.submitted && name.errors?.required">Enter Name</span>
+            <input type="text" name="name" [(ngModel)]="mail.name" #name="ngModel" required>
+          </p>
+          <p>
+            <label>Email Address:(To)</label>
+            <span class="error" *ngIf="f.submitted && to.errors?.required">Enter Receipient Email</span>
+            <input type="email" name="to"  [(ngModel)]="mail.to" #to="ngModel" required>
+          </p>
+          <p>
+            <label>Phone Number</label>
+            <span class="error" *ngIf="f.submitted && phone.errors?.required">Enter Phone Number</span>
+            <span class="error" *ngIf="f.submitted && phone.errors.pattern">Enter 10 digit Phone Number</span>
+            <input type="text" name="phone"  [(ngModel)]="mail.phone_no" #phone="ngModel" required pattern="^[0-9]{10}">
+          </p>
+          <p>
+            <label>subject</label>
+            <span class="error" *ngIf="f.submitted && subject.errors?.required">Enter Subject</span>
+            <input type="text" name="subject" #subject="ngModel" [(ngModel)]="mail.subject" required>
+          </p>
+          <p class="full">
+            <label>Order Message</label>
+            <span class="error" *ngIf="f.submitted && message.errors?.required">Enter message</span>
+            <textarea name="message" rows="5"  [(ngModel)]="mail.message" #message="ngModel" required></textarea>
+          </p>
+          <p class="full">
+            <button type="submit">send order</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>

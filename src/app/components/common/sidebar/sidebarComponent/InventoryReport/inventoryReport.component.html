@@ -1,0 +1,86 @@
+<div class="container">
+  <h1>Inventory Summary</h1>
+  <small>Manage Your Stock </small>
+  <a [routerLink]="['inventorySummary']" style="float:right;" class="btn btn-primary">Analyze Your Stock</a>
+  <br><br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Vendor</th>
+        <th scope="col">Category</th>
+        <th scope="col">Product-Name</th>
+        <th>stock</th>
+        <th>Total Cost</th>
+        <th> Retail Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of inventoryList;let i=index;">
+        <td>{{i}}</td>
+        <td>{{list.supplier}}</td>
+        <td>{{list.cid.category}}</td>
+        <td>{{list.productName}}</td>
+        <td>{{list.quantity}} <span *ngIf="(list.quantity)*1<20" class="badge badge-danger">Out of Stock</span> </td>
+        <td>{{list.sellingPrice * list.quantity}}</td>
+        <td>
+          <!-- <button type="button" (click)="salesReportById(list._id)" data-toggle="modal" 
+          data-target="#retailInfo" class="btn btn-info btn-sm">view</button> -->
+          <button type="button" (click)="salesReportById(list._id)" class="btn btn-info btn-sm" data-toggle="modal"
+            data-target="#retailInfo">
+            view
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="retailInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sales Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="salesMessage!==null">
+          {{salesMessage}}
+        </div>
+        <div *ngIf="salesData">
+          <h3>sales Info</h3>
+          <ul>
+            <li>Product:&nbsp;{{ salesData.pid.productName }}</li>
+            <li>Category:&nbsp;{{ salesData.category.category }}</li>
+            <li>Sell Price:&nbsp;{{ salesData.rate }}</li>
+            <li>Quantity:&nbsp;{{ salesData.quantity }}</li>
+            <li>Total Sales:&nbsp;{{ (salesData.quantity * 1) * (salesData.rate *1) }}</li>
+            <li>Date:&nbsp;{{ salesData.date | date: 'medium'}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="cotntainer-fluid">
+  <h1>Inventory Visualize Report</h1>
+
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <!-- <button type="button" class="btn btn-info btn-sm">Daily Expenses</button>
+    <button type="button" class="btn btn-primary btn-sm">Monthly Expenses</button> -->
+  </div>
+  <canvas  id="lineChart"></canvas>
+</div>

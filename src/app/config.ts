@@ -1,5 +1,5 @@
 export const config={
     apiBaseUrl:{
-        development:"http://localhost:3000"
+        development:"http://localhost:3001"
     }
 }

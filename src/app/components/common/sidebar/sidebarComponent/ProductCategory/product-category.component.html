@@ -1,16 +1,31 @@
-
 <h1>Add Product Category</h1>
 <hr>
 <div class="alert alert-success" role="alert" *ngIf="category_success">
   {{category_success}}
 </div>
-    <div class="form-group">
-      <label >Category</label>
-      <input type="text" class="form-control" #category   aria-describedby="emailHelp" placeholder="category">
-      <small  class="form-text text-muted"><Table>Add the category here..</Table></small>
-    </div>
-    <button type="button" (click)="addCategory(category.value)" class="btn btn-primary">save</button>
-<ul>
-  <li *ngFor="let c of categoryList">{{c.category}}</li>
-</ul>
+<div class="form-group">
+  <label>Category</label>
+  <input type="text" class="form-control" #category aria-describedby="emailHelp" placeholder="Enter Category" [(ngModel)]="categoryModel.cname" >
+  <small class="form-text text-muted"><Table>Add the category here..</Table></small>
+</div>
 
+<button type="button" (click)="addCategory(category.value)" class="btn btn-primary">Save</button>
+<br />
+<br />
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of categoryList">
+      <td>{{c.category}}</td>
+      <td>
+        <button class="btn btn-primary" (click)="updateCategory(c)"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-danger" (click)="deleteCategory(c._id)"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

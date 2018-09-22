@@ -1,4 +1,4 @@
-<!-- Navigation-->
+<!-- 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
   <a class="navbar-brand" [routerLink]="['/dashboard']">Manage Your Stock</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -14,19 +14,19 @@
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-        <a class="nav-link" [routerLink]="['manageSupplier']">
+        <a class="nav-link" [routerLink]="['/dashboard/manageSupplier']">
           <i class="fa fa-fw fa-area-chart"></i>
           <span class="nav-link-text">Manage Supplier</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" [routerLink]="['manageInventory']">
+        <a class="nav-link" [routerLink]="['/dashboard/manageInventory']">
           <i class="fa fa-fw fa-table"></i>
           <span class="nav-link-text">Manage Inventory</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" [routerLink]="['sales']">
+        <a class="nav-link" [routerLink]="['/dashboard/sales']">
           <i class="fa fa-fw fa-table"></i>
           <span class="nav-link-text">Sales</span>
         </a>
@@ -36,18 +36,18 @@
           <i class="fa fa-fw fa-wrench"></i>
           <span class="nav-link-text">Report</span>
         </a>
-        <ul  id="collapseComponents">
+        <ul id="collapseComponents">
           <li>
-            <a [routerLink]="['category']">Add Category</a>
+            <a [routerLink]="['/dashboard/category']">Add Category</a>
           </li>
           <li>
-            <a [routerLink]="">Inventory Report</a>
+            <a [routerLink]="['inventoryReport']">Inventory Report</a>
           </li>
           <li>
-            <a [routerLink]="['sales']">Sales Report</a>
+            <a [routerLink]="['/dashboard/salesDetails']">Sales Report</a>
           </li>
           <li>
-            <a [routerLink]="">Transaction Report</a>
+            <a [routerLink]="['/dashboard/manageInventory']">Transaction Report</a>
           </li>
         </ul>
       </li>
@@ -61,21 +61,88 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <!-- <form class="form-inline my-2 my-lg-0 mr-lg-2">
-          <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for...">
-            <span class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
-        </form> -->
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click) = "logout()">
+        <a class="nav-link" (click)="logout()">
           <i class="fa fa-fw fa-sign-out"></i>Logout</a>
       </li>
     </ul>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <a [routerLink]="['/dashboard/notification']">Manage Your Stock</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" [routerLink]="['/dashboard/manageInventory']">
+          <i class="fa fa-fw fa-table"></i>
+          <span class="nav-link-text">Manage Inventory</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+        <a class="nav-link" [routerLink]="['/dashboard/manageSupplier']">
+          <i class="fa fa-fw fa-area-chart"></i>
+          <span class="nav-link-text">Manage Supplier</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+        <a class="nav-link" [routerLink]="['/dashboard/sendMail']">
+          <i class="fa fa-fw fa-area-chart"></i>
+          <span class="nav-link-text">Order Product</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" [routerLink]="['/dashboard/salesDetails']">
+          <i class="fa fa-fw fa-table"></i>
+          <span class="nav-link-text">Sales</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Report
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <!-- <a [routerLink]="['category']">Add Category</a>
+          <a [routerLink]="['inventoryReport']">Inventory Report</a>
+          <a [routerLink]="['sales']">Sales Report</a> -->
+          <ul id="collapseComponents">
+            <li>
+              <a [routerLink]="['/dashboard/category']">Add Category</a>
+            </li>
+            <li>
+              <a [routerLink]="['/dashboard/inventoryReport']">Inventory Report</a>
+            </li>
+            <li>
+              <a [routerLink]="['/dashboard/salesDetails']">Sales Report</a>
+  
+            </li>
+           
+          </ul>
+          
+        </div>
+      </li>
+      <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" [routerLink]="['notification']">
+            
+            <span class="nav-link-text">Notification</span>
+          </a>
+        </li> -->
+      <li class="nav-item">
+        <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">
+          <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+      </li>
+    </ul>
+
+
   </div>
 </nav>

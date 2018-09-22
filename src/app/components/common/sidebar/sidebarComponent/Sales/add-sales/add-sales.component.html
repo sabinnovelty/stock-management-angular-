@@ -1,15 +1,19 @@
-<form id="salesForm" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+<div class="alert alert-success" role="alert" *ngIf="salesMessageFlag">
+  {{salesAddedMessage}}
+</div>
+<form id="salesForm" #f="ngForm" (ngSubmit)=" onSubmit(f)">
   <div class="container">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !productName.valid }">
           <label for="productName">Product Name</label>
           <span class="error" *ngIf="f.submitted && productName.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
           <select 
             name="productName" 
-            [ngModel]="addSales?.productName" 
             class="form-control" 
             #productName="ngModel" 
             [(ngModel)]="addSales.productName"
+            [value]="addSales.productName"
             required
+            (change)="getCategory(productName)"
           >
           <option *ngFor="let p of productList" value="{{ p._id }}">{{ p.productName }}</option>
           </select>
@@ -17,17 +21,16 @@
 
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
           <label for="category">Product Category</label>
-          <span class="error" *ngIf="f.submitted && category.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
-          <select 
+          <!-- <span class="error" *ngIf="f.submitted && category.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+          <input 
             name="category" 
             class="form-control"
             #category="ngModel" 
             [(ngModel)]="addSales.category" 
-            required
-          >   
-            <option value="a">asd</option>
-              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option> -->
-          </select>      
+            [value]="productById.cid?.category"
+            readonly="readonly"
+          >
+              <!-- <option *ngFor="let category of categoryList" value="{{ category._id }}">{{ category.category }}</option>      -->
       </div>
 
       <div class="form-group">
@@ -36,7 +39,6 @@
         <input 
           type="date" 
           name="date" 
-          value="" 
           class="form-control" 
           [(ngModel)]="addSales.date"
           #date="ngModel" 
@@ -47,41 +49,48 @@
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
           <label for="quantity">Quantity</label>
           <span class="error" *ngIf="f.submitted && quantity.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span>
+          <span class="error" *ngIf="f.submitted && quantity.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Enter valid quantity</span>
           <input 
             type="text" 
-            value="" 
+            value="{{addSales.quantity}}" 
             name="quantity" 
             class="form-control" 
             #quantity="ngModel" 
             [(ngModel)]="addSales.quantity" 
+            pattern="^[0-9]*$"
+            (keyup)="getQuantity($event)"
             required
           >
       </div>
 
       <div class="form-group">
-          <label for="rate">Rate</label>
-          <!-- <span class="error" *ngIf="f.submitted && rate.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
-          <input 
-            type="text" 
-            name="rate" 
-            class="form-control" 
-            [value]="rate"
-            [(ngModel)]="addSales.rate"
-            #rate="ngModel"
-            required
-          >
+        <label for="rate">Rate</label>
+        <!-- <span class="error" *ngIf="f.submitted && rate.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+        <!-- <span class="error" *ngIf="f.submitted && rate.errors?.pattern">&nbsp;&nbsp;&nbsp;&nbsp;Required</span> -->
+        <input 
+          type="text" 
+          value="{{ productById?.sellingPrice }}"
+          name="rate" 
+          class="form-control" 
+          [(ngModel)]="addSales.rate"
+          #rate="ngModel"
+          (keyup)="calculateRate($event)"
+          readonly
+          required
+        >
       </div>
 
       <div class="form-group">
         <label for="total">Total</label>
         <input 
           type="text" 
+          value="{{totalRate}}"
           name="total" 
           class="form-control" 
-          [value]="addSales"
-          [(ngModel)]="addSales.sellingPrice"
+          [(ngModel)]="addSales.total"
           #addSales="ngModel"
           required
+          disabled
         >
       </div>
       
